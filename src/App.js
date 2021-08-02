@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
   modal: {
     alignItems: "center",
-    margin: "30% auto",
+    margin: "20% auto",
     width: 400,
     height: 380,
 
@@ -72,7 +72,7 @@ function App() {
       <Modal open={openModal} onClose={handleCloseModal}>
         <Grid container direction="column" className={classes.modal}>
           <Typography className={classes.modalTitle}>New Task</Typography>
-          <AddTaskForm />
+          <AddTaskForm onCloseModal={handleCloseModal} />
         </Grid>
       </Modal>
       <TaskList />

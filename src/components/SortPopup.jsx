@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function SortPopup({}) {
+function SortPopup() {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
