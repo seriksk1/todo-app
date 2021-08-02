@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     }
   });
 
-function TaskList({}) {
+function TaskList() {
 
     const classes = useStyles();
 

@@ -13,59 +13,57 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 
 const useStyles = makeStyles({
-    card: {
-      minWidth: 250,
-      minHeight: 250,
-      margin: 10,
-    },
-    btnAdd: {
-      maxWidth: 200,
-    },
-    taskList: {
-      marginTop: 20,
-    },
-    cardHeader: {
-      textAlign: "center",
-    },
-    cardActions: {
-      justifyContent: "center",
-    },
-  });
+  card: {
+    minWidth: 250,
+    minHeight: 250,
+    margin: 20,
+  },
+  btnAdd: {
+    maxWidth: 200,
+  },
+  taskList: {
+    marginTop: 20,
+  },
+  cardHeader: {
+    textAlign: "center",
+  },
+  cardActions: {
+    justifyContent: "center",
+  },
+});
 
-function Task({task, status, dueDate}) {
+function Task({ task, status, dueDate }) {
+  const classes = useStyles();
 
-    const classes = useStyles();
+  return (
+    <Card className={classes.card}>
+      <CardHeader
+        className={classes.cardHeader}
+        title="Card"
+        textAlign="center"
+      />
+      <CardContent>
+        <Typography>Task: {task}</Typography>
+        <Typography>Status: {status}</Typography>
+        <Typography>Duedate: {dueDate}</Typography>
+      </CardContent>
+      <CardActions className={classes.cardActions}>
+        {status === "done" ? (
+          <IconButton aria-label="checked">
+            <CheckBoxIcon />
+          </IconButton>
+        ) : (
+          <IconButton aria-label="unchecked">
+            <CheckBoxOutlineBlankIcon />
+          </IconButton>
+        )}
 
-    return (
-        <Card className={classes.card}>
-              <CardHeader
-                className={classes.cardHeader}
-                title="Card"
-                textAlign="center"
-              />
-              <CardContent>
-                <Typography>Task: {task}</Typography>
-                <Typography>Status: {status}</Typography>
-                <Typography>Duedate: {dueDate}</Typography>
-              </CardContent>
-              <CardActions className={classes.cardActions}>
-                
-                {status === "done" ? (
-                  <IconButton aria-label="checked">
-                    <CheckBoxIcon />
-                  </IconButton>
-                ) : (
-                  <IconButton aria-label="unchecked">
-                    <CheckBoxOutlineBlankIcon />
-                  </IconButton>
-                )}
-
-                <IconButton aria-label="delete">
-                  <DeleteIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-    )
+        <IconButton aria-label="delete">
+          <DeleteIcon />
+        </IconButton>
+      </CardActions>
+    </Card>
+  );
 }
 
 export default Task;
