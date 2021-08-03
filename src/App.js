@@ -51,7 +51,10 @@ function App() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const sortTypes = ["Due-date", "Status", "dasdas"];
+  const sortTypes = [
+    { id: 1, type: "Due-date" },
+    { id: 2, type: "Status" },
+  ];
 
   const { items, sortType } = useSelector(({ tasks }) => tasks);
   const [openModal, setOpenModal] = useState(false);
@@ -64,8 +67,8 @@ function App() {
     setOpenModal(false);
   };
 
-  const onSelectType = (type) => {
-    dispatch(setSortType(type));
+  const onSelectType = (id) => {
+    dispatch(setSortType(id));
   };
 
   const onRemoveTask = (index) => {

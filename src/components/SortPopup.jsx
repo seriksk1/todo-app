@@ -71,7 +71,7 @@ function SortPopup({ sortType, items, onSelectType }) {
         }}
       >
         {items &&
-          items.map((type) => {
+          items.map(({ id, type }) => {
             return (
               <MenuItem
                 key={`${type}_`}

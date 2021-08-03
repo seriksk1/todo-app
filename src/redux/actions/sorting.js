@@ -5,7 +5,7 @@ export const strToDate = (str) => {
 const byField = (field) => {
   switch (field) {
     case "Due-date":
-      return (a, b) => (strToDate(a.dueDate) > strToDate(b.dueDate) ? 1 : -1);
+      return (a, b) => (strToDate(a.dueDate) > strToDate(b.dueDate) ? -1 : 1);
 
     case "Status":
       return (a, b) => (a.status > b.status ? 1 : -1);

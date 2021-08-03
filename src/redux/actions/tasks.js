@@ -21,9 +21,9 @@ export const setTaskStatus = (index) => ({
   payload: index,
 });
 
-export const setSortType = (type) => ({
+export const setSortType = (id) => ({
   type: "SET_SORT_TYPE",
-  payload: type,
+  payload: id,
 });
 
 export const fetchTasks = (sortType) => (dispatch) => {
