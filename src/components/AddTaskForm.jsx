@@ -32,7 +32,6 @@ function AddTaskForm({ onCloseModal }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formInput);
     dispatch(addTask(formInput));
     onCloseModal();
   };

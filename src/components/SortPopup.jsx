@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
-import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
-import ScheduleIcon from "@material-ui/icons/Schedule";
-
-import { setTasks, setSortType } from "../redux/actions/tasks";
 
 const useStyles = makeStyles({
   sortPopup: {
@@ -28,13 +21,9 @@ const useStyles = makeStyles({
   },
 });
 
-function SortPopup() {
-  const dispatch = useDispatch();
+function SortPopup({ sortType, items, onSelectType }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const { sortType } = useSelector(({ tasks }) => tasks);
-  const sortTypes = ["Due-date", "Status"];
 
   const handleOpenPopup = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,13 +34,13 @@ function SortPopup() {
   };
 
   const handleMenuItemClick = (type) => {
-    dispatch(setSortType(type));
+    onSelectType(type);
     handleMenuClose();
   };
 
   useEffect(() => {
-    dispatch(setSortType(sortTypes[0]));
-  }, []);
+    console.log("sortType changed!");
+  }, [sortType]);
 
   return (
     <div className={classes.sortPopup}>
@@ -81,8 +70,8 @@ function SortPopup() {
           horizontal: "center",
         }}
       >
-        {sortTypes &&
-          sortTypes.map((type) => {
+        {items &&
+          items.map((type) => {
             return (
               <MenuItem
                 key={`${type}_`}

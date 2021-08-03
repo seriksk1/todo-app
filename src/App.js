@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import "./App.css";
@@ -11,6 +12,12 @@ import Typography from "@material-ui/core/Typography";
 import TaskList from "./components/TaskList";
 import AddTaskForm from "./components/AddTaskForm";
 import SortPopup from "./components/SortPopup";
+import {
+  deleteTaskRequest,
+  fetchTasks,
+  removeTask,
+  setSortType,
+} from "./redux/actions/tasks";
 
 const useStyles = makeStyles({
   mainContainer: {
@@ -38,9 +45,13 @@ const useStyles = makeStyles({
 });
 
 function App() {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
+  const sortTypes = ["Due-date", "Status"];
+
   const [openModal, setOpenModal] = useState(false);
+  const { items, sortType } = useSelector(({ tasks }) => tasks);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -49,6 +60,18 @@ function App() {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
+
+  const onSelectType = (type) => {
+    dispatch(setSortType(type));
+  };
+
+  const onRemoveTask = (index) => {
+    dispatch(removeTask(index));
+  };
+
+  useEffect(() => {
+    dispatch(fetchTasks(sortType));
+  }, [sortType]);
 
   return (
     <Grid
@@ -67,7 +90,11 @@ function App() {
         Add Task
       </Button>
 
-      <SortPopup />
+      <SortPopup
+        sortType={sortType}
+        items={sortTypes}
+        onSelectType={onSelectType}
+      />
 
       <Modal open={openModal} onClose={handleCloseModal}>
         <Grid container direction="column" className={classes.modal}>
@@ -75,7 +102,8 @@ function App() {
           <AddTaskForm onCloseModal={handleCloseModal} />
         </Grid>
       </Modal>
-      <TaskList />
+
+      <TaskList items={items} onRemoveTask={onRemoveTask} />
     </Grid>
   );
 }

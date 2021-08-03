@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Task({ index, task, status, dueDate, onRemoveTask }) {
+function Task({ index, task, status, dueDate, onRemove }) {
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -49,6 +49,10 @@ function Task({ index, task, status, dueDate, onRemoveTask }) {
   const handleToggleCheckBox = (index) => {
     setCheckBoxState((prev) => !prev);
     dispatch(setTaskStatus(index));
+  };
+
+  const handleRemoveClick = () => {
+    onRemove(index);
   };
 
   return (
@@ -72,7 +76,7 @@ function Task({ index, task, status, dueDate, onRemoveTask }) {
           name="checkStatus"
           color="primary"
         />
-        <IconButton onClick={() => onRemoveTask(index)} aria-label="delete">
+        <IconButton onClick={handleRemoveClick} aria-label="delete">
           <DeleteIcon />
         </IconButton>
       </CardActions>

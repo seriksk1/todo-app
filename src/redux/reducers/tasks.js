@@ -1,6 +1,6 @@
 const initialState = {
   items: [],
-  sortType: null,
+  sortType: "Due-date",
 };
 
 const tasks = (state = initialState, action) => {

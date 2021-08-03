@@ -1,10 +1,7 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Grid } from "@material-ui/core";
 import Task from "./Task";
-import { removeTask } from "../redux/actions/tasks";
 
 const useStyles = makeStyles({
   taskList: {
@@ -12,15 +9,8 @@ const useStyles = makeStyles({
   },
 });
 
-function TaskList() {
-  const dispatch = useDispatch();
+function TaskList({ items, onRemoveTask }) {
   const classes = useStyles();
-
-  const items = useSelector(({ tasks }) => tasks.items);
-
-  const handleRemoveTask = (id) => {
-    dispatch(removeTask(id));
-  };
 
   return (
     <Grid
@@ -40,7 +30,7 @@ function TaskList() {
               task={task}
               status={status}
               dueDate={dueDate}
-              onRemoveTask={handleRemoveTask}
+              onRemove={onRemoveTask}
             ></Task>
           );
         })}
