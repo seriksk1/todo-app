@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getSortedTasks, strToDate, setOverDueStatus } from "./sorting";
 
 export const setTasks = (items) => ({
   type: "SET_TASKS",
@@ -29,6 +30,7 @@ export const fetchTasks = (sortType) => (dispatch) => {
   axios
     .get(`https://my-json-server.typicode.com/seriksk1/api-todo-app/items/`)
     .then(({ data }) => {
-      dispatch(setTasks(data));
+      setOverDueStatus(data);
+      dispatch(setTasks(getSortedTasks(data, sortType)));
     });
 };

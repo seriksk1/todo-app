@@ -12,10 +12,12 @@ import Typography from "@material-ui/core/Typography";
 import TaskList from "./components/TaskList";
 import AddTaskForm from "./components/AddTaskForm";
 import SortPopup from "./components/SortPopup";
+
 import {
-  deleteTaskRequest,
   fetchTasks,
+  addTask,
   removeTask,
+  setTaskStatus,
   setSortType,
 } from "./redux/actions/tasks";
 
@@ -50,14 +52,14 @@ function App() {
 
   const sortTypes = ["Due-date", "Status"];
 
-  const [openModal, setOpenModal] = useState(false);
   const { items, sortType } = useSelector(({ tasks }) => tasks);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
     setOpenModal(true);
   };
 
-  const handleCloseModal = () => {
+  const onCloseModal = () => {
     setOpenModal(false);
   };
 
@@ -67,6 +69,14 @@ function App() {
 
   const onRemoveTask = (index) => {
     dispatch(removeTask(index));
+  };
+
+  const onAddTask = (obj) => {
+    dispatch(addTask(obj));
+  };
+
+  const onChangeTaskStatus = (index) => {
+    dispatch(setTaskStatus(index));
   };
 
   useEffect(() => {
@@ -96,14 +106,18 @@ function App() {
         onSelectType={onSelectType}
       />
 
-      <Modal open={openModal} onClose={handleCloseModal}>
+      <Modal open={openModal} onClose={onCloseModal}>
         <Grid container direction="column" className={classes.modal}>
           <Typography className={classes.modalTitle}>New Task</Typography>
-          <AddTaskForm onCloseModal={handleCloseModal} />
+          <AddTaskForm onAddTask={onAddTask} onCloseModal={onCloseModal} />
         </Grid>
       </Modal>
 
-      <TaskList items={items} onRemoveTask={onRemoveTask} />
+      <TaskList
+        items={items}
+        onRemoveTask={onRemoveTask}
+        onChangeTaskStatus={onChangeTaskStatus}
+      />
     </Grid>
   );
 }

@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-
-import { addTask } from "../redux/actions/tasks";
 
 const useStyles = makeStyles({
   form: {
@@ -24,21 +21,25 @@ const useStyles = makeStyles({
   },
 });
 
-function AddTaskForm({ onCloseModal }) {
-  const dispatch = useDispatch();
+function AddTaskForm({ onCloseModal, onAddTask }) {
   const classes = useStyles();
 
   const [formInput, setFormInput] = useState({ status: "pending" });
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    dispatch(addTask(formInput));
+    handleAddTask(formInput);
     onCloseModal();
+  };
+
+  const handleAddTask = (obj) => {
+    onAddTask(obj);
   };
 
   const handleInput = (e) => {
     const id = e.target.id;
     const newValue = e.target.value;
+
     switch (id) {
       case "task":
         setFormInput((prev) => ({ ...prev, task: newValue }));

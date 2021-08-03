@@ -36,22 +36,6 @@ const tasks = (state = initialState, action) => {
     }
 
     case "SET_TASK_STATUS": {
-      // another way
-
-      // const oldItems = [...state.items];
-      // let currentItem = oldItems[action.payload];
-
-      // currentItem.status =
-      //   currentItem.status === "overdue" || currentItem.status === "pending"
-      //     ? "done"
-      //     : "pending";
-
-      // const newItems = [
-      //   ...oldItems.slice(0, action.payload),
-      //   currentItem,
-      //   ...oldItems.slice(action.payload + 1),
-      // ];
-
       let currentItem = state.items[action.payload];
 
       currentItem.status =

@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   },
 });
 
-function TaskList({ items, onRemoveTask }) {
+function TaskList({ items, onRemoveTask, onChangeTaskStatus }) {
   const classes = useStyles();
 
   return (
@@ -31,6 +31,7 @@ function TaskList({ items, onRemoveTask }) {
               status={status}
               dueDate={dueDate}
               onRemove={onRemoveTask}
+              onChangeStatus={onChangeTaskStatus}
             ></Task>
           );
         })}

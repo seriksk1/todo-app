@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Card from "@material-ui/core/Card";
@@ -12,8 +10,6 @@ import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import Checkbox from "@material-ui/core/Checkbox";
-
-import { setTaskStatus } from "../redux/actions/tasks";
 
 const useStyles = makeStyles({
   card: {
@@ -38,17 +34,11 @@ const useStyles = makeStyles({
   },
 });
 
-function Task({ index, task, status, dueDate, onRemove }) {
-  const dispatch = useDispatch();
+function Task({ index, task, status, dueDate, onRemove, onChangeStatus }) {
   const classes = useStyles();
 
-  const [checkBoxState, setCheckBoxState] = useState(
-    status === "done" ? true : false
-  );
-
-  const handleToggleCheckBox = (index) => {
-    setCheckBoxState((prev) => !prev);
-    dispatch(setTaskStatus(index));
+  const handleStatusChange = () => {
+    onChangeStatus(index);
   };
 
   const handleRemoveClick = () => {
@@ -71,8 +61,8 @@ function Task({ index, task, status, dueDate, onRemove }) {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Checkbox
-          checked={checkBoxState}
-          onChange={() => handleToggleCheckBox(index)}
+          checked={status === "done" ? true : false}
+          onChange={handleStatusChange}
           name="checkStatus"
           color="primary"
         />
