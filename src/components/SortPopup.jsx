@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -10,6 +11,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 
 import HourglassEmptyIcon from "@material-ui/icons/HourglassEmpty";
 import ScheduleIcon from "@material-ui/icons/Schedule";
+
+import { setTasks, setSortType } from "../redux/actions/tasks";
 
 const useStyles = makeStyles({
   sortPopup: {
@@ -26,17 +29,29 @@ const useStyles = makeStyles({
 });
 
 function SortPopup() {
+  const dispatch = useDispatch();
   const classes = useStyles();
-
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
+  const { sortType } = useSelector(({ tasks }) => tasks);
+  const sortTypes = ["Due-date", "Status"];
+
+  const handleOpenPopup = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  const handleMenuItemClick = (type) => {
+    dispatch(setSortType(type));
+    handleMenuClose();
+  };
+
+  useEffect(() => {
+    dispatch(setSortType(sortTypes[0]));
+  }, []);
 
   return (
     <div className={classes.sortPopup}>
@@ -45,7 +60,7 @@ function SortPopup() {
         color="secondary"
         aria-controls="sort-menu"
         aria-haspopup="true"
-        onClick={handleClick}
+        onClick={handleOpenPopup}
       >
         Sort by...
       </Button>
@@ -66,18 +81,18 @@ function SortPopup() {
           horizontal: "center",
         }}
       >
-        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>
-          <ListItemIcon>
-            <ScheduleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Due-date" />
-        </MenuItem>
-        <MenuItem className={classes.menuItem} onClick={handleMenuClose}>
-          <ListItemIcon>
-            <HourglassEmptyIcon />
-          </ListItemIcon>
-          <ListItemText primary="Status" />
-        </MenuItem>
+        {sortTypes &&
+          sortTypes.map((type) => {
+            return (
+              <MenuItem
+                key={`${type}_`}
+                className={classes.menuItem}
+                onClick={() => handleMenuItemClick(type)}
+              >
+                <ListItemText primary={type} />
+              </MenuItem>
+            );
+          })}
       </Menu>
     </div>
   );

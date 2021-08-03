@@ -12,8 +12,6 @@ import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import Checkbox from "@material-ui/core/Checkbox";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 
 import { setTaskStatus } from "../redux/actions/tasks";
 
@@ -35,39 +33,46 @@ const useStyles = makeStyles({
   cardActions: {
     justifyContent: "center",
   },
+  bold: {
+    fontWeight: 700,
+  },
 });
 
-function Task({ id, task, status, dueDate, onRemoveTask }) {
+function Task({ index, task, status, dueDate, onRemoveTask }) {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  //   const [checkBoxState, setCheckBoxState] = useState(
-  //     status === "done" ? true : false
-  //   );
+  const [checkBoxState, setCheckBoxState] = useState(
+    status === "done" ? true : false
+  );
 
-  //   const handleToggleCheckBox = (id) => {
-  //     if (checkBoxState === false) {
-  //       setCheckBoxState(!checkBoxState);
-  //       dispatch(setTaskStatus(id));
-  //     }
-  //   };
+  const handleToggleCheckBox = (index) => {
+    setCheckBoxState((prev) => !prev);
+    dispatch(setTaskStatus(index));
+  };
 
   return (
     <Card className={classes.card}>
       <CardHeader className={classes.cardHeader} title="Card" />
       <CardContent>
-        <Typography>Task: {task}</Typography>
-        <Typography>Status: {status}</Typography>
-        <Typography>Duedate: {dueDate}</Typography>
+        <Typography>
+          <span className={classes.bold}>Task:</span> {task}
+        </Typography>
+        <Typography>
+          <span className={classes.bold}>Status:</span> {status}
+        </Typography>
+        <Typography>
+          <span className={classes.bold}>Due-date:</span> {dueDate}
+        </Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Checkbox
-          //   checked={checkBoxState}
-          //   onChange={() => handleToggleCheckBox(id)}
+          checked={checkBoxState}
+          onChange={() => handleToggleCheckBox(index)}
           name="checkStatus"
           color="primary"
         />
-        <IconButton onClick={() => onRemoveTask(id)} aria-label="delete">
+        <IconButton onClick={() => onRemoveTask(index)} aria-label="delete">
           <DeleteIcon />
         </IconButton>
       </CardActions>

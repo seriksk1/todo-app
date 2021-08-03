@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { useState } from "react";
 
 import { addTask } from "../redux/actions/tasks";
 
@@ -27,6 +27,7 @@ const useStyles = makeStyles({
 function AddTaskForm({ onCloseModal }) {
   const dispatch = useDispatch();
   const classes = useStyles();
+
   const [formInput, setFormInput] = useState({ status: "pending" });
 
   const handleFormSubmit = (e) => {
@@ -60,18 +61,18 @@ function AddTaskForm({ onCloseModal }) {
       autoComplete="off"
     >
       <TextField
-        className={classes.textField}
         id="task"
+        className={classes.textField}
         onChange={handleInput}
         label="Task"
         variant="outlined"
       />
       <TextField
-        className={classes.textField}
         id="dueDate"
+        className={classes.textField}
         onChange={handleInput}
         type="date"
-        defaultValue={"02/08/2021"}
+        defaultValue={"2021-08-02"}
         label="Due-date"
         InputLabelProps={{
           shrink: true,

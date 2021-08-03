@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -18,7 +19,6 @@ function TaskList() {
   const items = useSelector(({ tasks }) => tasks.items);
 
   const handleRemoveTask = (id) => {
-    console.log("removed");
     dispatch(removeTask(id));
   };
 
@@ -31,17 +31,19 @@ function TaskList() {
       alignItems="center"
       spacing={3}
     >
-      {items.map(({ id, task, status, dueDate }) => {
-        return (
-          <Task
-            key={id}
-            task={task}
-            status={status}
-            dueDate={dueDate}
-            onRemoveTask={handleRemoveTask}
-          ></Task>
-        );
-      })}
+      {items &&
+        items.map(({ id, task, status, dueDate }, index) => {
+          return (
+            <Task
+              key={`${id}_${dueDate}`}
+              index={index}
+              task={task}
+              status={status}
+              dueDate={dueDate}
+              onRemoveTask={handleRemoveTask}
+            ></Task>
+          );
+        })}
     </Grid>
   );
 }

@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
   modal: {
     alignItems: "center",
-    margin: "20% auto",
+    margin: "150px auto",
     width: 400,
     height: 380,
 
