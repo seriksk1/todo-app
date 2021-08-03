@@ -32,7 +32,8 @@ const useStyles = makeStyles({
     alignItems: "center",
     margin: "150px auto",
     width: 400,
-    minHeight: 380,
+    maxHeight: 450,
+    paddingBottom: 30,
 
     backgroundColor: "#f8f8f8",
     border: "2px solid #000",
