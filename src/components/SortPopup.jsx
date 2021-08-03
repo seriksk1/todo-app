@@ -77,6 +77,7 @@ function SortPopup({ sortType, items, onSelectType }) {
                 key={`${type}_`}
                 className={classes.menuItem}
                 onClick={() => handleMenuItemClick(type)}
+                selected={sortType === type}
               >
                 <ListItemText primary={type} />
               </MenuItem>

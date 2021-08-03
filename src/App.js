@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     margin: "150px auto",
     width: 400,
-    height: 380,
+    minHeight: 380,
 
     backgroundColor: "#f8f8f8",
     border: "2px solid #000",
