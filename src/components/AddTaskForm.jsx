@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 
 import TextField from "@material-ui/core/TextField";
-
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles({
@@ -14,10 +13,7 @@ const useStyles = makeStyles({
   },
   textField: {
     width: "80%",
-    marginBottom: 20,
-  },
-  outlined: {
-    padding: "18.5px 14px",
+    marginBottom: 30,
   },
   addTaskBtn: {
     width: 150,

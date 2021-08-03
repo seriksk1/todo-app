@@ -51,7 +51,7 @@ function App() {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const sortTypes = ["Due-date", "Status"];
+  const sortTypes = ["Due-date", "Status", "dasdas"];
 
   const { items, sortType } = useSelector(({ tasks }) => tasks);
   const [openModal, setOpenModal] = useState(false);
