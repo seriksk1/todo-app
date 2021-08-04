@@ -34,15 +34,15 @@ const useStyles = makeStyles({
   },
 });
 
-function Task({ index, task, status, dueDate, onRemove, onChangeStatus }) {
+function Task({ id, task, status, dueDate, onRemove, onChangeStatus }) {
   const classes = useStyles();
 
   const handleStatusChange = () => {
-    onChangeStatus(index);
+    onChangeStatus(id);
   };
 
   const handleRemoveClick = () => {
-    onRemove(index);
+    onRemove(id);
   };
 
   return (

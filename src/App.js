@@ -71,21 +71,21 @@ function App() {
     dispatch(setSortType(id));
   };
 
-  const onRemoveTask = (index) => {
-    dispatch(removeTask(index));
+  const onRemoveTask = (id) => {
+    dispatch(removeTask(id));
   };
 
   const onAddTask = (obj) => {
     dispatch(addTask(obj));
   };
 
-  const onChangeTaskStatus = (index) => {
-    dispatch(setTaskStatus(index));
+  const onChangeTaskStatus = (id) => {
+    dispatch(setTaskStatus(id));
   };
 
   useEffect(() => {
     dispatch(fetchTasks(sortType));
-  }, [sortType, items]);
+  }, []);
 
   return (
     <Grid
@@ -109,6 +109,17 @@ function App() {
         items={sortTypes}
         onSelectType={onSelectType}
       />
+      {items.length !== 0 ? (
+        <TaskList
+          items={items}
+          onRemoveTask={onRemoveTask}
+          onChangeTaskStatus={onChangeTaskStatus}
+        />
+      ) : (
+        <Typography className={classes.modalTitle}>
+          You don't have any tasks yet
+        </Typography>
+      )}
 
       <Modal open={openModal} onClose={onCloseModal}>
         <Grid container direction="column" className={classes.modal}>
@@ -116,12 +127,6 @@ function App() {
           <AddTaskForm onAddTask={onAddTask} onCloseModal={onCloseModal} />
         </Grid>
       </Modal>
-
-      <TaskList
-        items={items}
-        onRemoveTask={onRemoveTask}
-        onChangeTaskStatus={onChangeTaskStatus}
-      />
     </Grid>
   );
 }

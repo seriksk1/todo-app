@@ -11,7 +11,7 @@ const byType = (type) => {
       return (a, b) => (a.status > b.status ? -1 : 1);
 
     default:
-      console.log("Undefined status");
+      console.log("Undefined sortType");
       break;
   }
 };
@@ -27,8 +27,4 @@ export const setOverdueStatus = (obj) => {
       obj.status = "overdue";
     }
   }
-};
-
-export const checkOverdueDate = (data) => {
-  data.forEach((item) => setOverdueStatus(item));
 };
