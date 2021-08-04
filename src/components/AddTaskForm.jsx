@@ -30,26 +30,16 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
     task: "",
     dueDate: "",
   });
-  const [isInputsValid, setIsInputsValid] = useState({
-    task: null,
-    dueDate: null,
-  });
 
-  const checkFormValidation = (obj) => {
-    let isValid = Object.values(obj).every((isValid) => isValid);
-    setIsFormValid(isValid);
+  const isInputValid = (value) => {
+    return value.length >= 3 ? true : value === "" ? null : false;
   };
 
-  const checkInputValid = (keys) => {
-    keys.forEach((key) => {
-      if (formInput[key].length >= 3) {
-        setIsInputsValid((prev) => ({ ...prev, [key]: true }));
-      } else if (formInput[key] === "") {
-        setIsInputsValid((prev) => ({ ...prev, [key]: null }));
-      } else {
-        setIsInputsValid((prev) => ({ ...prev, [key]: false }));
-      }
-    });
+  const checkFormValidation = (obj) => {
+    let isValid = Object.values(obj)
+      .map((value) => isInputValid(value))
+      .every((isValid) => isValid);
+    setIsFormValid(isValid);
   };
 
   const handleFormSubmit = (e) => {
@@ -70,13 +60,12 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
     onAddTask(obj);
   };
 
-  useEffect(() => {
-    checkInputValid(Object.keys(isInputsValid));
-  }, [formInput]);
+  // const getHelperText = () => {};
+  // const isInputError = () => {};
 
   useEffect(() => {
-    checkFormValidation(isInputsValid);
-  }, [isInputsValid]);
+    checkFormValidation(formInput);
+  }, [formInput]);
 
   return (
     <form
@@ -87,26 +76,18 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
     >
       <TextField
         id="task"
-        error={
-          isInputsValid.task === true || isInputsValid.task === null
-            ? false
-            : true
-        }
+        error={isInputValid(formInput.task) === false ? true : null}
         className={classes.textField}
         onChange={handleInput}
         label="Task"
         variant="outlined"
-        helperText={!isInputsValid.task ? "At least 3 symbols" : null}
+        helperText={isInputValid(formInput.task) ? null : "At least 3 symbols"}
         required
       />
 
       <TextField
         id="dueDate"
-        error={
-          isInputsValid.dueDate === true || isInputsValid.dueDate === null
-            ? false
-            : true
-        }
+        error={isInputValid(formInput.dueDate) === false ? true : null}
         className={classes.textField}
         onChange={handleInput}
         type="date"
@@ -114,7 +95,7 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
         InputLabelProps={{
           shrink: true,
         }}
-        helperText={!isInputsValid.dueDate ? "Choose date" : null}
+        helperText={isInputValid(formInput.dueDate) ? null : "Choose date"}
       />
       <Button
         className={classes.addTaskBtn}
