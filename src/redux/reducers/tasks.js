@@ -1,6 +1,8 @@
+import { setOverdueStatus } from "../actions/sorting";
+
 const initialState = {
   items: [],
-  sortType: null,
+  sortType: "Due-date",
 };
 
 const tasks = (state = initialState, action) => {
@@ -19,12 +21,13 @@ const tasks = (state = initialState, action) => {
       };
     }
 
-    case "ADD_TASK":
+    case "ADD_TASK": {
+      setOverdueStatus(action.payload);
       return {
         ...state,
         items: [...state.items, action.payload],
       };
-
+    }
     case "REMOVE_TASK": {
       return {
         ...state,
@@ -42,6 +45,8 @@ const tasks = (state = initialState, action) => {
         currentItem.status === "overdue" || currentItem.status === "pending"
           ? "done"
           : "pending";
+
+      setOverdueStatus(currentItem);
 
       return {
         ...state,

@@ -2,13 +2,13 @@ export const strToDate = (str) => {
   return new Date(str.split("-"));
 };
 
-const byField = (field) => {
-  switch (field) {
+const byType = (type) => {
+  switch (type) {
     case "Due-date":
       return (a, b) => (strToDate(a.dueDate) > strToDate(b.dueDate) ? -1 : 1);
 
     case "Status":
-      return (a, b) => (a.status > b.status ? 1 : -1);
+      return (a, b) => (a.status > b.status ? -1 : 1);
 
     default:
       console.log("Undefined status");
@@ -17,7 +17,7 @@ const byField = (field) => {
 };
 
 export const getSortedTasks = (data, sortType) => {
-  data.sort(byField(sortType));
+  data.sort(byType(sortType));
   return data;
 };
 
