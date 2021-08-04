@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core";
+import { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core';
 
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   form: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   textField: {
-    width: "80%",
+    width: '80%',
     marginBottom: 30,
   },
   addTaskBtn: {
@@ -26,13 +26,13 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [formInput, setFormInput] = useState({
-    status: "pending",
-    task: "",
-    dueDate: "",
+    status: 'pending',
+    task: '',
+    dueDate: '',
   });
 
   const isInputValid = (value) => {
-    return value.length >= 3 ? true : value === "" ? null : false;
+    return value.length >= 3 ? true : value === '' ? null : false;
   };
 
   const checkFormValidation = (obj) => {
@@ -68,12 +68,7 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
   }, [formInput]);
 
   return (
-    <form
-      className={classes.form}
-      onSubmit={handleFormSubmit}
-      noValidate
-      autoComplete="off"
-    >
+    <form className={classes.form} onSubmit={handleFormSubmit} noValidate autoComplete="off">
       <TextField
         id="task"
         error={isInputValid(formInput.task) === false ? true : null}
@@ -81,7 +76,7 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
         onChange={handleInput}
         label="Task"
         variant="outlined"
-        helperText={isInputValid(formInput.task) ? null : "At least 3 symbols"}
+        helperText={isInputValid(formInput.task) ? null : 'At least 3 symbols'}
         required
       />
 
@@ -95,15 +90,14 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
         InputLabelProps={{
           shrink: true,
         }}
-        helperText={isInputValid(formInput.dueDate) ? null : "Choose date"}
+        helperText={isInputValid(formInput.dueDate) ? null : 'Choose date'}
       />
       <Button
         className={classes.addTaskBtn}
         type="submit"
         size="large"
         variant="contained"
-        color="primary"
-      >
+        color="primary">
         OK
       </Button>
     </form>

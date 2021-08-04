@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Task = new Schema(
@@ -7,7 +7,7 @@ const Task = new Schema(
     dueDate: { type: String, required: true },
     status: { type: String, required: true },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-module.exports = mongoose.model("tasks", Task);
+module.exports = mongoose.model('tasks', Task);
