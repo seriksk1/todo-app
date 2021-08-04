@@ -85,7 +85,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchTasks(sortType));
-  }, [sortType]);
+  }, [sortType, items]);
 
   return (
     <Grid

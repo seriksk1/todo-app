@@ -22,10 +22,10 @@ function TaskList({ items, onRemoveTask, onChangeTaskStatus }) {
       spacing={3}
     >
       {items &&
-        items.map(({ id, task, status, dueDate }, index) => {
+        items.map(({ _id, task, status, dueDate }, index) => {
           return (
             <Task
-              key={`${id}_${dueDate}`}
+              key={`${_id}`}
               index={index}
               task={task}
               status={status}

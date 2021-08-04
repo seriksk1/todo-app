@@ -1,15 +1,28 @@
 import axios from "axios";
 import { getSortedTasks, checkOverdueDate } from "./sorting";
 
+const api = axios.create({
+  baseURL: `http://localhost:3001/api`,
+});
+
 export const setTasks = (items) => ({
   type: "SET_TASKS",
   payload: items,
 });
 
-export const addTask = (items) => ({
+export const addTaskSuccess = (item) => ({
   type: "ADD_TASK",
-  payload: items,
+  payload: item,
 });
+
+export const addTask = (item) => (dispatch) => {
+  api
+    .post("/task", item)
+    .then((res) => {
+      dispatch(addTaskSuccess(item));
+    })
+    .catch((err) => console.log(err));
+};
 
 export const removeTask = (index) => ({
   type: "REMOVE_TASK",
@@ -27,10 +40,11 @@ export const setSortType = (id) => ({
 });
 
 export const fetchTasks = (sortType) => (dispatch) => {
-  axios
-    .get(`https://my-json-server.typicode.com/seriksk1/api-todo-app/items/`)
-    .then(({ data }) => {
-      checkOverdueDate(data);
-      dispatch(setTasks(getSortedTasks(data, sortType)));
-    });
+  api.get("/tasks").then(({ data }) => {
+    const items = data.data;
+    checkOverdueDate(items);
+    dispatch(setTasks(getSortedTasks(items, sortType)));
+  });
 };
+
+// json-server https://my-json-server.typicode.com/seriksk1/api-todo-app/items/
