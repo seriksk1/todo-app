@@ -1,3 +1,5 @@
+import { TASK_STATUS } from "../constants";
+
 export const strToDate = (str) => {
   return new Date(str.split("-"));
 };
@@ -22,7 +24,9 @@ export const getSortedTasks = (data, sortType) => {
 };
 
 export const getUpdatedStatus = (obj) => {
-  return obj.status === "done" ? getNotFinishedStatus(obj) : "done";
+  return obj.status === TASK_STATUS.DONE
+    ? getNotFinishedStatus(obj)
+    : TASK_STATUS.DONE;
 };
 
 const isOverdue = (obj) => {
@@ -30,5 +34,5 @@ const isOverdue = (obj) => {
 };
 
 const getNotFinishedStatus = (obj) => {
-  return isOverdue(obj) ? "overdue" : "pending";
+  return isOverdue(obj) ? TASK_STATUS.OVERDUE : TASK_STATUS.PENDING;
 };

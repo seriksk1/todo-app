@@ -1,3 +1,5 @@
+import { ACTION } from "../constants";
+
 const initialState = {
   items: [],
   sortType: "Due-date",
@@ -5,27 +7,13 @@ const initialState = {
 
 const tasks = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_SORT_TYPE": {
-      return {
-        ...state,
-        sortType: action.payload,
-      };
-    }
-
-    case "SET_TASKS": {
-      return {
-        ...state,
-        items: action.payload,
-      };
-    }
-
-    case "ADD_TASK": {
+    case ACTION.ADD_TASK: {
       return {
         ...state,
         items: [...state.items, action.payload],
       };
     }
-    case "REMOVE_TASK": {
+    case ACTION.REMOVE_TASK: {
       const newItems = state.items.filter(({ _id }) => _id !== action.payload);
 
       return {
@@ -34,7 +22,7 @@ const tasks = (state = initialState, action) => {
       };
     }
 
-    case "SET_TASK_STATUS": {
+    case ACTION.SET_TASK_STATUS: {
       const newItems = [
         ...state.items.filter(({ _id }) => _id !== action.payload._id),
         action.payload,
@@ -45,6 +33,21 @@ const tasks = (state = initialState, action) => {
         items: newItems,
       };
     }
+
+    case ACTION.SET_SORT_TYPE: {
+      return {
+        ...state,
+        sortType: action.payload,
+      };
+    }
+
+    case ACTION.SET_TASKS: {
+      return {
+        ...state,
+        items: action.payload,
+      };
+    }
+
     default:
       return state;
   }
