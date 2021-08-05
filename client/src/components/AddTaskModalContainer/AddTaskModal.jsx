@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+
 import { makeStyles } from "@material-ui/styles";
+import { Button, Modal, Grid, Typography } from "@material-ui/core";
 
 import { AddTaskFormContainer } from "../";
-import { Button, Modal, Grid, Typography } from "@material-ui/core";
-import { addTask } from "../../redux/actions/queries";
 
 const useStyles = makeStyles({
   modal: {
@@ -26,8 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function ModalContainer() {
-  const dispatch = useDispatch();
+function AddTaskModal({ onAddTask }) {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
@@ -36,12 +34,8 @@ function ModalContainer() {
     setOpenModal(true);
   };
 
-  const onCloseModal = () => {
+  const handleCloseModal = () => {
     setOpenModal(false);
-  };
-
-  const onAddTask = (obj) => {
-    dispatch(addTask(obj));
   };
 
   return (
@@ -56,12 +50,12 @@ function ModalContainer() {
         Add Task
       </Button>
 
-      <Modal open={openModal} onClose={onCloseModal}>
+      <Modal open={openModal} onClose={handleCloseModal}>
         <Grid container direction="column" className={classes.modal}>
           <Typography className={classes.modalTitle}>New Task</Typography>
           <AddTaskFormContainer
             onAddTask={onAddTask}
-            onCloseModal={onCloseModal}
+            onCloseModal={handleCloseModal}
           />
         </Grid>
       </Modal>
@@ -69,4 +63,4 @@ function ModalContainer() {
   );
 }
 
-export default ModalContainer;
+export default AddTaskModal;

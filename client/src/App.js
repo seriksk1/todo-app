@@ -6,7 +6,7 @@ import { Grid } from "@material-ui/core";
 import {
   SortPopupContainer,
   TaskListContainer,
-  ModalContainer,
+  AddTaskModalContainer,
 } from "./components";
 
 const useStyles = makeStyles({
@@ -28,7 +28,7 @@ function App() {
       direction="column"
       alignItems="center"
     >
-      <ModalContainer />
+      <AddTaskModalContainer />
       <SortPopupContainer />
       <TaskListContainer />
     </Grid>

@@ -35,10 +35,6 @@ function SortPopup({ sortType, items, onSelectType }) {
     handleMenuClose();
   };
 
-  useEffect(() => {
-    console.log("sortType changed!");
-  }, [sortType]);
-
   return (
     <div className={classes.sortPopup}>
       <Button

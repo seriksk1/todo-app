@@ -23,23 +23,15 @@ export const addTask = (item) => (dispatch) => {
 
 export const removeTask = (id) => (dispatch) => {
   dispatch(removeTaskSuccess(id));
-  api
-    .delete(`/task/${id}`)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => console.log(err));
+  api.delete(`/task/${id}`).catch((err) => console.log(err));
 };
 
 export const setTaskStatus = (item) => (dispatch) => {
   const updatedStatus = getUpdatedStatus(item);
 
-  console.log(updatedStatus);
-
   api
     .patch(`/task/${item._id}`, { status: updatedStatus })
     .then((res) => {
-      console.log(res.data.status);
       dispatch(setTaskStatusSuccess(res.data.item));
     })
     .catch((err) => console.log(err));
