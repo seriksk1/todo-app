@@ -79,13 +79,13 @@ function App() {
     dispatch(addTask(obj));
   };
 
-  const onChangeTaskStatus = (id) => {
-    dispatch(setTaskStatus(id));
+  const onChangeTaskStatus = (item) => {
+    dispatch(setTaskStatus(item));
   };
 
   useEffect(() => {
     dispatch(fetchTasks(sortType));
-  }, []);
+  }, [sortType]);
 
   return (
     <Grid
@@ -109,7 +109,7 @@ function App() {
         items={sortTypes}
         onSelectType={onSelectType}
       />
-      {items.length !== 0 ? (
+      {items.length ? (
         <TaskList
           items={items}
           onRemoveTask={onRemoveTask}

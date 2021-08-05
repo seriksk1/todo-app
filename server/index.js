@@ -1,17 +1,18 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
 
-const db = require("./DB");
+dotenv.config({ path: "./.env" });
+
+require("./db");
 const taskRouter = require("./routes/task-router");
 
 const app = express();
-const API_PORT = 3001;
+const API_PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
-
-db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -26,19 +26,23 @@ const tasks = (state = initialState, action) => {
       };
     }
     case "REMOVE_TASK": {
+      const newItems = state.items.filter(({ _id }) => _id !== action.payload);
+
       return {
         ...state,
-        items: [
-          ...state.items.slice(0, action.payload),
-          ...state.items.slice(action.payload + 1),
-        ],
+        items: newItems,
       };
     }
 
     case "SET_TASK_STATUS": {
+      const newItems = [
+        ...state.items.filter(({ _id }) => _id !== action.payload._id),
+        action.payload,
+      ];
+
       return {
         ...state,
-        items: [...state.items],
+        items: newItems,
       };
     }
     default:

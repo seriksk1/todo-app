@@ -38,7 +38,7 @@ function Task({ id, task, status, dueDate, onRemove, onChangeStatus }) {
   const classes = useStyles();
 
   const handleStatusChange = () => {
-    onChangeStatus(id);
+    onChangeStatus({ _id: id, task, status, dueDate });
   };
 
   const handleRemoveClick = () => {

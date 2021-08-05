@@ -1,110 +1,94 @@
 const Task = require("../models/task-model");
-const Checker = require("./sorting");
+const dueDateChecker = require("./dueDateChecker");
 
 const createTask = (req, res) => {
-  const body = req.body;
+  try {
+    const body = req.body;
 
-  if (!body) {
-    return res.status(400).json({
-      success: false,
-      error: "You must provide a task",
-    });
-  }
+    if (!body) {
+      res.status(400).json({
+        success: false,
+        error: "You must provide a task",
+      });
+    }
 
-  const task = new Task(body);
+    const task = new Task(body);
 
-  if (!task) {
-    return res.status(400).json({ success: false, error: Error });
-  }
-
-  Checker.onOverdueChange(task); // checking date and set new status
-
-  task
-    .save()
-    .then(() => {
-      return res.status(201).json({
+    task.save().then(() => {
+      res.status(201).json({
         success: true,
-        id: task._id,
+        item: {
+          _id: task._id,
+          task: task.task,
+          dueDate: task.dueDate,
+          status: dueDateChecker.getUpdatedStatus(task),
+        },
         message: "Task created!",
       });
-    })
-    .catch((error) => {
-      return res.status(400).json({
-        error,
-        message: "Task not created!",
-      });
     });
+  } catch (err) {
+    res.status(400).json({
+      err,
+      message: "Task not created!",
+    });
+  }
 };
 
 const updateTask = async (req, res) => {
-  const body = req.body;
+  try {
+    const body = req.body;
 
-  if (!body) {
-    return res.status(400).json({
-      success: false,
-      error: "You must provide a body to update",
-    });
-  }
-
-  Task.findById({ _id: req.params.id }, (err, task) => {
-    if (err) {
-      return res.status(404).json({
-        err,
-        message: "Task not found!",
+    if (!body) {
+      return res.status(400).json({
+        success: false,
+        error: "You must provide a body to update",
       });
     }
 
-    Task.findOneAndUpdate(
+    const updatedTask = await Task.findOneAndUpdate(
       { _id: req.params.id },
-      { status: Checker.getUpdatedStatus(task) },
-      { new: true },
-      (err, task) => {
-        task
-          .save()
-          .then(() => {
-            return res.status(200).json({
-              success: true,
-              id: task._id,
-              message: "Task updated!",
-            });
-          })
-          .catch((error) => {
-            return res.status(404).json({
-              error,
-              message: "Task not updated!",
-            });
-          });
-      }
+      { status: body.status },
+      { new: true }
     );
-  });
+
+    res.status(200).json({
+      success: true,
+      item: updatedTask,
+      message: "Task updated!",
+    });
+  } catch (err) {
+    res.status(404).json({
+      error: err,
+      message: "Task not found!",
+    });
+  }
 };
 
 const deleteTask = async (req, res) => {
-  await Task.findOneAndDelete({ _id: req.params.id }, (err, task) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
+  try {
+    await Task.findOneAndDelete({ _id: req.params.id });
 
-    if (!task) {
-      return res.status(404).json({ success: false, error: `Task not found` });
-    }
-
-    return res.status(200).json({ success: true, data: task });
-  }).catch((err) => console.log(err));
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ success: false, error: err });
+  }
 };
 
 const getTasks = async (req, res) => {
-  await Task.find({}, (err, tasks) => {
-    if (err) {
-      return res.status(400).json({ success: false, error: err });
-    }
-
-    if (!tasks.length) {
+  try {
+    const tasksList = await Task.find({});
+    if (!tasksList.length) {
       return res.status(404).json({ success: false, error: `Tasks not found` });
     }
 
-    return res.status(200).json({ success: true, data: tasks });
-  }).catch((err) => console.log(err));
+    const updatedTasksList = dueDateChecker.getCheckedItems(tasksList);
+
+    res.status(200).json({ success: true, data: updatedTasksList });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ success: false, error: err });
+  }
 };
 
 module.exports = {

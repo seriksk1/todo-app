@@ -21,10 +21,14 @@ export const getSortedTasks = (data, sortType) => {
   return data;
 };
 
-export const setOverdueStatus = (obj) => {
-  if (obj.status === "pending") {
-    if (strToDate(obj.dueDate) < new Date()) {
-      obj.status = "overdue";
-    }
-  }
+export const getUpdatedStatus = (obj) => {
+  return obj.status === "done" ? getNotFinishedStatus(obj) : "done";
+};
+
+const isOverdue = (obj) => {
+  return strToDate(obj.dueDate) < new Date();
+};
+
+const getNotFinishedStatus = (obj) => {
+  return isOverdue(obj) ? "overdue" : "pending";
 };
