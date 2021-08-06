@@ -22,8 +22,12 @@ export const addTask = (item) => (dispatch) => {
 };
 
 export const removeTask = (id) => (dispatch) => {
-  dispatch(removeTaskSuccess(id));
-  api.delete(`/task/${id}`).catch((err) => console.log(err));
+  api
+    .delete(`/task/${id}}`)
+    .then((res) => {
+      dispatch(removeTaskSuccess(id));
+    })
+    .catch((err) => console.log(err));
 };
 
 export const setTaskStatus = (item) => (dispatch) => {

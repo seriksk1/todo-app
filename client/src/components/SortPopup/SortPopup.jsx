@@ -17,8 +17,8 @@ const useStyles = makeStyles({
 });
 
 function SortPopup({
-  sortType,
   items,
+  sortType,
   anchorEl,
   onMenuOpen,
   onMenuClose,
@@ -70,7 +70,7 @@ function SortPopup({
           items.map(({ id, type }) => {
             return (
               <MenuItem
-                key={`${type}_`}
+                key={id}
                 className={classes.menuItem}
                 onClick={() => handleMenuItemClick(type)}
                 selected={sortType === type}

@@ -1,49 +1,46 @@
 const Task = require("../models/task-model");
 const dueDateChecker = require("./dueDateChecker");
 const { HTTP_STATUS } = require("../constants");
+const { ErrorHandler } = require("../helpers/error");
 
-const createTask = (req, res) => {
+const createTask = async (req, res, next) => {
   try {
     const body = req.body;
 
     if (!body) {
-      res.status(HTTP_STATUS.BAD_REQUEST).json({
-        success: false,
-        error: "You must provide a task",
-      });
+      throw new ErrorHandler(
+        HTTP_STATUS.BAD_REQUEST,
+        "You must provide a body to create task"
+      );
     }
 
     const task = new Task(body);
+    await task.save();
 
-    task.save().then(() => {
-      res.status(HTTP_STATUS.CREATED).json({
-        success: true,
-        item: {
-          _id: task._id,
-          task: task.task,
-          dueDate: task.dueDate,
-          status: dueDateChecker.getUpdatedStatus(task),
-        },
-        message: "Task created!",
-      });
+    res.status(HTTP_STATUS.CREATED).json({
+      success: true,
+      item: {
+        _id: task._id,
+        task: task.task,
+        dueDate: task.dueDate,
+        status: dueDateChecker.getUpdatedStatus(task),
+      },
+      message: "Task created!",
     });
   } catch (err) {
-    res.status(HTTP_STATUS.BAD_REQUEST).json({
-      err,
-      message: "Task not created!",
-    });
+    next(err);
   }
 };
 
-const updateTask = async (req, res) => {
+const updateTask = async (req, res, next) => {
   try {
     const body = req.body;
 
     if (!body) {
-      return res.status(HTTP_STATUS.BAD_REQUEST).json({
-        success: false,
-        error: "You must provide a body to update",
-      });
+      throw new ErrorHandler(
+        HTTP_STATUS.BAD_REQUEST,
+        "You must provide a body to update task"
+      );
     }
 
     const updatedTask = await Task.findOneAndUpdate(
@@ -52,43 +49,46 @@ const updateTask = async (req, res) => {
       { new: true }
     );
 
+    if (!updatedTask) {
+      throw new ErrorHandler(HTTP_STATUS.NOT_FOUND, "Task not updated");
+    }
+
     res.status(HTTP_STATUS.OK).json({
       success: true,
       item: updatedTask,
       message: "Task updated!",
     });
   } catch (err) {
-    res.status(HTTP_STATUS.NOT_FOUND).json({
-      error: err,
-      message: "Task not found!",
-    });
+    next(err);
   }
 };
 
-const deleteTask = async (req, res) => {
+const deleteTask = async (req, res, next) => {
   try {
-    await Task.findOneAndDelete({ _id: req.params.id });
+    try {
+      await Task.findOneAndDelete({ _id: req.params.id });
+    } catch (err) {
+      throw new ErrorHandler(HTTP_STATUS.NOT_FOUND, "Task not deleted!");
+    }
 
-    res.status(OK).json({ success: true });
+    res.status(HTTP_STATUS.OK).json({ success: true });
   } catch (err) {
-    res.status(HTTP_STATUS.BAD_REQUEST).json({ success: false, error: err });
+    next(err);
   }
 };
 
-const getTasks = async (req, res) => {
+const getTasks = async (req, res, next) => {
   try {
     const tasksList = await Task.find({});
     if (!tasksList.length) {
-      return res
-        .status(HTTP_STATUS.NOT_FOUND)
-        .json({ success: false, error: `Tasks not found` });
+      throw new ErrorHandler(HTTP_STATUS.NOT_FOUND, "Tasks not found!");
     }
 
     const updatedTasksList = dueDateChecker.getCheckedItems(tasksList);
 
     res.status(HTTP_STATUS.OK).json({ success: true, data: updatedTasksList });
   } catch (err) {
-    res.status(HTTP_STATUS.BAD_REQUEST).json({ success: false, error: err });
+    next(err);
   }
 };
 
