@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-function AddTaskModal({ onAddTask }) {
+function AddTaskModal() {
   const classes = useStyles();
 
   const [openModal, setOpenModal] = useState(false);
@@ -53,10 +53,7 @@ function AddTaskModal({ onAddTask }) {
       <Modal open={openModal} onClose={handleCloseModal}>
         <Grid container direction="column" className={classes.modal}>
           <Typography className={classes.modalTitle}>New Task</Typography>
-          <AddTaskFormContainer
-            onAddTask={onAddTask}
-            onCloseModal={handleCloseModal}
-          />
+          <AddTaskFormContainer onCloseModal={handleCloseModal} />
         </Grid>
       </Modal>
     </div>

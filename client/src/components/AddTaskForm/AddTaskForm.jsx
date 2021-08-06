@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core";
 
 import { TextField, Button } from "@material-ui/core";
@@ -19,48 +18,15 @@ const useStyles = makeStyles({
   },
 });
 
-function AddTaskForm({ onCloseModal, onAddTask }) {
+function AddTaskForm({ onFormSubmit, onInputChange, isInputValid, formInput }) {
   const classes = useStyles();
 
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  const [formInput, setFormInput] = useState({
-    status: "pending",
-    task: "",
-    dueDate: "",
-  });
-
-  const isInputValid = (value) => {
-    return value.length >= 3 ? true : value === "" ? null : false;
-  };
-
-  const checkFormValidation = (obj) => {
-    let isValid = Object.values(obj)
-      .map((value) => isInputValid(value))
-      .every((isValid) => isValid);
-    setIsFormValid(isValid);
-  };
-
   const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (isFormValid) {
-      handleAddTask(formInput);
-      onCloseModal();
-    }
+    onFormSubmit(e);
   };
 
-  useEffect(() => {
-    checkFormValidation(formInput);
-  }, [formInput]);
-
-  function handleInput(e) {
-    const id = e.target.id;
-    const newValue = e.target.value;
-    setFormInput((prev) => ({ ...prev, [id]: newValue }));
-  }
-
-  const handleAddTask = (obj) => {
-    onAddTask(obj);
+  const handleInputChange = (e) => {
+    onInputChange(e);
   };
 
   return (
@@ -74,7 +40,7 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
         id="task"
         error={isInputValid(formInput.task) === false ? true : null}
         className={classes.textField}
-        onChange={handleInput}
+        onChange={handleInputChange}
         label="Task"
         variant="outlined"
         helperText={isInputValid(formInput.task) ? null : "At least 3 symbols"}
@@ -85,7 +51,7 @@ function AddTaskForm({ onCloseModal, onAddTask }) {
         id="dueDate"
         error={isInputValid(formInput.dueDate) === false ? true : null}
         className={classes.textField}
-        onChange={handleInput}
+        onChange={handleInputChange}
         type="date"
         label="Due-date"
         InputLabelProps={{
