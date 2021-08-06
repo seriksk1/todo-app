@@ -25,7 +25,7 @@ export const getSortedTasks = (data, sortType) => {
 
 export const getUpdatedStatus = (obj) => {
   return obj.status === TASK_STATUS.DONE
-    ? getNotFinishedStatus(obj)
+    ? getUndoneStatus(obj)
     : TASK_STATUS.DONE;
 };
 
@@ -33,6 +33,6 @@ const isOverdue = (obj) => {
   return strToDate(obj.dueDate) < new Date();
 };
 
-const getNotFinishedStatus = (obj) => {
+const getUndoneStatus = (obj) => {
   return isOverdue(obj) ? TASK_STATUS.OVERDUE : TASK_STATUS.PENDING;
 };

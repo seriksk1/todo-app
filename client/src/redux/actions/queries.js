@@ -8,8 +8,12 @@ import {
   setTasks,
 } from "./tasks";
 
+const API_URI = process.env.REACT_APP_URI;
+
+console.log(API_URI);
+
 const api = axios.create({
-  baseURL: `http://localhost:3001/api`,
+  baseURL: API_URI,
 });
 
 export const addTask = (item) => (dispatch) => {
