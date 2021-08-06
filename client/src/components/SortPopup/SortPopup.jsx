@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { makeStyles } from "@material-ui/core/styles";
 
 import { Menu, MenuItem, ListItemText, Button } from "@material-ui/core";
@@ -18,21 +16,26 @@ const useStyles = makeStyles({
   },
 });
 
-function SortPopup({ sortType, items, onSelectType }) {
+function SortPopup({
+  sortType,
+  items,
+  anchorEl,
+  onMenuOpen,
+  onMenuClose,
+  onMenuItemClick,
+}) {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleOpenPopup = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleMenuOpen = (e) => {
+    onMenuOpen(e);
   };
 
   const handleMenuClose = () => {
-    setAnchorEl(null);
+    onMenuClose();
   };
 
   const handleMenuItemClick = (type) => {
-    onSelectType(type);
-    handleMenuClose();
+    onMenuItemClick(type);
   };
 
   return (
@@ -42,7 +45,7 @@ function SortPopup({ sortType, items, onSelectType }) {
         color="secondary"
         aria-controls="sort-menu"
         aria-haspopup="true"
-        onClick={handleOpenPopup}
+        onClick={handleMenuOpen}
       >
         Sort by...
       </Button>
@@ -52,7 +55,7 @@ function SortPopup({ sortType, items, onSelectType }) {
         getContentAnchorEl={null}
         anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
         onClose={handleMenuClose}
         anchorOrigin={{
           vertical: "bottom",

@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   modal: {
     alignItems: "center",
     margin: "150px auto",
-    width: 400,
+    maxWidth: "350px",
     maxHeight: 450,
     paddingBottom: 30,
 

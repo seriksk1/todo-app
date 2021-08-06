@@ -33,7 +33,6 @@ function AddTaskForm({ onFormSubmit, onInputChange, isInputValid, formInput }) {
     <form
       className={classes.form}
       onSubmit={handleFormSubmit}
-      noValidate
       autoComplete="off"
     >
       <TextField

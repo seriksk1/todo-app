@@ -22,7 +22,6 @@ function TaskList({ items }) {
       direction="row"
       justifyContent="center"
       alignItems="center"
-      spacing={3}
     >
       {items.map(({ _id, task, status, dueDate }) => {
         return (
