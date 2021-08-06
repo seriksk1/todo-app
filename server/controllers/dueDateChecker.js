@@ -1,3 +1,5 @@
+const { TASK_STATUS } = require("../constants");
+
 const strToDate = (str) => {
   return new Date(str.split("-"));
 };
@@ -7,8 +9,8 @@ const isOverdue = (obj) => {
 };
 
 const getUpdatedStatus = (obj) => {
-  if (obj.status === "pending" && isOverdue(obj)) {
-    return "overdue";
+  if (obj.status === TASK_STATUS.PENDING && isOverdue(obj)) {
+    return TASK_STATUS.OVERDUE;
   } else {
     return obj.status;
   }
