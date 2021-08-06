@@ -23,7 +23,7 @@ export const addTask = (item) => (dispatch) => {
 
 export const removeTask = (id) => (dispatch) => {
   api
-    .delete(`/task/${id}}`)
+    .delete(`/task/${id}`)
     .then((res) => {
       dispatch(removeTaskSuccess(id));
     })
