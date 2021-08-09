@@ -10,10 +10,7 @@ import { SORT_BY } from "../../redux/constants";
 function SortPopupContainer() {
   const dispatch = useDispatch();
 
-  const sortTypes = [
-    { id: 1, type: SORT_BY.DUEDATE },
-    { id: 2, type: SORT_BY.STATUS },
-  ];
+  const sortTypes = [...Object.values(SORT_BY)];
 
   const { sortType } = useSelector(({ tasks }) => tasks);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -31,8 +28,8 @@ function SortPopupContainer() {
     onMenuClose();
   };
 
-  const onSelectType = (id) => {
-    dispatch(setSortType(id));
+  const onSelectType = (type) => {
+    dispatch(setSortType(type));
   };
 
   useEffect(() => {

@@ -6,7 +6,7 @@ export const setMessage = (message) => ({
   payload: message,
 });
 
-const createToast =
+const showToast =
   ({ type, message }) =>
   (dispatch) => {
     toast[type](message, {
@@ -15,7 +15,7 @@ const createToast =
   };
 
 export const showNotification = (notification) => (dispatch) => {
-  dispatch([setMessage(notification.message), createToast(notification)]);
+  dispatch([setMessage(notification.message), showToast(notification)]);
 };
 
 export const cleanNotification = () => ({

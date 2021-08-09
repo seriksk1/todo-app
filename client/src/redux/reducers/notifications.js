@@ -16,11 +16,7 @@ const notifications = (state = initialState, action) => {
     }
 
     case ACTION_NOTIFICATIONS.CLEAN: {
-      return {
-        ...state,
-        message: "",
-        isActive: false,
-      };
+      return initialState;
     }
 
     default:

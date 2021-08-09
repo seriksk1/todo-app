@@ -19,9 +19,8 @@ const api = axios.create({
 
 export const addTask = (item) => async (dispatch) => {
   try {
-    const { data } = api.post("/task", item);
+    const { data } = await api.post("/task", item);
     const newItem = data.item;
-
     dispatch([
       addTaskSuccess(newItem),
       showNotification(TOAST_OPTION.TASK_CREATE),
@@ -34,7 +33,6 @@ export const addTask = (item) => async (dispatch) => {
 export const removeTask = (id) => async (dispatch) => {
   try {
     await api.delete(`/task/${id}`);
-
     dispatch([
       removeTaskSuccess(id),
       showNotification(TOAST_OPTION.TASK_REMOVE),
@@ -46,15 +44,14 @@ export const removeTask = (id) => async (dispatch) => {
 
 export const setTaskStatus = (item) => async (dispatch) => {
   const updatedStatus = getUpdatedStatus(item);
-
   try {
     const { data } = await api.patch(`/task/${item._id}`, {
       status: updatedStatus,
     });
-    const newItem = data.item;
+    const updatedItem = data.item;
 
     dispatch([
-      setTaskStatusSuccess(newItem),
+      setTaskStatusSuccess(updatedItem),
       showNotification(TOAST_OPTION.TASK_CHANGE),
     ]);
   } catch (err) {

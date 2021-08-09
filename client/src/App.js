@@ -38,7 +38,7 @@ function App() {
       <ToastContainer
         pauseOnHover={false}
         pauseOnFocusLoss={false}
-        autoClose={3000}
+        autoClose={2500}
         limit={3}
       />
     </Grid>

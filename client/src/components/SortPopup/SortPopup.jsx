@@ -67,10 +67,10 @@ function SortPopup({
         }}
       >
         {items &&
-          items.map(({ id, type }) => {
+          items.map((type) => {
             return (
               <MenuItem
-                key={id}
+                key={type}
                 className={classes.menuItem}
                 onClick={() => handleMenuItemClick(type)}
                 selected={sortType === type}

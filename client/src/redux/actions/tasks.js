@@ -1,4 +1,5 @@
-import { ACTION } from "../constants";
+import { ACTION, TOAST_OPTION } from "../constants";
+import { showNotification } from "./notifications";
 
 export const addTaskSuccess = (item) => ({
   type: ACTION.ADD_TASK,
@@ -15,10 +16,17 @@ export const setTaskStatusSuccess = (item) => ({
   payload: item,
 });
 
-export const setSortType = (id) => ({
-  type: ACTION.SET_SORT_TYPE,
-  payload: id,
-});
+export const setSortType = (type) => (dispatch) =>
+  dispatch([
+    {
+      type: ACTION.SET_SORT_TYPE,
+      payload: type,
+    },
+    showNotification({
+      ...TOAST_OPTION.SORT_TYPE_CHANGED,
+      message: `Sorted by ${type}`,
+    }),
+  ]);
 
 export const setTasks = (items) => ({
   type: ACTION.SET_TASKS,
