@@ -1,13 +1,12 @@
 import React from "react";
-
 import { Route } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-import withToast from "./hocs/withToast";
 
-import Auth from "./pages/Auth";
-import Tasks from "./pages/Tasks";
+import { Tasks, SignIn, SignUp } from "./pages";
+
+import withToast from "./hocs/withToast";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -32,7 +31,8 @@ function App() {
       alignItems="center"
     >
       <Route exact path="/" component={Tasks} />
-      <Route exact path="/auth" component={Auth} />
+      <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/signup" component={SignUp} />
     </Grid>
   );
 }

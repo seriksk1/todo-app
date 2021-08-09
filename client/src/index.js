@@ -10,7 +10,7 @@ import App from "./App";
 import store from "./redux/store";
 
 ReactDOM.render(
-  <Router basename="/todo-app">
+  <Router>
     <Provider store={store}>
       <ToastContainer
         pauseOnHover={false}

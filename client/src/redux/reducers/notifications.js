@@ -1,16 +1,19 @@
 import { ACTION_NOTIFICATIONS } from "../constants";
 
 const initialState = {
-  message: "",
+  notification: {
+    message: "",
+    type: "",
+  },
   isActive: false,
 };
 
 const notifications = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_NOTIFICATIONS.SET_MESSAGE: {
+    case ACTION_NOTIFICATIONS.SET_NOTIFICATION: {
       return {
         ...state,
-        message: action.payload,
+        notification: action.payload,
         isActive: true,
       };
     }

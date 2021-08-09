@@ -7,10 +7,13 @@ import { notificationSelector } from "../redux/selectors";
 function withToast(Component) {
   const HOC = () => {
     const dispatch = useDispatch();
-    const { isActive, message } = useSelector(notificationSelector);
+    const { isActive, notification } = useSelector(notificationSelector);
 
     isActive &&
-      toast(message, { onClose: () => dispatch(cleanNotification()) });
+      toast(notification.message, {
+        type: notification.type,
+        onClose: () => dispatch(cleanNotification()),
+      });
 
     return <Component />;
   };
