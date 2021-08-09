@@ -1,7 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { removeTask, setTaskStatus } from "../../../redux/actions/queries";
+import {
+  removeTask,
+  setTaskStatus,
+} from "../../../redux/actions/tasks-queries";
 
 import Task from "./Task";
 

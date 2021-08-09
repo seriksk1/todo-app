@@ -3,15 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import SortPopup from "./SortPopup";
 
-import { fetchTasks } from "../../redux/actions/queries";
+import { fetchTasks } from "../../redux/actions/tasks-queries";
 import { setSortType } from "../../redux/actions/tasks";
+import { SORT_BY } from "../../redux/constants";
 
 function SortPopupContainer() {
   const dispatch = useDispatch();
 
   const sortTypes = [
-    { id: 1, type: "Due-date" },
-    { id: 2, type: "Status" },
+    { id: 1, type: SORT_BY.DUEDATE },
+    { id: 2, type: SORT_BY.STATUS },
   ];
 
   const { sortType } = useSelector(({ tasks }) => tasks);

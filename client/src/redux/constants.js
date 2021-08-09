@@ -6,8 +6,50 @@ export const ACTION = {
   SET_TASKS: "SET_TASKS",
 };
 
+export const ACTION_NOTIFICATIONS = {
+  SET_MESSAGE: "SET_MESSAGE",
+  SHOW: "SHOW_NOTIFICATION",
+  CLEAN: "CLEAN_NOTIFICATION",
+};
+
 export const TASK_STATUS = {
   PENDING: "pending",
   DONE: "done",
   OVERDUE: "overdue",
+};
+
+export const SORT_BY = {
+  DUEDATE: "Due-date",
+  STATUS: "Status",
+};
+
+export const TOAST_OPTION = {
+  TASK_CREATE: {
+    type: "success",
+    message: "Task created successfuly!",
+  },
+  TASK_REMOVE: {
+    type: "success",
+    message: "Task removed successfuly!",
+  },
+  TASK_CHANGE: {
+    type: "success",
+    message: "Task changed successfuly!",
+  },
+  TASK_ERROR_CREATE: {
+    type: "error",
+    message: "Error! Task not created!",
+  },
+  TASK_ERROR_REMOVE: {
+    type: "error",
+    message: "Error! Task not removed!",
+  },
+  TASK_ERROR_CHANGE: {
+    type: "error",
+    message: "Error! Task not changed!",
+  },
+  TASK_WARNING_NO_ITEMS: {
+    type: "warn",
+    message: "You don't have any tasks yet",
+  },
 };

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import AddTaskForm from "./AddTaskForm";
-import { addTask } from "../../redux/actions/queries";
+import { addTask } from "../../redux/actions/tasks-queries";
 
 import { TASK_STATUS } from "../../redux/constants";
 

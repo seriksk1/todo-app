@@ -1,6 +1,6 @@
 const Task = require("../models/task-model");
 const { HTTP_STATUS } = require("../constants");
-const { QueryError } = require("../helpers/error");
+const { QueryError } = require("../helpers/errorHandler");
 
 const createTask = async (body) => {
   try {

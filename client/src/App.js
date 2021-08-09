@@ -1,5 +1,9 @@
-import { makeStyles } from "@material-ui/core/styles";
+import React from "react";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { makeStyles } from "@material-ui/core/styles";
 import "./App.css";
 
 import { Grid } from "@material-ui/core";
@@ -31,6 +35,12 @@ function App() {
       <AddTaskModalContainer />
       <SortPopupContainer />
       <TaskListContainer />
+      <ToastContainer
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        autoClose={3000}
+        limit={3}
+      />
     </Grid>
   );
 }

@@ -1,8 +1,8 @@
-import { ACTION } from "../constants";
+import { ACTION, SORT_BY } from "../constants";
 
 const initialState = {
   items: [],
-  sortType: "Due-date",
+  sortType: SORT_BY.DUEDATE,
 };
 
 const tasks = (state = initialState, action) => {
@@ -23,14 +23,13 @@ const tasks = (state = initialState, action) => {
     }
 
     case ACTION.SET_TASK_STATUS: {
-      const newItems = [
-        ...state.items.filter(({ _id }) => _id !== action.payload._id),
-        action.payload,
-      ];
+      const newItems = state.items.filter(
+        ({ _id }) => _id !== action.payload._id
+      );
 
       return {
         ...state,
-        items: newItems,
+        items: [...newItems, action.payload],
       };
     }
 

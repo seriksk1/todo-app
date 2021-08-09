@@ -1,8 +1,8 @@
 const { HTTP_STATUS } = require("../constants");
-const { QueryError } = require("../helpers/error");
+const { QueryError } = require("../helpers/errorHandler");
 
 const Task = require("../models/task-model");
-const TaskService = require("../services/task-service");
+const TaskService = require("../services/tasks-service");
 
 const dueDateChecker = require("./dueDateChecker");
 

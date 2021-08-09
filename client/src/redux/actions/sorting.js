@@ -1,4 +1,4 @@
-import { TASK_STATUS } from "../constants";
+import { TASK_STATUS, SORT_BY } from "../constants";
 
 export const strToDate = (str) => {
   return new Date(str.split("-"));
@@ -6,10 +6,10 @@ export const strToDate = (str) => {
 
 const byType = (type) => {
   switch (type) {
-    case "Due-date":
+    case SORT_BY.DUEDATE:
       return (a, b) => (strToDate(a.dueDate) > strToDate(b.dueDate) ? 1 : -1);
 
-    case "Status":
+    case SORT_BY.STATUS:
       return (a, b) => (a.status > b.status ? -1 : 1);
 
     default:
