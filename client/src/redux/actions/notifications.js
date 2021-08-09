@@ -6,18 +6,16 @@ export const setMessage = (message) => ({
   payload: message,
 });
 
-const showToast =
-  ({ type, message }) =>
-  (dispatch) => {
-    toast[type](message, {
-      onClose: () => dispatch(cleanNotification()),
-    });
-  };
+export const cleanNotification = () => ({
+  type: ACTION_NOTIFICATIONS.CLEAN,
+});
+
+const showToast = (notification) => (dispatch) => {
+  toast[notification.type](notification.message, {
+    onClose: () => dispatch(cleanNotification()),
+  });
+};
 
 export const showNotification = (notification) => (dispatch) => {
   dispatch([setMessage(notification.message), showToast(notification)]);
 };
-
-export const cleanNotification = () => ({
-  type: ACTION_NOTIFICATIONS.CLEAN,
-});

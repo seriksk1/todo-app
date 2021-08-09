@@ -1,17 +1,22 @@
 import React from "react";
 
+import { Switch, Route, Link } from "react-router-dom";
+
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import { makeStyles } from "@material-ui/core/styles";
-import "./App.css";
-
 import { Grid } from "@material-ui/core";
+
 import {
   SortPopupContainer,
   TaskListContainer,
   AddTaskModalContainer,
 } from "./components";
+
+import Auth from "./pages/Auth";
+
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 const useStyles = makeStyles({
   mainContainer: {

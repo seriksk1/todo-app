@@ -26,27 +26,27 @@ export const SORT_BY = {
 export const TOAST_OPTION = {
   TASK_CREATE: {
     type: "success",
-    message: "Task created successfully!",
+    message: "Task has been created successfully!",
   },
   TASK_REMOVE: {
     type: "success",
-    message: "Task removed successfully!",
+    message: "Task has been removed successfully!",
   },
   TASK_CHANGE: {
     type: "success",
-    message: "Task changed successfully!",
+    message: "Task status has been changed successfully!",
   },
   TASK_ERROR_CREATE: {
     type: "error",
-    message: "Error! Task not created!",
+    message: "Error! Task hasn't created!",
   },
   TASK_ERROR_REMOVE: {
     type: "error",
-    message: "Error! Task not removed!",
+    message: "Error! Task hasn't removed!",
   },
   TASK_ERROR_CHANGE: {
     type: "error",
-    message: "Error! Task not changed!",
+    message: "Error! Task status hasn't changed!",
   },
   TASK_WARNING_NO_ITEMS: {
     type: "info",
