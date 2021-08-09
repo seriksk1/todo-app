@@ -1,6 +1,9 @@
-import { makeStyles, ListItemText, MenuItem } from "@material-ui/core";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+
+import { makeStyles, ListItemText, MenuItem } from "@material-ui/core";
+
+import { tasksSelector } from "../../redux/selectors";
 
 const useStyles = makeStyles({
   menuItem: {
@@ -12,8 +15,8 @@ const useStyles = makeStyles({
 
 function MenuItemContainer({ type, onMenuItemClick }) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { sortType } = useSelector(({ tasks }) => tasks);
+
+  const { sortType } = useSelector(tasksSelector);
 
   const handleMenuItemClick = () => {
     onMenuItemClick(type);

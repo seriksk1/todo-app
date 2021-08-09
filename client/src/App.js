@@ -1,19 +1,13 @@
 import React from "react";
 
-import { Switch, Route, Link } from "react-router-dom";
-
-import { ToastContainer } from "react-toastify";
+import { Route } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
-
-import {
-  SortPopupContainer,
-  TaskListContainer,
-  AddTaskModalContainer,
-} from "./components";
+import withToast from "./hocs/withToast";
 
 import Auth from "./pages/Auth";
+import Tasks from "./pages/Tasks";
 
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -37,17 +31,10 @@ function App() {
       direction="column"
       alignItems="center"
     >
-      <AddTaskModalContainer />
-      <SortPopupContainer />
-      <TaskListContainer />
-      <ToastContainer
-        pauseOnHover={false}
-        pauseOnFocusLoss={false}
-        autoClose={2500}
-        limit={3}
-      />
+      <Route exact path="/" component={Tasks} />
+      <Route exact path="/auth" component={Auth} />
     </Grid>
   );
 }
 
-export default App;
+export default withToast(App);

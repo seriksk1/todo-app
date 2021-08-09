@@ -8,11 +8,11 @@ import {
 
 function Tasks() {
   return (
-    <div>
+    <>
       <AddTaskModalContainer />
       <SortPopupContainer />
       <TaskListContainer />
-    </div>
+    </>
   );
 }
 
