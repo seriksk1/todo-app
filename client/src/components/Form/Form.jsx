@@ -37,6 +37,7 @@ function Form({
   onInputChange,
   onFocusChange,
   onFormSubmit,
+  userAction,
 }) {
   const classes = useStyles();
 
@@ -63,19 +64,19 @@ function Form({
       </Typography>
 
       {fields &&
-        fields.map(({ type, label, variant, helperText, required }) => {
+        fields.map(({ id, type, label, variant, helperText, required }) => {
           return (
             <TextField
               key={`${label}_${type}`}
-              id={type}
-              error={isFormValid === false ? true : false}
-              className={classes.textField}
-              onChange={handleInputChange}
-              onFocus={handleFocusChange}
+              id={id}
               type={type}
               label={label}
               variant={variant}
               helperText={helperText}
+              onFocus={handleFocusChange}
+              onChange={handleInputChange}
+              className={classes.textField}
+              error={isFormValid === false ? true : false}
               InputLabelProps={{
                 shrink: type === "date" ? true : undefined,
               }}

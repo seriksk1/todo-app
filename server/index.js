@@ -1,12 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { handleError } = require("./helpers/middleware");
+const { handleError } = require("./helpers/middleware/error");
 
 dotenv.config({ path: "./.env" });
 
 require("./db");
 const taskRouter = require("./routes/task-router");
+const authRouter = require("./routes/auth-router");
 
 const app = express();
 const API_PORT = process.env.PORT || 3001;
@@ -18,6 +19,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.use("/auth", authRouter);
 
 app.use("/api", taskRouter);
 

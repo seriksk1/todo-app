@@ -1,4 +1,4 @@
-export const ACTION = {
+export const ACTION_TASKS = {
   ADD_TASK: "ADD_TASK",
   REMOVE_TASK: "REMOVE_TASK",
   SET_TASK_STATUS: "SET_TASK_STATUS",
@@ -9,6 +9,12 @@ export const ACTION = {
 export const ACTION_NOTIFICATIONS = {
   SET_NOTIFICATION: "SET_MESSAGE",
   CLEAN: "CLEAN_NOTIFICATION",
+};
+
+export const ACTION_AUTH = {
+  REGISTER: "REGISTER",
+  LOGIN: "LOGIN",
+  AUTHORIZED: "AUTHORIZED",
 };
 
 export const TASK_STATUS = {
@@ -35,6 +41,7 @@ export const TOAST_OPTION = {
     type: "success",
     message: "Task status has been changed successfully!",
   },
+
   TASK_ERROR_CREATE: {
     type: "error",
     message: "Error! Task hasn't created!",
@@ -51,7 +58,26 @@ export const TOAST_OPTION = {
     type: "info",
     message: "You don't have any tasks yet",
   },
+
   SORT_TYPE_CHANGED: {
     type: "info",
+  },
+
+  USER_LOGIN_SUCCESS: {
+    type: "success",
+    message: "You are logged in!",
+  },
+  USER_REGISTER_SUCCESS: {
+    type: "success",
+    message: "Registration success!",
+  },
+
+  USER_LOGIN_ERROR: {
+    type: "error",
+    message: "Login error!",
+  },
+  USER_REGISTER_ERROR: {
+    type: "error",
+    message: "User already exists!",
   },
 };

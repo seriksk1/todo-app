@@ -41,7 +41,7 @@ function AddTaskFormContainer({ onCloseModal, fields, formText, btnText }) {
 
   const isInputValid = (obj, key) => {
     const value = obj[key];
-    return value.length >= 3 ? true : value === "" ? null : false;
+    return value.length >= 3 ? true : false;
   };
 
   const getFormValidation = (obj) => {
@@ -58,8 +58,6 @@ function AddTaskFormContainer({ onCloseModal, fields, formText, btnText }) {
       onFormSubmit={onFormSubmit}
       onInputChange={onInputChange}
       onFocusChange={onFocusChange}
-      isInputValid={isInputValid}
-      formInput={formInput}
     />
   );
 }

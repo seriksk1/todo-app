@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Form from "./Form";
 
-function FormContainer({ btnText, formText, fields }) {
+function FormContainer({ btnText, formText, fields, userAction }) {
   const [formInput, setFormInput] = useState({});
   const [isFormValid, setIsFormValid] = useState(null);
 
@@ -19,6 +19,9 @@ function FormContainer({ btnText, formText, fields }) {
     e.preventDefault();
     if (getFormValidation(formInput)) {
       setIsFormValid(true);
+
+      // Login or Register func, need refactoring
+      userAction && userAction(formInput);
     } else {
       setIsFormValid(false);
     }
@@ -59,12 +62,13 @@ function FormContainer({ btnText, formText, fields }) {
   return (
     <Form
       fields={fields}
-      formText={formText}
       btnText={btnText}
+      formText={formText}
       isFormValid={isFormValid}
       onFormSubmit={onFormSubmit}
       onInputChange={onInputChange}
       onFocusChange={onFocusChange}
+      userAction={userAction}
     />
   );
 }

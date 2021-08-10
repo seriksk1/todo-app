@@ -1,4 +1,4 @@
-import { ACTION, SORT_BY } from "../constants";
+import { ACTION_TASKS, SORT_BY } from "../constants";
 
 const initialState = {
   items: [],
@@ -7,13 +7,13 @@ const initialState = {
 
 const tasks = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION.ADD_TASK: {
+    case ACTION_TASKS.ADD_TASK: {
       return {
         ...state,
         items: [...state.items, action.payload],
       };
     }
-    case ACTION.REMOVE_TASK: {
+    case ACTION_TASKS.REMOVE_TASK: {
       const newItems = state.items.filter(({ _id }) => _id !== action.payload);
 
       return {
@@ -22,7 +22,7 @@ const tasks = (state = initialState, action) => {
       };
     }
 
-    case ACTION.SET_TASK_STATUS: {
+    case ACTION_TASKS.SET_TASK_STATUS: {
       const newItems = state.items.filter(
         ({ _id }) => _id !== action.payload._id
       );
@@ -33,14 +33,14 @@ const tasks = (state = initialState, action) => {
       };
     }
 
-    case ACTION.SET_SORT_TYPE: {
+    case ACTION_TASKS.SET_SORT_TYPE: {
       return {
         ...state,
         sortType: action.payload,
       };
     }
 
-    case ACTION.SET_TASKS: {
+    case ACTION_TASKS.SET_TASKS: {
       return {
         ...state,
         items: action.payload,

@@ -14,7 +14,7 @@ import {
 const API_URI = process.env.REACT_APP_URI;
 
 const api = axios.create({
-  baseURL: API_URI,
+  baseURL: API_URI + "/api",
 });
 
 export const addTask = (item) => async (dispatch) => {
