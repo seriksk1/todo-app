@@ -1,9 +1,36 @@
 import React from "react";
 
-import { AuthFormContainer } from "../components";
+import { FormContainer } from "../components";
+
+const btnText = "Login";
+const formText = "Login Form";
+
+const formFields = [
+  {
+    type: "email",
+    label: "Email",
+    variant: "outlined",
+    helperText: "...",
+    required: true,
+  },
+  {
+    type: "password",
+    label: "Password",
+    variant: "outlined",
+    helperText: "...",
+    required: true,
+  },
+];
 
 function SignIn() {
-  return <AuthFormContainer btnText={"Login"} />;
+  return (
+    <FormContainer
+      btnText={btnText}
+      formText={formText}
+      fields={formFields}
+      onSubmit={""}
+    />
+  );
 }
 
 export default SignIn;

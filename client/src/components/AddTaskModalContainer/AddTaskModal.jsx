@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { makeStyles } from "@material-ui/styles";
-import { Button, Modal, Grid, Typography } from "@material-ui/core";
+import { Button, Modal, Grid } from "@material-ui/core";
 
 import { AddTaskFormContainer } from "../";
 
@@ -11,8 +11,7 @@ const useStyles = makeStyles({
     margin: "150px auto",
     maxWidth: "350px",
     maxHeight: 450,
-    paddingBottom: 30,
-
+    padding: "10px 0",
     backgroundColor: "#f8f8f8",
     border: "2px solid #000",
     boxShadow: "#0f0f0f",
@@ -27,6 +26,26 @@ const useStyles = makeStyles({
 
 function AddTaskModal() {
   const classes = useStyles();
+
+  const formText = "New Task";
+  const btnText = "OK";
+
+  const fields = [
+    {
+      id: "task",
+      label: "Task",
+      variant: "outlined",
+      helperText: "At least 3 symbols",
+      required: true,
+    },
+    {
+      id: "dueDate",
+      type: "date",
+      label: "Due-date",
+      helperText: "Choose date",
+      required: true,
+    },
+  ];
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -52,8 +71,12 @@ function AddTaskModal() {
 
       <Modal open={openModal} onClose={handleCloseModal}>
         <Grid container direction="column" className={classes.modal}>
-          <Typography className={classes.modalTitle}>New Task</Typography>
-          <AddTaskFormContainer onCloseModal={handleCloseModal} />
+          <AddTaskFormContainer
+            fields={fields}
+            formText={formText}
+            btnText={btnText}
+            onCloseModal={handleCloseModal}
+          />
         </Grid>
       </Modal>
     </div>

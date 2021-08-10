@@ -1,6 +1,8 @@
 import { makeStyles } from "@material-ui/core";
 
-import { TextField, Button } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+
+import SubmitButton from "../SubmitButton";
 
 const useStyles = makeStyles({
   form: {
@@ -13,12 +15,19 @@ const useStyles = makeStyles({
     width: "80%",
     marginBottom: 30,
   },
-  addTaskBtn: {
+  btnSubmit: {
     width: 150,
   },
 });
 
-function AddTaskForm({ onFormSubmit, onInputChange, isInputValid, formInput }) {
+function AddTaskForm({
+  onFormSubmit,
+  onInputChange,
+  onFocuesChange,
+  isFormValid,
+  isInputValid,
+  formInput,
+}) {
   const classes = useStyles();
 
   const handleFormSubmit = (e) => {
@@ -58,15 +67,7 @@ function AddTaskForm({ onFormSubmit, onInputChange, isInputValid, formInput }) {
         }}
         helperText={isInputValid(formInput.dueDate) ? null : "Choose date"}
       />
-      <Button
-        className={classes.addTaskBtn}
-        type="submit"
-        size="large"
-        variant="contained"
-        color="primary"
-      >
-        OK
-      </Button>
+      <SubmitButton btnText={"OK"} btnStyles={classes.btnSubmit} />
     </form>
   );
 }

@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState } from "react";
+import Form from "./Form";
 
-import AddTaskForm from "./AddTaskForm";
-import Form from "../Form/Form";
-
-import { addTask } from "../../redux/actions/tasks-queries";
-
-import { TASK_STATUS } from "../../redux/constants";
-
-function AddTaskFormContainer({ onCloseModal, fields, formText, btnText }) {
-  const dispatch = useDispatch();
-
+function FormContainer({ btnText, formText, fields }) {
   const [formInput, setFormInput] = useState({});
   const [isFormValid, setIsFormValid] = useState(null);
-
-  const onAddTask = (obj) => {
-    dispatch(addTask(obj));
-  };
 
   const onInputChange = (e) => {
     const id = e.target.id;
@@ -32,8 +19,6 @@ function AddTaskFormContainer({ onCloseModal, fields, formText, btnText }) {
     e.preventDefault();
     if (getFormValidation(formInput)) {
       setIsFormValid(true);
-      onAddTask({ ...formInput, status: TASK_STATUS.PENDING });
-      onCloseModal();
     } else {
       setIsFormValid(false);
     }
@@ -41,7 +26,29 @@ function AddTaskFormContainer({ onCloseModal, fields, formText, btnText }) {
 
   const isInputValid = (obj, key) => {
     const value = obj[key];
-    return value.length >= 3 ? true : value === "" ? null : false;
+    let isValid = null;
+
+    switch (key) {
+      case "email":
+        isValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        return isValid;
+
+      case "password":
+        isValid = value.length >= 6 && value.toLowerCase() !== value;
+        return isValid;
+
+      case "task":
+        isValid = value.length >= 3 ? true : false;
+        return isValid;
+
+      case "date":
+        isValid = value.length > 0 ? true : false;
+        return isValid;
+
+      default:
+        console.log("Undefined id");
+        return false;
+    }
   };
 
   const getFormValidation = (obj) => {
@@ -58,10 +65,8 @@ function AddTaskFormContainer({ onCloseModal, fields, formText, btnText }) {
       onFormSubmit={onFormSubmit}
       onInputChange={onInputChange}
       onFocusChange={onFocusChange}
-      isInputValid={isInputValid}
-      formInput={formInput}
     />
   );
 }
 
-export default AddTaskFormContainer;
+export default FormContainer;
