@@ -43,6 +43,7 @@ const getUserToken = async (req, res, next) => {
 
     const user = await User.findOne({ email });
 
+    console.log(user);
     if (user) {
       user.token = await AuthService.getUserToken(email, password, user);
     } else {
@@ -54,7 +55,7 @@ const getUserToken = async (req, res, next) => {
 
     res.status(HTTP_STATUS.OK).json({
       success: true,
-      item: user,
+      token: user.token,
       message: "User logged in!",
     });
   } catch (err) {

@@ -32,7 +32,7 @@ const createUser = async (email, password) => {
 
 const getUserToken = async (email, password, user) => {
   try {
-    if (bcrypt.compare(password, user.password)) {
+    if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(
         { user_id: user._id, email },
         process.env.TOKEN_KEY,
@@ -45,8 +45,7 @@ const getUserToken = async (email, password, user) => {
       throw new QueryError(HTTP_STATUS.BAD_REQUEST, "Wrong password!");
     }
   } catch (err) {
-    console.log(err);
-    throw new QueryError(HTTP_STATUS.BAD_REQUEST, "Something is wrong...");
+    throw err;
   }
 };
 
