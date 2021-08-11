@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 function AddTaskForm({
   onFormSubmit,
   onInputChange,
-  onFocuesChange,
+  onFocusChange,
   isFormValid,
   isInputValid,
   formInput,

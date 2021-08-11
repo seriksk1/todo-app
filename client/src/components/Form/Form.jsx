@@ -4,6 +4,7 @@ import { makeStyles, Typography } from "@material-ui/core";
 
 import { TextField } from "@material-ui/core";
 import { SubmitButton } from "../index";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   form: {
@@ -16,16 +17,26 @@ const useStyles = makeStyles({
 
     "& h4": {
       margin: "20px 0",
-      fontSize: 32,
+      fontSize: "32px",
       textAlign: "center",
     },
   },
   textField: {
     width: "80%",
-    marginBottom: 30,
+    marginBottom: "30px",
+    "&:last-of-type": {
+      marginBottom: "15px",
+    },
   },
   btnSubmit: {
     width: 150,
+    marginTop: "15px",
+  },
+  authHelperText: {
+    fontSize: "14px",
+    "&:hover": {
+      color: "red",
+    },
   },
 });
 
@@ -37,6 +48,8 @@ function Form({
   onInputChange,
   onFocusChange,
   onFormSubmit,
+  authHelperText,
+  authHelperPath,
 }) {
   const classes = useStyles();
 
@@ -83,6 +96,12 @@ function Form({
             />
           );
         })}
+
+      {authHelperText ? (
+        <Link to={authHelperPath} className={classes.authHelperText}>
+          <Typography>{authHelperText}</Typography>
+        </Link>
+      ) : null}
 
       <SubmitButton btnText={btnText} btnStyles={classes.btnSubmit} />
     </form>

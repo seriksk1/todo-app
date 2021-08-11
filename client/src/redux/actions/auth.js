@@ -2,7 +2,6 @@ import axios from "axios";
 
 import { ACTION_AUTH, TOAST_OPTION } from "../constants";
 import { showNotification } from "./notifications";
-import { authHeader } from "../../services/auth-header";
 
 const API_URI = process.env.REACT_APP_URI;
 
@@ -50,11 +49,20 @@ export const login = (userData) => async (dispatch) => {
   }
 };
 
+// Ask about token validation
+//import { authHeader } from "../services/auth-header";
+//
 // export const checkUserToken = () => async (dispatch) => {
 //   try {
-//     await api.get("/user", { headers: authHeader() });
+//     const { data } = await api.get("/user", { headers: authHeader() });
 
-//     dispatch([showNotification(TOAST_OPTION.USER_LOGIN_SUCCESS), authorized()]);
+//     dispatch([
+//       showNotification({
+//         ...TOAST_OPTION.USER_LOGIN_SUCCESS,
+//         message: data.message,
+//       }),
+//       authorized(),
+//     ]);
 //   } catch (err) {
 //     dispatch(
 //       showNotification({ type: "error", message: err.response.data.message })

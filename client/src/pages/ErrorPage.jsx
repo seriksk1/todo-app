@@ -10,7 +10,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Error() {
+function ErrorPage() {
   const classes = useStyles();
   return (
     <Typography className={classes.error} variant="h3" component="h3">
@@ -19,4 +19,4 @@ function Error() {
   );
 }
 
-export default Error;
+export default ErrorPage;

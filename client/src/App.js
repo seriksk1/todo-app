@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
-import { Tasks, SignIn, SignUp, Error } from "./pages";
+import { Tasks, SignIn, SignUp, ErrorPage } from "./pages";
 
 import withToast from "./hocs/withToast";
 
@@ -41,7 +41,7 @@ function App() {
         )}
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
-        <Route path="*" component={Error} />
+        <Route path="*" component={ErrorPage} />
       </Switch>
     </Grid>
   );

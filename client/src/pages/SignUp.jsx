@@ -9,6 +9,8 @@ import withAuth from "../hocs/withAuth";
 
 const formText = "Signup Form";
 const btnText = "Signup";
+const authHelperText = "Have account already?";
+const authHelperPath = "/signin";
 
 const formFields = [
   {
@@ -42,6 +44,8 @@ function SignUp() {
       formText={formText}
       fields={formFields}
       userAction={onRegister}
+      authHelperText={authHelperText}
+      authHelperPath={authHelperPath}
     />
   );
 }

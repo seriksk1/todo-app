@@ -1,9 +1,14 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import Form from "./Form";
 
-function FormContainer({ btnText, formText, fields, userAction }) {
-  const dispatch = useDispatch();
+function FormContainer({
+  btnText,
+  formText,
+  fields,
+  userAction,
+  authHelperText,
+  authHelperPath,
+}) {
   const [formInput, setFormInput] = useState({});
   const [isFormValid, setIsFormValid] = useState(null);
 
@@ -66,11 +71,13 @@ function FormContainer({ btnText, formText, fields, userAction }) {
       fields={fields}
       btnText={btnText}
       formText={formText}
+      userAction={userAction}
       isFormValid={isFormValid}
       onFormSubmit={onFormSubmit}
       onInputChange={onInputChange}
       onFocusChange={onFocusChange}
-      userAction={userAction}
+      authHelperText={authHelperText}
+      authHelperPath={authHelperPath}
     />
   );
 }

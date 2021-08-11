@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import AddTaskForm from "./AddTaskForm";
-import Form from "../Form/Form";
-
 import { addTask } from "../../redux/actions/tasks-queries";
-
 import { TASK_STATUS } from "../../redux/constants";
+
+import Form from "../Form/Form";
 
 function AddTaskFormContainer({ onCloseModal, fields, formText, btnText }) {
   const dispatch = useDispatch();

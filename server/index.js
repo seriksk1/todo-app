@@ -10,10 +10,6 @@ require("./db");
 const taskRouter = require("./routes/task-router");
 const authRouter = require("./routes/auth-router");
 
-const userBoard = (req, res) => {
-  res.status(HTTP_STATUS.OK).send("AUTHORIZED");
-};
-
 const app = express();
 const API_PORT = process.env.PORT || 3001;
 
@@ -21,15 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.use("/auth", authRouter);
-
 app.use("/api", taskRouter);
 
-app.get("/auth/user", [verifyToken], userBoard);
+app.get("/auth/user", verifyToken);
 
 app.use((err, req, res, next) => {
   handleError(err, res);

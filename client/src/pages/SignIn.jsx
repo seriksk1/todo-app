@@ -8,6 +8,8 @@ import withAuth from "../hocs/withAuth";
 
 const btnText = "Login";
 const formText = "Login Form";
+const authHelperText = "Haven't account yet?";
+const authHelperPath = "/signup";
 
 const formFields = [
   {
@@ -38,9 +40,11 @@ function SignIn() {
   return (
     <FormContainer
       btnText={btnText}
-      formText={formText}
       fields={formFields}
+      formText={formText}
       userAction={onLogin}
+      authHelperText={authHelperText}
+      authHelperPath={authHelperPath}
     />
   );
 }

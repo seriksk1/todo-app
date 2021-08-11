@@ -1,9 +1,9 @@
 import axios from "axios";
 
-import { TOAST_OPTION, TASK_STATUS } from "../constants";
+import { TOAST_OPTION } from "../constants";
 import { showNotification } from "./notifications";
 
-import { getSortedTasks, getUpdatedStatus } from "./sorting";
+import { getSortedTasks, getUpdatedStatus } from "../sorting";
 import {
   addTaskSuccess,
   removeTaskSuccess,
