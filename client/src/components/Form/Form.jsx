@@ -1,45 +1,12 @@
 import React from "react";
-
-import { makeStyles, Typography } from "@material-ui/core";
-
-import { TextField } from "@material-ui/core";
-import { SubmitButton } from "../index";
 import { Link } from "react-router-dom";
+
+import { Typography } from "@material-ui/core";
+
 import FieldsList from "./FieldsList";
+import { SubmitButton } from "../index";
 
-const useStyles = makeStyles({
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    minWidth: "300px",
-    maxWidth: "400px",
-    paddingBottom: "30px",
-
-    "& h4": {
-      margin: "20px 0",
-      fontSize: "32px",
-      textAlign: "center",
-    },
-  },
-  textField: {
-    width: "80%",
-    marginBottom: "30px",
-    "&:last-of-type": {
-      marginBottom: "15px",
-    },
-  },
-  btnSubmit: {
-    width: 150,
-    marginTop: "15px",
-  },
-  authHelperText: {
-    fontSize: "14px",
-    "&:hover": {
-      color: "red",
-    },
-  },
-});
+import useStyles from "./form-style";
 
 function Form({
   btnText,

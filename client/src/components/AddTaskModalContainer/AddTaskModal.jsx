@@ -1,31 +1,10 @@
 import React, { useState } from "react";
 
-import { makeStyles } from "@material-ui/styles";
 import { Button, Modal, Grid } from "@material-ui/core";
 
 import { TASK_STATUS } from "../../redux/constants";
-
-import { AddTaskFormContainer } from "../";
 import { FormContainer } from "../../components";
-
-const useStyles = makeStyles({
-  modal: {
-    alignItems: "center",
-    margin: "150px auto",
-    maxWidth: "350px",
-    maxHeight: 450,
-    padding: "10px 0",
-    backgroundColor: "#f8f8f8",
-    border: "2px solid #000",
-    boxShadow: "#0f0f0f",
-  },
-  modalTitle: {
-    width: "100%",
-    margin: "20px 0",
-    fontSize: 32,
-    textAlign: "center",
-  },
-});
+import useStyles from "./modal-style";
 
 function AddTaskModal({ onAddTask }) {
   const classes = useStyles();

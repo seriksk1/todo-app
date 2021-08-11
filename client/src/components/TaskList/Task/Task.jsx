@@ -1,5 +1,3 @@
-import { makeStyles } from "@material-ui/core/styles";
-
 import {
   Card,
   CardHeader,
@@ -11,29 +9,7 @@ import {
 } from "@material-ui/core";
 
 import DeleteIcon from "@material-ui/icons/Delete";
-
-const useStyles = makeStyles({
-  card: {
-    minWidth: 250,
-    minHeight: 250,
-    margin: 20,
-  },
-  btnAdd: {
-    maxWidth: 200,
-  },
-  taskList: {
-    marginTop: 20,
-  },
-  cardHeader: {
-    textAlign: "center",
-  },
-  cardActions: {
-    justifyContent: "center",
-  },
-  bold: {
-    fontWeight: 700,
-  },
-});
+import useStyles from "./task-style";
 
 function Task({ id, task, status, dueDate, onChangeTaskStatus, onRemoveTask }) {
   const classes = useStyles();
