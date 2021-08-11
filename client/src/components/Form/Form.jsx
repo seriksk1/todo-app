@@ -5,6 +5,7 @@ import { makeStyles, Typography } from "@material-ui/core";
 import { TextField } from "@material-ui/core";
 import { SubmitButton } from "../index";
 import { Link } from "react-router-dom";
+import FieldsList from "./FieldsList";
 
 const useStyles = makeStyles({
   form: {
@@ -53,14 +54,6 @@ function Form({
 }) {
   const classes = useStyles();
 
-  const handleInputChange = (e) => {
-    onInputChange(e);
-  };
-
-  const handleFocusChange = (e) => {
-    onFocusChange(e);
-  };
-
   const handleFormSubmit = (e) => {
     onFormSubmit(e);
   };
@@ -75,27 +68,13 @@ function Form({
         {formText}
       </Typography>
 
-      {fields &&
-        fields.map(({ id, type, label, variant, helperText, required }) => {
-          return (
-            <TextField
-              key={`${label}_${type}`}
-              id={id}
-              type={type}
-              label={label}
-              variant={variant}
-              helperText={isFormValid !== false ? null : helperText}
-              onFocus={handleFocusChange}
-              onChange={handleInputChange}
-              className={classes.textField}
-              error={isFormValid === false ? true : false}
-              InputLabelProps={{
-                shrink: type === "date" ? true : undefined,
-              }}
-              required={required}
-            />
-          );
-        })}
+      <FieldsList
+        isFormValid={isFormValid}
+        onInputChange={onInputChange}
+        onFocusChange={onFocusChange}
+        fieldStyle={classes.textField}
+        fields={fields}
+      />
 
       {authHelperText ? (
         <Link to={authHelperPath} className={classes.authHelperText}>
