@@ -5,7 +5,7 @@ function FormContainer({
   btnText,
   formText,
   fields,
-  userAction,
+  onSubmitAction,
   authHelperText,
   authHelperPath,
 }) {
@@ -24,11 +24,10 @@ function FormContainer({
 
   const onFormSubmit = (e) => {
     e.preventDefault();
+
     if (getFormValidation(formInput)) {
       setIsFormValid(true);
-
-      // Login or Register func, need refactoring
-      userAction && userAction(formInput);
+      onSubmitAction && onSubmitAction(formInput);
     } else {
       setIsFormValid(false);
     }
@@ -49,10 +48,12 @@ function FormContainer({
 
       case "task":
         isValid = value.length >= 3 ? true : false;
+        console.log("checking task", isValid);
         return isValid;
 
-      case "date":
+      case "dueDate":
         isValid = value.length > 0 ? true : false;
+        console.log("checking dueDate", isValid);
         return isValid;
 
       default:
@@ -71,11 +72,11 @@ function FormContainer({
       fields={fields}
       btnText={btnText}
       formText={formText}
-      userAction={userAction}
       isFormValid={isFormValid}
       onFormSubmit={onFormSubmit}
       onInputChange={onInputChange}
       onFocusChange={onFocusChange}
+      onSubmitAction={onSubmitAction}
       authHelperText={authHelperText}
       authHelperPath={authHelperPath}
     />

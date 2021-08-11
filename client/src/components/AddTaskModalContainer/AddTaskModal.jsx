@@ -3,7 +3,10 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
 import { Button, Modal, Grid } from "@material-ui/core";
 
+import { TASK_STATUS } from "../../redux/constants";
+
 import { AddTaskFormContainer } from "../";
+import { FormContainer } from "../../components";
 
 const useStyles = makeStyles({
   modal: {
@@ -24,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-function AddTaskModal() {
+function AddTaskModal({ onAddTask }) {
   const classes = useStyles();
 
   const formText = "New Task";
@@ -57,6 +60,11 @@ function AddTaskModal() {
     setOpenModal(false);
   };
 
+  const handleAddTask = (obj) => {
+    onAddTask({ ...obj, status: TASK_STATUS.PENDING });
+    handleCloseModal();
+  };
+
   return (
     <div>
       <Button
@@ -71,11 +79,11 @@ function AddTaskModal() {
 
       <Modal open={openModal} onClose={handleCloseModal}>
         <Grid container direction="column" className={classes.modal}>
-          <AddTaskFormContainer
+          <FormContainer
             fields={fields}
             formText={formText}
             btnText={btnText}
-            onCloseModal={handleCloseModal}
+            onSubmitAction={handleAddTask}
           />
         </Grid>
       </Modal>

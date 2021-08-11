@@ -43,7 +43,7 @@ function SignUp() {
       btnText={btnText}
       formText={formText}
       fields={formFields}
-      userAction={onRegister}
+      onSubmitAction={onRegister}
       authHelperText={authHelperText}
       authHelperPath={authHelperPath}
     />

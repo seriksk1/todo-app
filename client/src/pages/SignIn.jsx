@@ -42,7 +42,7 @@ function SignIn() {
       btnText={btnText}
       fields={formFields}
       formText={formText}
-      userAction={onLogin}
+      onSubmitAction={onLogin}
       authHelperText={authHelperText}
       authHelperPath={authHelperPath}
     />
