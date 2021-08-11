@@ -4,7 +4,7 @@ const { QueryError } = require("../helpers/errorHandler");
 const Task = require("../models/task-model");
 const TaskService = require("../services/tasks-service");
 
-const dueDateChecker = require("./dueDateChecker");
+const dueDateChecker = require("../helpers/dueDateChecker");
 
 const createTask = async (req, res, next) => {
   try {

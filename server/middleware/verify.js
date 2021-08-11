@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { HTTP_STATUS } = require("../../constants");
+const { HTTP_STATUS } = require("../constants");
 
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });

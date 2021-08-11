@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const { handleError } = require("./helpers/middleware/error");
-const verifyToken = require("./helpers/middleware/verify");
+const { handleError } = require("./middleware/error");
+const verifyToken = require("./middleware/verify");
 
 dotenv.config({ path: "./.env" });
 
