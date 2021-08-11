@@ -2,12 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { handleError } = require("./helpers/middleware/error");
+const verifyToken = require("./helpers/middleware/verify");
 
 dotenv.config({ path: "./.env" });
 
 require("./db");
 const taskRouter = require("./routes/task-router");
 const authRouter = require("./routes/auth-router");
+
+const userBoard = (req, res) => {
+  res.status(HTTP_STATUS.OK).send("AUTHORIZED");
+};
 
 const app = express();
 const API_PORT = process.env.PORT || 3001;
@@ -23,6 +28,8 @@ app.get("/", (req, res) => {
 app.use("/auth", authRouter);
 
 app.use("/api", taskRouter);
+
+app.get("/auth/user", [verifyToken], userBoard);
 
 app.use((err, req, res, next) => {
   handleError(err, res);

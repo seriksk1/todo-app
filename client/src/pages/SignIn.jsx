@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { FormContainer } from "../components";
 import { login } from "../redux/actions/auth";
 
+import withAuth from "../hocs/withAuth";
+
 const btnText = "Login";
 const formText = "Login Form";
 
@@ -13,7 +15,7 @@ const formFields = [
     type: "email",
     label: "Email",
     variant: "outlined",
-    // helperText: "...",
+    helperText: null,
     required: true,
   },
   {
@@ -21,7 +23,7 @@ const formFields = [
     type: "password",
     label: "Password",
     variant: "outlined",
-    // helperText: "...",
+    helperText: "At least 6 characters and 1 upper case letter",
     required: true,
   },
 ];
@@ -43,4 +45,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default withAuth(SignIn);

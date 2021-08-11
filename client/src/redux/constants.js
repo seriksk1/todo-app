@@ -12,9 +12,8 @@ export const ACTION_NOTIFICATIONS = {
 };
 
 export const ACTION_AUTH = {
-  REGISTER: "REGISTER",
-  LOGIN: "LOGIN",
   AUTHORIZED: "AUTHORIZED",
+  LOGOUT: "LOGOUT",
 };
 
 export const TASK_STATUS = {
@@ -33,27 +32,29 @@ export const TOAST_OPTION = {
     type: "success",
     message: "Task has been created successfully!",
   },
-  TASK_REMOVE: {
-    type: "success",
-    message: "Task has been removed successfully!",
-  },
-  TASK_CHANGE: {
-    type: "success",
-    message: "Task status has been changed successfully!",
-  },
-
   TASK_ERROR_CREATE: {
     type: "error",
     message: "Error! Task hasn't created!",
+  },
+
+  TASK_REMOVE: {
+    type: "success",
+    message: "Task has been removed successfully!",
   },
   TASK_ERROR_REMOVE: {
     type: "error",
     message: "Error! Task hasn't removed!",
   },
+
+  TASK_CHANGE: {
+    type: "success",
+    message: "Task status has been changed successfully!",
+  },
   TASK_ERROR_CHANGE: {
     type: "error",
     message: "Error! Task status hasn't changed!",
   },
+
   TASK_WARNING_NO_ITEMS: {
     type: "info",
     message: "You don't have any tasks yet",
@@ -67,17 +68,22 @@ export const TOAST_OPTION = {
     type: "success",
     message: "You are logged in!",
   },
+  USER_LOGIN_ERROR: {
+    type: "error",
+    message: "User is not registered yet!",
+  },
+
   USER_REGISTER_SUCCESS: {
     type: "success",
     message: "Registration success!",
   },
-
-  USER_LOGIN_ERROR: {
-    type: "error",
-    message: "Login error!",
-  },
   USER_REGISTER_ERROR: {
     type: "error",
     message: "User already exists!",
+  },
+
+  USER_LOGOUT: {
+    type: "success",
+    message: "You are logged out!",
   },
 };

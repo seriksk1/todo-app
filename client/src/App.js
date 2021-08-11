@@ -1,10 +1,11 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
-import { Tasks, SignIn, SignUp } from "./pages";
+import { Tasks, SignIn, SignUp, Error } from "./pages";
 
 import withToast from "./hocs/withToast";
 
@@ -23,6 +24,8 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
+  const { authorized } = useSelector((state) => state.auth);
+
   return (
     <Grid
       className={classes.mainContainer}
@@ -30,9 +33,16 @@ function App() {
       direction="column"
       alignItems="center"
     >
-      <Route exact path="/" component={Tasks} />
-      <Route exact path="/signin" component={SignIn} />
-      <Route exact path="/signup" component={SignUp} />
+      <Switch>
+        {authorized ? (
+          <Route exact path="/tasks" component={Tasks} />
+        ) : (
+          <Redirect from="/tasks" to="/signin" />
+        )}
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route path="*" component={Error} />
+      </Switch>
     </Grid>
   );
 }

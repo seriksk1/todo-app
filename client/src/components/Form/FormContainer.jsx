@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Form from "./Form";
 
 function FormContainer({ btnText, formText, fields, userAction }) {
+  const dispatch = useDispatch();
   const [formInput, setFormInput] = useState({});
   const [isFormValid, setIsFormValid] = useState(null);
 

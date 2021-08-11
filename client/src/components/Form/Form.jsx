@@ -37,7 +37,6 @@ function Form({
   onInputChange,
   onFocusChange,
   onFormSubmit,
-  userAction,
 }) {
   const classes = useStyles();
 
@@ -72,7 +71,7 @@ function Form({
               type={type}
               label={label}
               variant={variant}
-              helperText={helperText}
+              helperText={isFormValid !== false ? null : helperText}
               onFocus={handleFocusChange}
               onChange={handleInputChange}
               className={classes.textField}

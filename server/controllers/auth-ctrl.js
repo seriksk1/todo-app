@@ -33,7 +33,6 @@ const getUserToken = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    console.log(email, password);
     if (!(email && password)) {
       throw new QueryError(
         HTTP_STATUS.BAD_REQUEST,
@@ -43,13 +42,12 @@ const getUserToken = async (req, res, next) => {
 
     const user = await User.findOne({ email });
 
-    console.log(user);
     if (user) {
       user.token = await AuthService.getUserToken(email, password, user);
     } else {
       throw new QueryError(
         HTTP_STATUS.NOT_FOUND,
-        "Login error, you are not registered yet!"
+        "You are not registered yet!"
       );
     }
 

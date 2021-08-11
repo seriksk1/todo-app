@@ -3,33 +3,22 @@ import { ACTION_AUTH } from "../constants";
 const initialState = {
   email: null,
   password: null,
-  authorized: false,
+  authorized: !!localStorage.getItem("token"),
 };
 
 const auth = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_AUTH.REGISTER: {
-      const { email, password } = action.payload;
-      return {
-        ...state,
-        email: email,
-        password: password,
-      };
-    }
-
-    case ACTION_AUTH.LOGIN: {
-      const { email, password } = action.payload;
-      return {
-        ...state,
-        email: email,
-        password: password,
-      };
-    }
-
     case ACTION_AUTH.AUTHORIZED: {
       return {
         ...state,
         authorized: true,
+      };
+    }
+
+    case ACTION_AUTH.LOGOUT: {
+      return {
+        ...state,
+        authorized: false,
       };
     }
 

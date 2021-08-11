@@ -1,10 +1,12 @@
+const { HTTP_STATUS } = require("../../constants");
+
 const handleError = (err, res) => {
   const { statusCode, message } = err;
-  console.log(err.message);
+  console.log(message);
   res.status(statusCode).json({
     err: err,
-    statusCode,
-    message,
+    statusCode: statusCode,
+    message: message,
   });
 };
 

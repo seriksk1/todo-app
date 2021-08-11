@@ -1,8 +1,11 @@
 import React from "react";
+
 import { useDispatch } from "react-redux";
 
 import { FormContainer } from "../components";
 import { register } from "../redux/actions/auth";
+
+import withAuth from "../hocs/withAuth";
 
 const formText = "Signup Form";
 const btnText = "Signup";
@@ -13,7 +16,7 @@ const formFields = [
     type: "email",
     label: "Email",
     variant: "outlined",
-    // helperText: "...",
+    helperText: null,
     required: true,
   },
   {
@@ -21,7 +24,7 @@ const formFields = [
     type: "password",
     label: "Password",
     variant: "outlined",
-    // helperText: "...",
+    helperText: "At least 6 characters and 1 upper case letter",
     required: true,
   },
 ];
@@ -35,12 +38,12 @@ function SignUp() {
 
   return (
     <FormContainer
-      userAction={onRegister}
       btnText={btnText}
       formText={formText}
       fields={formFields}
+      userAction={onRegister}
     />
   );
 }
 
-export default SignUp;
+export default withAuth(SignUp);

@@ -1,11 +1,13 @@
 const jwt = require("jsonwebtoken");
 const { HTTP_STATUS } = require("../../constants");
 
+const dotenv = require("dotenv");
+dotenv.config({ path: "./.env" });
+
 const TOKEN_KEY = process.env.TOKEN_KEY;
 
 const verifyToken = (req, res, next) => {
-  const token =
-    req.body.token || req.query.token || req.headers["x-access-token"];
+  const token = req.headers["x-access-token"];
 
   if (!token) {
     return res
@@ -14,11 +16,17 @@ const verifyToken = (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, TOKEN_KEY);
-    req.user = decoded;
+    res.status(HTTP_STATUS.OK).json({
+      success: true,
+      token: decoded,
+      message: "Verified!",
+    });
   } catch (err) {
-    return res.status(HTTP_STATUS.UNAUTHORIZED).send("Invalid Token");
+    return res.status(HTTP_STATUS.UNAUTHORIZED).json({
+      success: false,
+      message: "Not verified!",
+    });
   }
-  return next();
 };
 
 module.exports = verifyToken;
