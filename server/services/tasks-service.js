@@ -2,9 +2,11 @@ const Task = require("../models/task-model");
 const { HTTP_STATUS } = require("../constants");
 const { QueryError } = require("../helpers/errorHandler");
 
-const createTask = async (body) => {
+const createTask = async (body, userId) => {
   try {
+    body.userId = userId;
     const newTask = await new Task(body);
+
     await newTask.save();
     return newTask;
   } catch (err) {
@@ -32,9 +34,9 @@ const deleteTask = async (id) => {
   }
 };
 
-const getTasks = async (query) => {
+const getTasks = async (userId) => {
   try {
-    return await Task.find(query);
+    return await Task.find({ userId: userId });
   } catch (error) {
     throw new QueryError(HTTP_STATUS.NOT_FOUND, "Tasks not found!");
   }

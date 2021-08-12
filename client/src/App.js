@@ -39,7 +39,7 @@ function App() {
         ) : (
           <Redirect from="/tasks" to="/signin" />
         )}
-        <Route exact path="/signup" component={SignUp} />
+        <Route path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
         <Route path="*" component={ErrorPage} />
       </Switch>

@@ -3,12 +3,12 @@ const { QueryError } = require("../helpers/errorHandler");
 
 const Task = require("../models/task-model");
 const TaskService = require("../services/tasks-service");
-
 const dueDateChecker = require("../helpers/dueDateChecker");
 
 const createTask = async (req, res, next) => {
   try {
     const body = req.body;
+    const userId = req.user;
 
     if (!body) {
       throw new QueryError(
@@ -17,7 +17,7 @@ const createTask = async (req, res, next) => {
       );
     }
 
-    const task = await TaskService.createTask(body);
+    const task = await TaskService.createTask(body, userId);
 
     res.status(HTTP_STATUS.CREATED).json({
       success: true,
@@ -70,7 +70,7 @@ const deleteTask = async (req, res, next) => {
 
 const getTasks = async (req, res, next) => {
   try {
-    const tasksList = await TaskService.getTasks({});
+    const tasksList = await TaskService.getTasks(req.user);
     const updatedTasksList = dueDateChecker.getCheckedItems(tasksList);
 
     res.status(HTTP_STATUS.OK).json({ success: true, data: updatedTasksList });

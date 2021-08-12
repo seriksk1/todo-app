@@ -4,6 +4,8 @@ import { TOAST_OPTION } from "../constants";
 import { showNotification } from "./notifications";
 
 import { getSortedTasks, getUpdatedStatus } from "../sorting";
+import { authHeader } from "../services/auth-header";
+
 import {
   addTaskSuccess,
   removeTaskSuccess,
@@ -15,6 +17,7 @@ const API_URI = process.env.REACT_APP_URI;
 
 const api = axios.create({
   baseURL: API_URI + "/api",
+  headers: authHeader(),
 });
 
 export const addTask = (item) => async (dispatch) => {
@@ -59,16 +62,18 @@ export const setTaskStatus = (item) => async (dispatch) => {
   }
 };
 
-export const fetchTasks = (sortType) => async (dispatch) => {
-  try {
-    const { data } = await api.get("/tasks");
-    const items = data.data;
+export const fetchTasks =
+  (sortType = "Status") =>
+  async (dispatch) => {
+    try {
+      const { data } = await api.get("/tasks");
+      const items = data.data;
 
-    dispatch(setTasks(getSortedTasks(items, sortType)));
-  } catch (err) {
-    dispatch([
-      setTasks([]),
-      showNotification(TOAST_OPTION.TASK_WARNING_NO_ITEMS),
-    ]);
-  }
-};
+      dispatch(setTasks(getSortedTasks(items, sortType)));
+    } catch (err) {
+      dispatch([
+        setTasks([]),
+        showNotification(TOAST_OPTION.TASK_WARNING_NO_ITEMS),
+      ]);
+    }
+  };

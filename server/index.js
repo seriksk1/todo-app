@@ -1,4 +1,5 @@
 const express = require("express");
+
 const cors = require("cors");
 const dotenv = require("dotenv");
 const { handleError } = require("./middleware/error");
@@ -17,10 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
+app.use("/api", [express.json(), verifyToken]);
+
 app.use("/auth", authRouter);
 app.use("/api", taskRouter);
-
-app.get("/auth/user", verifyToken);
 
 app.use((err, req, res, next) => {
   handleError(err, res);

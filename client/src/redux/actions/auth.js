@@ -9,7 +9,7 @@ const api = axios.create({
   baseURL: API_URI + "/auth",
 });
 
-export const authorized = () => ({ type: ACTION_AUTH.AUTHORIZED });
+export const authSuccess = () => ({ type: ACTION_AUTH.AUTHORIZED });
 
 export const logoutSuccess = () => ({
   type: ACTION_AUTH.LOGOUT,
@@ -27,7 +27,7 @@ export const register = (userData) => async (dispatch) => {
 
     dispatch([
       showNotification(TOAST_OPTION.USER_REGISTER_SUCCESS),
-      authorized(),
+      authSuccess(),
     ]);
   } catch (err) {
     dispatch(
@@ -41,31 +41,13 @@ export const login = (userData) => async (dispatch) => {
     const { data } = await api.post("/login", userData);
     localStorage.setItem("token", data.token);
 
-    dispatch([showNotification(TOAST_OPTION.USER_LOGIN_SUCCESS), authorized()]);
+    dispatch([
+      showNotification(TOAST_OPTION.USER_LOGIN_SUCCESS),
+      authSuccess(),
+    ]);
   } catch (err) {
     dispatch(
       showNotification({ type: "error", message: err.response.data.message })
     );
   }
 };
-
-// Ask about token validation
-//import { authHeader } from "../services/auth-header";
-//
-// export const checkUserToken = () => async (dispatch) => {
-//   try {
-//     const { data } = await api.get("/user", { headers: authHeader() });
-
-//     dispatch([
-//       showNotification({
-//         ...TOAST_OPTION.USER_LOGIN_SUCCESS,
-//         message: data.message,
-//       }),
-//       authorized(),
-//     ]);
-//   } catch (err) {
-//     dispatch(
-//       showNotification({ type: "error", message: err.response.data.message })
-//     );
-//   }
-// };
