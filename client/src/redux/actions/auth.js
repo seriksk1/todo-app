@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { ACTION_AUTH, TOAST_OPTION } from "../constants";
+import { ACTION_AUTH, HTTP_STATUS, TOAST_OPTION } from "../constants";
 import { showNotification } from "./notifications";
 import { setTasks } from "./tasks";
 
@@ -20,8 +20,9 @@ export const logoutSuccess = () => ({
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
+
   dispatch([
-    showNotification(TOAST_OPTION.USER_LOGOUT),
+    showNotification(TOAST_OPTION.USER.LOGOUT),
     setTasks([]),
     logoutSuccess(),
   ]);
@@ -33,13 +34,11 @@ export const register = (userData) => async (dispatch) => {
     localStorage.setItem("token", data.token);
 
     dispatch([
-      showNotification(TOAST_OPTION.USER_REGISTER_SUCCESS),
+      showNotification(TOAST_OPTION.USER.REGISTER_SUCCESS),
       authSuccess(),
     ]);
   } catch (err) {
-    dispatch(
-      showNotification({ type: "error", message: err.response.data.message })
-    );
+    dispatch(showNotification(TOAST_OPTION.USER.REGISTER_ERROR));
   }
 };
 
@@ -49,12 +48,16 @@ export const login = (userData) => async (dispatch) => {
     localStorage.setItem("token", data.token);
 
     dispatch([
-      showNotification(TOAST_OPTION.USER_LOGIN_SUCCESS),
+      showNotification(TOAST_OPTION.USER.LOGIN_SUCCESS),
       authSuccess(),
     ]);
   } catch (err) {
-    dispatch(
-      showNotification({ type: "error", message: err.response.data.message })
-    );
+    const status = err?.response?.data?.statusCode;
+
+    if (status === HTTP_STATUS.BAD_REQUEST) {
+      dispatch(showNotification(TOAST_OPTION.USER.LOGIN_WRONG_PASSWORD));
+    } else if (status === HTTP_STATUS.NOT_FOUND) {
+      dispatch(showNotification(TOAST_OPTION.USER.LOGIN_NOT_FOUND));
+    }
   }
 };

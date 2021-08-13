@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-
 const dotenv = require("dotenv");
+
 dotenv.config({ path: "./.env" });
 
 const { HTTP_STATUS } = require("../constants");
@@ -16,7 +16,6 @@ const verifyToken = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, TOKEN_KEY);
-    console.log(decoded);
     req.user = decoded.user_id;
 
     next();

@@ -17,7 +17,7 @@ const createUser = async (email, password) => {
     const token = await jwt.sign(
       { user_id: newUser._id, email },
       process.env.TOKEN_KEY,
-      { expiresIn: "15s" }
+      { expiresIn: "1h" }
     );
 
     newUser.token = token;
@@ -36,7 +36,7 @@ const getUserToken = async (email, password, user) => {
       const token = jwt.sign(
         { user_id: user._id, email },
         process.env.TOKEN_KEY,
-        { expiresIn: "15s" }
+        { expiresIn: "1h" }
       );
       return token;
     } else {

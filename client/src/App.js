@@ -7,6 +7,7 @@ import { Grid } from "@material-ui/core";
 
 import { Tasks, SignIn, SignUp, ErrorPage } from "./pages";
 
+import { authSelector } from "./redux/selectors";
 import withToast from "./hocs/withToast";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
-  const { authorized } = useSelector((state) => state.auth);
+  const { authorized } = useSelector(authSelector);
 
   return (
     <Grid

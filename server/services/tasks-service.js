@@ -8,6 +8,7 @@ const createTask = async (body, userId) => {
     const newTask = await new Task(body);
 
     await newTask.save();
+
     return newTask;
   } catch (err) {
     throw err;

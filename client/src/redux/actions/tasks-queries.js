@@ -3,9 +3,8 @@ import axios from "axios";
 import { TOAST_OPTION } from "../constants";
 import { showNotification } from "./notifications";
 
-import { getSortedTasks, getUpdatedStatus } from "../sorting";
-
-import { logout } from "./auth";
+import { getSortedTasks, getUpdatedStatus } from "../helpers/sorting";
+import { handleError } from "../helpers/error-handler";
 
 import {
   addTaskSuccess,
@@ -18,12 +17,11 @@ const API_URI = process.env.REACT_APP_URI;
 
 const api = axios.create({
   baseURL: API_URI + "/api",
-  transformRequest: [
-    (data, headers) => {
-      headers["x-access-token"] = localStorage.getItem("token");
-      return data;
-    },
-  ],
+});
+
+api.interceptors.request.use((req) => {
+  req.headers["x-access-token"] = localStorage.getItem("token");
+  return req;
 });
 
 export const addTask = (item) => async (dispatch) => {
@@ -32,10 +30,10 @@ export const addTask = (item) => async (dispatch) => {
     const newItem = data.item;
     dispatch([
       addTaskSuccess(newItem),
-      showNotification(TOAST_OPTION.TASK_CREATE),
+      showNotification(TOAST_OPTION.TASK.CREATE),
     ]);
   } catch (err) {
-    dispatch([logout(), showNotification(TOAST_OPTION.USER_SESSION_TIMEOUT)]);
+    dispatch(handleError(err?.response?.status));
   }
 };
 
@@ -44,10 +42,10 @@ export const removeTask = (id) => async (dispatch) => {
     await api.delete(`/task/${id}`);
     dispatch([
       removeTaskSuccess(id),
-      showNotification(TOAST_OPTION.TASK_REMOVE),
+      showNotification(TOAST_OPTION.TASK.REMOVE),
     ]);
   } catch (err) {
-    dispatch([logout(), showNotification(TOAST_OPTION.USER_SESSION_TIMEOUT)]);
+    dispatch(handleError(err?.response?.status));
   }
 };
 
@@ -61,22 +59,20 @@ export const setTaskStatus = (item) => async (dispatch) => {
 
     dispatch([
       setTaskStatusSuccess(updatedItem),
-      showNotification(TOAST_OPTION.TASK_CHANGE),
+      showNotification(TOAST_OPTION.TASK.CHANGE),
     ]);
   } catch (err) {
-    dispatch([logout(), showNotification(TOAST_OPTION.USER_SESSION_TIMEOUT)]);
+    dispatch(handleError(err?.response?.status));
   }
 };
 
-export const fetchTasks =
-  (sortType = "Status") =>
-  async (dispatch) => {
-    try {
-      const { data } = await api.get("/tasks");
-      const items = data.data;
+export const fetchTasks = (sortType) => async (dispatch) => {
+  try {
+    const { data } = await api.get("/tasks");
+    const items = data.data;
 
-      dispatch(setTasks(getSortedTasks(items, sortType)));
-    } catch (err) {
-      dispatch([logout(), showNotification(TOAST_OPTION.USER_SESSION_TIMEOUT)]);
-    }
-  };
+    dispatch(setTasks(getSortedTasks(items, sortType)));
+  } catch (err) {
+    dispatch(handleError(err?.response?.status));
+  }
+};

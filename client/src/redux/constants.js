@@ -27,68 +27,93 @@ export const SORT_BY = {
   STATUS: "Status",
 };
 
+export const HTTP_STATUS = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
+  NOT_FOUND: 404,
+  CONFLICT: 409,
+  INTERNAL_SERVER: 500,
+};
+
 export const TOAST_OPTION = {
-  TASK_CREATE: {
-    type: "success",
-    message: "Task has been created successfully!",
+  TASK: {
+    CREATE: {
+      type: "success",
+      message: "Task has been created successfully!",
+    },
+    ERROR_CREATE: {
+      type: "error",
+      message: "Error! Task hasn't created!",
+    },
+
+    REMOVE: {
+      type: "success",
+      message: "Task has been removed successfully!",
+    },
+    ERROR_REMOVE: {
+      type: "error",
+      message: "Error! Task hasn't removed!",
+    },
+
+    CHANGE: {
+      type: "success",
+      message: "Task status has been changed successfully!",
+    },
+    ERROR_CHANGE: {
+      type: "error",
+      message: "Error! Task status hasn't changed!",
+    },
+
+    WARNING_NO_ITEMS: {
+      type: "info",
+      message: "You don't have any tasks yet",
+    },
+
+    SORT_TYPE_CHANGED: {
+      type: "info",
+    },
   },
-  TASK_ERROR_CREATE: {
+
+  USER: {
+    LOGIN_SUCCESS: {
+      type: "info",
+      message: "You are logged in!",
+    },
+    LOGIN_NOT_FOUND: {
+      type: "error",
+      message: "You are not registered yet!",
+    },
+    LOGIN_WRONG_PASSWORD: {
+      type: "error",
+      message: "Wrong password!",
+    },
+    REGISTER_SUCCESS: {
+      type: "success",
+      message: "Registration success!",
+    },
+    REGISTER_ERROR: {
+      type: "error",
+      message: "User already exists!",
+    },
+    LOGOUT: {
+      type: "info",
+      message: "You are logged out!",
+    },
+    SESSION_TIMEOUT: {
+      type: "error",
+      message: "Your session has timed out. Please login again.",
+    },
+    ACTION_ERROR: {
+      type: "error",
+      message: "It doesn't seem to work...",
+    },
+  },
+
+  INTERNAL_SERVER: {
     type: "error",
-    message: "Error! Task hasn't created!",
-  },
-
-  TASK_REMOVE: {
-    type: "success",
-    message: "Task has been removed successfully!",
-  },
-  TASK_ERROR_REMOVE: {
-    type: "error",
-    message: "Error! Task hasn't removed!",
-  },
-
-  TASK_CHANGE: {
-    type: "success",
-    message: "Task status has been changed successfully!",
-  },
-  TASK_ERROR_CHANGE: {
-    type: "error",
-    message: "Error! Task status hasn't changed!",
-  },
-
-  TASK_WARNING_NO_ITEMS: {
-    type: "info",
-    message: "You don't have any tasks yet",
-  },
-
-  SORT_TYPE_CHANGED: {
-    type: "info",
-  },
-
-  USER_LOGIN_SUCCESS: {
-    type: "success",
-    message: "You are logged in!",
-  },
-  USER_LOGIN_ERROR: {
-    type: "error",
-    message: "User is not registered yet!",
-  },
-
-  USER_REGISTER_SUCCESS: {
-    type: "success",
-    message: "Registration success!",
-  },
-  USER_REGISTER_ERROR: {
-    type: "error",
-    message: "User already exists!",
-  },
-
-  USER_LOGOUT: {
-    type: "success",
-    message: "You are logged out!",
-  },
-
-  USER_SESSION_TIMEOUT: {
-    type: "error",
-    message: "Your session has timed out. Please login again.",
+    message: "Service is not working now!",
   },
 };

@@ -1,4 +1,4 @@
-import { TASK_STATUS, SORT_BY } from "./constants";
+import { TASK_STATUS, SORT_BY } from "../constants";
 
 export const strToDate = (str) => {
   return new Date(str.split("-"));

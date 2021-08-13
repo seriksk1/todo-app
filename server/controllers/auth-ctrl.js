@@ -1,15 +1,17 @@
+const User = require("../models/user-model");
 const { HTTP_STATUS } = require("../constants");
 const { QueryError } = require("../helpers/errorHandler");
 const AuthService = require("../services/auth-service");
-
-const User = require("../models/user-model");
 
 const createUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-      throw new QueryError("Registration error, body is required");
+      throw new QueryError(
+        HTTP_STATUS.BAD_REQUEST,
+        "Registration error, body is required"
+      );
     }
 
     const oldUser = await User.findOne({ email });
