@@ -23,7 +23,7 @@ export const setSortType = (type) => (dispatch) =>
       payload: type,
     },
     showNotification({
-      ...TOAST_OPTION.SORT_TYPE_CHANGED,
+      ...TOAST_OPTION.TASK.SORT_TYPE_CHANGED,
       message: `Sorted by ${type}`,
     }),
   ]);
