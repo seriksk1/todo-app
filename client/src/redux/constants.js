@@ -86,4 +86,9 @@ export const TOAST_OPTION = {
     type: "success",
     message: "You are logged out!",
   },
+
+  USER_SESSION_TIMEOUT: {
+    type: "error",
+    message: "Your session has timed out. Please login again.",
+  },
 };

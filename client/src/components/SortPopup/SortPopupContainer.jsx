@@ -5,7 +5,7 @@ import SortPopup from "./SortPopup";
 
 import { fetchTasks } from "../../redux/actions/tasks-queries";
 import { setSortType } from "../../redux/actions/tasks";
-import { tasksSelector, authSelector } from "../../redux/selectors";
+import { tasksSelector } from "../../redux/selectors";
 import { SORT_BY } from "../../redux/constants";
 
 function SortPopupContainer() {
@@ -14,7 +14,6 @@ function SortPopupContainer() {
   const sortTypes = [...Object.values(SORT_BY)];
 
   const { sortType } = useSelector(tasksSelector);
-  const { authorized } = useSelector(authSelector);
 
   const [anchorEl, setAnchorEl] = useState(null);
 

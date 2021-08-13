@@ -17,7 +17,7 @@ const createUser = async (email, password) => {
     const token = await jwt.sign(
       { user_id: newUser._id, email },
       process.env.TOKEN_KEY,
-      { expiresIn: "30s" }
+      { expiresIn: "15s" }
     );
 
     newUser.token = token;
@@ -35,7 +35,8 @@ const getUserToken = async (email, password, user) => {
     if (await bcrypt.compare(password, user.password)) {
       const token = jwt.sign(
         { user_id: user._id, email },
-        process.env.TOKEN_KEY
+        process.env.TOKEN_KEY,
+        { expiresIn: "15s" }
       );
       return token;
     } else {

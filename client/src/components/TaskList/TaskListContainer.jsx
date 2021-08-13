@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 import { tasksSelector } from "../../redux/selectors";
-
 import TaskList from "./TaskList";
 
 function TaskListContainer() {

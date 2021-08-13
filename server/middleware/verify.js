@@ -16,14 +16,14 @@ const verifyToken = async (req, res, next) => {
   }
   try {
     const decoded = jwt.verify(token, TOKEN_KEY);
+    console.log(decoded);
     req.user = decoded.user_id;
-    console.log("Token is OK");
 
     next();
   } catch (err) {
     return res.status(HTTP_STATUS.UNAUTHORIZED).json({
       success: false,
-      message: "Session timed out, please login again",
+      message: "Your session has timed out. Please login again.",
     });
   }
 };

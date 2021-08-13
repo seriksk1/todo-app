@@ -18,12 +18,10 @@ export const isInputValid = (obj, key) => {
 
     case "task":
       isValid = value.length >= 3 ? true : false;
-      console.log("checking task", isValid);
       return isValid;
 
     case "dueDate":
       isValid = value.length > 0 ? true : false;
-      console.log("checking dueDate", isValid);
       return isValid;
 
     default:
