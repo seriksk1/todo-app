@@ -35,9 +35,10 @@ const deleteTask = async (id) => {
   }
 };
 
-const getTasks = async (userId) => {
+const getTasks = async (user) => {
   try {
-    return await Task.find({ userId: userId });
+    const tasks = await Task.find({ userId: user._id });
+    return tasks;
   } catch (error) {
     throw new QueryError(HTTP_STATUS.NOT_FOUND, "Tasks not found!");
   }

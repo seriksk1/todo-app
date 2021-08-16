@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const passport = require("passport");
 
 const User = require("../models/user-model");
 const { HTTP_STATUS } = require("../constants");

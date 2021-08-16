@@ -1,45 +1,57 @@
 const express = require("express");
-const session = require("express-session");
-const cors = require("cors");
 
+const cors = require("cors");
 const dotenv = require("dotenv");
+const { handleError } = require("./middleware/error");
+// const verifyToken = require("./middleware/verify");
+
 dotenv.config({ path: "./.env" });
 
-const { handleError } = require("./middleware/error");
-const verifyToken = require("./middleware/verify");
-
-const passport = require("passport");
-const connectEnsureLogin = require("connect-ensure-login");
-
-require("./db");
+const db = require("./db");
 const taskRouter = require("./routes/task-router");
 const authRouter = require("./routes/auth-router");
-const User = require("./models/user-model");
 
 const app = express();
 const API_PORT = process.env.PORT || 3001;
-
-app.use(
-  session({
-    secret: "supersecretsecret",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 },
-  })
-);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
-app.use(passport.initialize());
-app.use(passport.session());
+// ----------------- Passport auth started here ----------------- //
 
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+const User = require("./models/user-model");
+const SECRET = process.env.TOKEN_KEY;
 
-app.use("/api", connectEnsureLogin.ensureLoggedIn());
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const passport = require("passport");
+
+const opts = {};
+
+opts.expiresIn = "1h";
+opts.jwtFromRequest = ExtractJwt.fromHeader("x-access-token");
+opts.secretOrKey = process.env.TOKEN_KEY;
+
+const jwtStrategy = new JwtStrategy(opts, async (payload, done) => {
+  return await User.findOne({ _id: payload.user_id }, (err, user) => {
+    if (err) {
+      return done(err, false);
+    }
+    if (user) {
+      return done(null, user);
+    } else {
+      return done(null, false);
+    }
+  });
+});
+
+passport.use("jwt", jwtStrategy);
+
+const authenticate = passport.authenticate("jwt", { session: false });
+
+// app.use("/api", [verifyToken]);
+app.use("/api", [authenticate]);
 
 app.use("/auth", authRouter);
 app.use("/api", taskRouter);
