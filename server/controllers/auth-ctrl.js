@@ -5,9 +5,9 @@ const AuthService = require("../services/auth-service");
 
 const createUser = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, username } = req.body;
 
-    if (!(email && password)) {
+    if (!(email && password && username)) {
       throw new QueryError(
         HTTP_STATUS.BAD_REQUEST,
         "Registration error, body is required"
@@ -20,7 +20,7 @@ const createUser = async (req, res, next) => {
       throw new QueryError(HTTP_STATUS.CONFLICT, "User already exist!");
     }
 
-    const newUser = await AuthService.createUser(email, password);
+    const newUser = await AuthService.createUser(email, password, username);
 
     res.status(HTTP_STATUS.CREATED).json({
       success: true,
@@ -33,19 +33,19 @@ const createUser = async (req, res, next) => {
 };
 const getUserToken = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { password, username } = req.body;
 
-    if (!(email && password)) {
+    if (!(password && username)) {
       throw new QueryError(
         HTTP_STATUS.BAD_REQUEST,
         "Login error, body is required"
       );
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
 
     if (user) {
-      user.token = await AuthService.getUserToken(email, password, user);
+      user.token = await AuthService.getUserToken(username, password, user);
     } else {
       throw new QueryError(
         HTTP_STATUS.NOT_FOUND,
