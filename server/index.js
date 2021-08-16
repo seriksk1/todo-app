@@ -29,7 +29,6 @@ const passport = require("passport");
 
 const opts = {};
 
-opts.expiresIn = "1h";
 opts.jwtFromRequest = ExtractJwt.fromHeader("x-access-token");
 opts.secretOrKey = process.env.TOKEN_KEY;
 
