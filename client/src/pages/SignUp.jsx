@@ -14,6 +14,14 @@ const authHelperPath = "/signin";
 
 const formFields = [
   {
+    id: "username",
+    type: "text",
+    label: "Username",
+    variant: "outlined",
+    helperText: null,
+    required: true,
+  },
+  {
     id: "email",
     type: "email",
     label: "Email",
@@ -21,6 +29,7 @@ const formFields = [
     helperText: null,
     required: true,
   },
+
   {
     id: "password",
     type: "password",

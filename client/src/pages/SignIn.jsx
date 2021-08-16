@@ -13,9 +13,9 @@ const authHelperPath = "/signup";
 
 const formFields = [
   {
-    id: "email",
-    type: "email",
-    label: "Email",
+    id: "username",
+    type: "text",
+    label: "Username",
     variant: "outlined",
     helperText: null,
     required: true,
