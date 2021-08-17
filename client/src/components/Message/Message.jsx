@@ -15,11 +15,10 @@ function Message({ message, createdAt, username }) {
   });
 
   const classes = useStyles();
-
   return (
     <>
       <span>
-        {username} at {createdAt.toLocaleTimeString()}
+        {username} at {new Date(createdAt).toLocaleTimeString()}
       </span>
       <div className={classes.message}>
         <Typography>{message}</Typography>

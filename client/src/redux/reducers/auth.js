@@ -2,7 +2,7 @@ import { ACTION_AUTH } from "../constants";
 
 const initialState = {
   user: {
-    username: "",
+    username: localStorage.getItem("username"),
   },
   authorized: !!localStorage.getItem("token"),
 };

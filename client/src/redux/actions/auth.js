@@ -25,6 +25,7 @@ export const setUserData = (userData) => ({
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
+  localStorage.removeItem("username");
 
   dispatch([
     showNotification(TOAST_OPTION.USER.LOGOUT),
@@ -37,6 +38,7 @@ export const register = (userData) => async (dispatch) => {
   try {
     const { data } = await api.post("/register", userData);
     localStorage.setItem("token", data.token);
+    localStorage.setItem("username", "seriksk1");
 
     dispatch([
       showNotification(TOAST_OPTION.USER.REGISTER_SUCCESS),
@@ -51,6 +53,7 @@ export const login = (userData) => async (dispatch) => {
   try {
     const { data } = await api.post("/login", userData);
     localStorage.setItem("token", data.token);
+    localStorage.setItem("username", "seriksk1");
 
     dispatch([
       setUserData(userData),

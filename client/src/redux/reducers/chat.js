@@ -14,17 +14,10 @@ const chat = (state = initialState, action) => {
       };
     }
 
-    case ACTION_CHAT.REMOVE_MESSAGE: {
-      const newItems = state.items.filter(({ id }) => id !== action.payload);
+    case ACTION_CHAT.SET_MESSAGES: {
       return {
         ...state,
-        items: newItems,
-      };
-    }
-
-    case ACTION_CHAT.CLEAR_MESSAGE: {
-      return {
-        ...state,
+        items: action.payload,
       };
     }
 

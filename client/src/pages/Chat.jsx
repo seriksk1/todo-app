@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Typography,
@@ -10,8 +10,9 @@ import {
 
 import { BackButton, MessageList, SendMessageButton } from "../components";
 import { useDispatch, useSelector } from "react-redux";
-import { sendMessage } from "../redux/actions/chat";
+import { sendMessage, setMessages } from "../redux/actions/chat";
 import { authSelector } from "../redux/selectors";
+import { socket } from "../index";
 
 const useStyles = makeStyles({
   pageTitle: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles({
     overflowY: "scroll",
   },
   paper: {
+    borderRadius: "20px",
     padding: "15px 15px",
   },
 });
@@ -42,8 +44,8 @@ const useStyles = makeStyles({
 function Chat() {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { user } = useSelector(authSelector);
 
+  const { user } = useSelector(authSelector);
   const [messageText, setMessage] = useState("");
 
   const onInputChange = (e) => {
@@ -52,17 +54,30 @@ function Chat() {
 
   const onMessageSend = (e) => {
     if (messageText !== "") {
-      dispatch(
-        sendMessage({
-          id: `${user.username}_${new Date()}`,
-          text: messageText,
-          username: user.username,
-          createdAt: new Date(),
-        })
-      );
+      socket.emit("send_message", {
+        text: messageText,
+        username: user.username,
+      });
       setMessage("");
     }
   };
+
+  const handleGetNewMessage = (newMessage) => {
+    dispatch(sendMessage(newMessage));
+  };
+
+  const handleSetMessages = (items) => {
+    dispatch(setMessages(items));
+  };
+
+  useEffect(() => {
+    socket.emit("find_messages");
+    socket.on("get_message", handleGetNewMessage);
+    socket.on("get_messages", handleSetMessages);
+    return () => {
+      socket.removeAllListeners();
+    };
+  }, []);
 
   return (
     <>

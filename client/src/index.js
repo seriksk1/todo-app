@@ -9,6 +9,11 @@ import "./index.css";
 import App from "./App";
 import store from "./redux/store";
 
+import socketIOClient from "socket.io-client";
+
+const serverURI = process.env.REACT_APP_URI;
+const socket = socketIOClient(serverURI);
+
 ReactDOM.render(
   <Router>
     <Provider store={store}>
@@ -23,3 +28,5 @@ ReactDOM.render(
   </Router>,
   document.getElementById("root")
 );
+
+export { socket };
