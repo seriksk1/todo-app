@@ -5,6 +5,7 @@ import {
   SortPopupContainer,
   TaskListContainer,
   LogoutButton,
+  ChatButton,
 } from "../components";
 
 function Tasks() {
@@ -13,6 +14,7 @@ function Tasks() {
       <AddTaskModalContainer />
       <SortPopupContainer />
       <LogoutButton />
+      <ChatButton />
       <TaskListContainer />
     </>
   );

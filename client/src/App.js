@@ -1,13 +1,11 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Route, Switch } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
-import { Tasks, SignIn, SignUp, ErrorPage } from "./pages";
-
-import { authSelector } from "./redux/selectors";
+import { Tasks, SignIn, SignUp, Chat, ErrorPage } from "./pages";
+import ProtectedRoute from "./hocs/ProtectedRoute";
 import withToast from "./hocs/withToast";
 
 import "react-toastify/dist/ReactToastify.css";
@@ -25,8 +23,6 @@ const useStyles = makeStyles({
 function App() {
   const classes = useStyles();
 
-  const { authorized } = useSelector(authSelector);
-
   return (
     <Grid
       className={classes.mainContainer}
@@ -35,11 +31,8 @@ function App() {
       alignItems="center"
     >
       <Switch>
-        {authorized ? (
-          <Route exact path="/tasks" component={Tasks} />
-        ) : (
-          <Redirect from="/tasks" to="/signin" />
-        )}
+        <ProtectedRoute exact path="/tasks" component={Tasks} />
+        <ProtectedRoute exact path="/chat" component={Chat} />
         <Route path="/signup" component={SignUp} />
         <Route exact path="/signin" component={SignIn} />
         <Route path="*" component={ErrorPage} />

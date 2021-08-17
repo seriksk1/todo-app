@@ -18,6 +18,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
+// const http = require("http").createServer(express);
+// const io = require("socket.io")(http);
+
+// io.on("connection", (socket) => {
+//   socket.on("join", async () => {
+//     return "hi join";
+//   });
+//   socket.on("message", (message) => {
+//     return "hi message";
+//   });
+// });
+
 app.use("/api", [verifyToken]);
 
 app.use("/auth", authRouter);

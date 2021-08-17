@@ -7,12 +7,7 @@ function withAuth(Component) {
   const HOC = () => {
     const { authorized } = useSelector(authSelector);
 
-    return (
-      <>
-        {authorized ? <Redirect to="/tasks" /> : null}
-        <Component />
-      </>
-    );
+    return authorized ? <Redirect from="/signin" to="/tasks" /> : <Component />;
   };
 
   return HOC;

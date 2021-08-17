@@ -18,6 +18,11 @@ export const logoutSuccess = () => ({
   type: ACTION_AUTH.LOGOUT,
 });
 
+export const setUserData = (userData) => ({
+  type: ACTION_AUTH.SET_USER_DATA,
+  payload: userData,
+});
+
 export const logout = () => (dispatch) => {
   localStorage.removeItem("token");
 
@@ -48,6 +53,7 @@ export const login = (userData) => async (dispatch) => {
     localStorage.setItem("token", data.token);
 
     dispatch([
+      setUserData(userData),
       showNotification(TOAST_OPTION.USER.LOGIN_SUCCESS),
       authSuccess(),
     ]);
