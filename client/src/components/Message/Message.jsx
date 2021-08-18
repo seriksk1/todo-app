@@ -1,44 +1,47 @@
-import { makeStyles, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import React from "react";
 
-const useStyles = makeStyles({
-  userMsg: {
-    width: "fit-content",
-    maxWidth: "80%",
-    wordWrap: "break-word",
-    padding: "10px 15px",
-    margin: "5px 0px 15px",
-    backgroundColor: "skyblue",
-    borderRadius: "20px",
-  },
-  infoMsg: {
-    width: "fit-content",
-    textAlign: "center",
-    margin: "10px auto 25px auto",
-    padding: "5px 10px",
-    maxWidth: "75%",
-    wordWrap: "break-word",
-    borderRadius: "20px",
-    backgroundColor: "#d3ef81",
-  },
-});
+import useStyles from "./message-style";
 
 function Message({ message, createdAt, username, type }) {
   const classes = useStyles();
 
+  const isCurrentUserMessage = (username) => {
+    return username === localStorage.getItem("username") && type !== "info";
+  };
+
+  const isOtherUser = (username) => {
+    return username !== localStorage.getItem("username") && type !== "info";
+  };
+
+  const getMessageStyle = (username) => {
+    return isCurrentUserMessage(username)
+      ? classes.msgItemRight
+      : classes.msgItemLeft;
+  };
+
   return (
-    <>
+    <div className={getMessageStyle(username)}>
       {type !== "info" ? (
         <span>
-          <Typography color="textSecondary" variant="body2">
+          <Typography className={classes.msgInfo} variant="body2">
             {username} at {new Date(createdAt).toLocaleTimeString()}
           </Typography>
         </span>
       ) : null}
-      <div className={type === "info" ? classes.infoMsg : classes.userMsg}>
-        <Typography>{message}</Typography>
+      <div className={classes.msgWithAvatar}>
+        {isOtherUser(username) ? (
+          <img
+            className={classes.avatar}
+            src="https://ssl.gstatic.com/images/branding/product/1x/avatar_square_blue_512dp.png"
+            alt="avatar"
+          />
+        ) : null}
+        <div className={type === "info" ? classes.infoMsg : classes.userMsg}>
+          <Typography>{message}</Typography>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 

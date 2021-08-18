@@ -13,7 +13,7 @@ export const client = {
   join: (username) => {
     client.createMessage({
       username: username,
-      text: `${username} joined to chat`,
+      text: `${username} has joined the chat`,
       type: "info",
     });
   },
@@ -21,7 +21,7 @@ export const client = {
   disconnect: (username) => {
     client.createMessage({
       username: username,
-      text: `${username} disconnect from chat`,
+      text: `${username} has left the chat`,
       type: "info",
     });
     socket.removeAllListeners();

@@ -18,7 +18,9 @@ const useStyles = makeStyles({
   },
 
   msgList: {
-    backgroundColor: "rgb(229 239 255)",
+    background:
+      "url(https://telegram.org/file/464001326/1/eHuBKzF9Lh4.288899/1f135a074a169f90e5)",
+
     padding: "15px",
     maxWidth: "100%",
     height: "400px",
