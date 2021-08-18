@@ -11,3 +11,4 @@ export { default as FormContainer } from "./Form/FormContainer";
 export { default as Message } from "./Message/Message";
 export { default as MessageList } from "./MessageList/MessageList";
 export { default as SendMessageButton } from "./CustomButtons/SendMessageButton";
+export { default as ChatContainer } from "./Chat/ChatContainer";

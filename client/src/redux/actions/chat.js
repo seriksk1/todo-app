@@ -1,7 +1,7 @@
 import { ACTION_CHAT } from "../constants";
 
-export const sendMessage = (message) => ({
-  type: ACTION_CHAT.SEND_MESSAGE,
+export const addMessage = (message) => ({
+  type: ACTION_CHAT.ADD_MESSAGE,
   payload: message,
 });
 

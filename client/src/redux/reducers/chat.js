@@ -7,7 +7,7 @@ const initialState = {
 
 const chat = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_CHAT.SEND_MESSAGE: {
+    case ACTION_CHAT.ADD_MESSAGE: {
       return {
         ...state,
         items: [...state.items, action.payload],

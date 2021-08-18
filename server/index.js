@@ -5,8 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 require("./db");
 
-const ChatCtrl = require("./controllers/chat-ctrl");
-const verifyToken = require("./middleware/verify");
+const { verifyToken } = require("./middleware/verify");
 const { handleError } = require("./middleware/error");
 
 const taskRouter = require("./routes/task-router");
@@ -19,38 +18,63 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
 
-const httpServer = require("http").createServer(app);
-const io = require("socket.io")(httpServer, {
-  cors: {
-    allowedHeaders: ["Access-Control-Allow-Origin"],
-  },
-});
-
-io.on("connection", (socket) => {
-  socket.on("send_message", async (message) => {
-    const newMessage = await ChatCtrl.createMessage(message);
-    io.emit("get_message", newMessage);
-  });
-
-  socket.on("find_messages", async () => {
-    const items = await ChatCtrl.getMessages();
-    io.emit("get_messages", items);
-  });
-});
-
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   next();
 });
 
 app.use("/api", [verifyToken]);
-
 app.use("/auth", authRouter);
 app.use("/api", taskRouter);
 
 app.use((err, req, res, next) => {
   handleError(err, res);
 });
+
+// ---------------- socket.io ---------------- //
+
+const options = {
+  cors: {
+    allowedHeaders: ["Access-Control-Allow-Origin"],
+  },
+};
+
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer, options);
+const registerChatHandlers = require("./helpers/chatHandler");
+const { QueryError } = require("./helpers/errorHandler");
+const { HTTP_STATUS } = require("./constants");
+const { getDecodedToken } = require("./middleware/verify");
+
+const onConnection = (socket) => {
+  registerChatHandlers(io, socket);
+};
+
+// io.use((socket, next) => {
+//   try {
+//     const token = socket.handshake.query.token;
+//     if (token) {
+//       const decoded = getDecodedToken(token);
+//       socket.decode = decoded;
+//     } else {
+//       throw new QueryError(HTTP_STATUS.UNAUTHORIZED, "User is not authorized!");
+//     }
+//     next();
+//   } catch (err) {
+//     socket.err = err;
+//     next();
+//   }
+// });
+
+// io.use((socket, next) => {
+//   if (socket.err) {
+//     handleError(socket.err);
+//   } else {
+//     next();
+//   }
+// });
+
+io.on("connection", onConnection);
 
 httpServer.listen(API_PORT, () =>
   console.log(`Server running on port ${API_PORT}`)

@@ -1,10 +1,18 @@
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv");
 
+const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
 const { HTTP_STATUS } = require("../constants");
 const TOKEN_KEY = process.env.TOKEN_KEY;
+
+const getDecodedToken = (token) => {
+  try {
+    return jwt.verify(token, TOKEN_KEY);
+  } catch (err) {
+    throw new Error("Token isn't verified!");
+  }
+};
 
 const verifyToken = async (req, res, next) => {
   const token = req.headers["x-access-token"];
@@ -15,7 +23,7 @@ const verifyToken = async (req, res, next) => {
       .send("A token is required for authentication");
   }
   try {
-    const decoded = jwt.verify(token, TOKEN_KEY);
+    const decoded = getDecodedToken(token);
     req.user = decoded.user_id;
 
     next();
@@ -27,4 +35,4 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+module.exports = { verifyToken, getDecodedToken };

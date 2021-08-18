@@ -8,7 +8,7 @@ export const ACTION_TASKS = {
 
 export const ACTION_CHAT = {
   SET_MESSAGES: "SET_MESSAGES",
-  SEND_MESSAGE: "SEND_MESSAGE",
+  ADD_MESSAGE: "ADD_MESSAGE",
 };
 
 export const ACTION_NOTIFICATIONS = {
@@ -42,6 +42,18 @@ export const HTTP_STATUS = {
   NOT_FOUND: 404,
   CONFLICT: 409,
   INTERNAL_SERVER: 500,
+};
+
+export const SOCKET_EVENT = {
+  CLIENT: {
+    GET_CHAT_HISTORY: "get_chat_history",
+    GET_MESSAGE: "get_message",
+  },
+
+  SERVER: {
+    SEND_CHAT_HISTORY: "send_chat_history",
+    SEND_MESSAGE: "send_message",
+  },
 };
 
 export const TOAST_OPTION = {

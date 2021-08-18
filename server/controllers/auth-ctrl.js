@@ -2,20 +2,14 @@ const User = require("../models/user-model");
 const { HTTP_STATUS } = require("../constants");
 const { QueryError } = require("../helpers/errorHandler");
 const AuthService = require("../services/auth-service");
+const bodyValidator = require("../helpers/bodyValidator");
 
 const createUser = async (req, res, next) => {
   try {
     const { email, password, username } = req.body;
-
-    if (!(email && password && username)) {
-      throw new QueryError(
-        HTTP_STATUS.BAD_REQUEST,
-        "Registration error, body is required"
-      );
-    }
+    bodyValidator(req.body, "You must provide a body to create create");
 
     const oldUser = await User.findOne({ email });
-
     if (oldUser) {
       throw new QueryError(HTTP_STATUS.CONFLICT, "User already exist!");
     }
@@ -34,13 +28,7 @@ const createUser = async (req, res, next) => {
 const getUserToken = async (req, res, next) => {
   try {
     const { password, username } = req.body;
-
-    if (!(password && username)) {
-      throw new QueryError(
-        HTTP_STATUS.BAD_REQUEST,
-        "Login error, body is required"
-      );
-    }
+    bodyValidator(req.body, "You must provide a body to get token");
 
     const user = await User.findOne({ username });
 

@@ -15,7 +15,20 @@ const TASK_STATUS = {
   OVERDUE: "overdue",
 };
 
+const SOCKET_EVENT = {
+  CLIENT: {
+    GET_CHAT_HISTORY: "get_chat_history",
+    GET_MESSAGE: "get_message",
+  },
+
+  SERVER: {
+    SEND_CHAT_HISTORY: "send_chat_history",
+    SEND_MESSAGE: "send_message",
+  },
+};
+
 module.exports = {
   HTTP_STATUS,
   TASK_STATUS,
+  SOCKET_EVENT,
 };

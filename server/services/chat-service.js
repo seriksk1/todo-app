@@ -1,14 +1,13 @@
-const { HTTP_STATUS } = require("../constants");
-const { QueryError } = require("../helpers/errorHandler");
 const Message = require("../models/message-model");
 
 const createMessage = async (message) => {
   try {
-    const { text, username } = message;
+    const { text, username, type } = message;
 
     const newMessage = await new Message({
       text: text,
       username: username,
+      type: type,
     });
 
     await newMessage.save();

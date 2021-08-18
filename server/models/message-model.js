@@ -5,6 +5,7 @@ const Message = new Schema(
   {
     text: { type: String, required: true },
     username: { type: String, required: true },
+    type: { type: String, required: true },
   },
   { timestamps: true }
 );

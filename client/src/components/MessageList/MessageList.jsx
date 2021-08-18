@@ -19,13 +19,14 @@ function MessageList({ classes }) {
   return (
     <div className={classes}>
       {items &&
-        items.map(({ _id, text, createdAt, username }) => {
+        items.map(({ _id, text, createdAt, username, type }) => {
           return (
             <Message
               key={_id}
               createdAt={createdAt}
               username={username}
               message={text}
+              type={type}
             />
           );
         })}

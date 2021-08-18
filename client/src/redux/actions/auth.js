@@ -37,8 +37,9 @@ export const logout = () => (dispatch) => {
 export const register = (userData) => async (dispatch) => {
   try {
     const { data } = await api.post("/register", userData);
+
     localStorage.setItem("token", data.token);
-    localStorage.setItem("username", "seriksk1");
+    localStorage.setItem("username", userData.username);
 
     dispatch([
       showNotification(TOAST_OPTION.USER.REGISTER_SUCCESS),
@@ -52,8 +53,9 @@ export const register = (userData) => async (dispatch) => {
 export const login = (userData) => async (dispatch) => {
   try {
     const { data } = await api.post("/login", userData);
+
     localStorage.setItem("token", data.token);
-    localStorage.setItem("username", "seriksk1");
+    localStorage.setItem("username", userData.username);
 
     dispatch([
       setUserData(userData),

@@ -4,18 +4,13 @@ const { QueryError } = require("../helpers/errorHandler");
 const Task = require("../models/task-model");
 const TaskService = require("../services/tasks-service");
 const dueDateChecker = require("../helpers/dueDateChecker");
+const bodyValidator = require("../helpers/bodyValidator");
 
 const createTask = async (req, res, next) => {
   try {
     const body = req.body;
     const userId = req.user;
-
-    if (!body) {
-      throw new QueryError(
-        HTTP_STATUS.BAD_REQUEST,
-        "You must provide a body to create task"
-      );
-    }
+    bodyValidator(body, "You must provide a body to create task");
 
     const task = await TaskService.createTask(body, userId);
 
@@ -38,13 +33,7 @@ const updateTask = async (req, res, next) => {
   try {
     const id = req.params.id;
     const body = req.body;
-
-    if (!body) {
-      throw new QueryError(
-        HTTP_STATUS.BAD_REQUEST,
-        "You must provide a body to update task"
-      );
-    }
+    bodyValidator(body, "You must provide a body to update task");
 
     const updatedTask = await TaskService.updateStatus(id, body.status);
 
