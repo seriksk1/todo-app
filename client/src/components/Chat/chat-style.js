@@ -13,11 +13,10 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
   },
-  msgField: {
-    marginRight: "10px",
-  },
+  msgField: {},
 
   msgList: {
+    //bgColor
     background:
       "url(https://telegram.org/file/464001326/1/eHuBKzF9Lh4.288899/1f135a074a169f90e5)",
 

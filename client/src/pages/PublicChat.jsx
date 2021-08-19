@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Typography, makeStyles } from "@material-ui/core";
-import { BackButton, ChatContainer } from "../components";
+import { BackButton, ChatContainer, ThemesMenuContainer } from "../components";
 
 const useStyles = makeStyles({
   pageTitle: {
@@ -18,6 +18,7 @@ function Chat() {
       <Typography className={classes.pageTitle} variant="h4" component="h4">
         Public chat
       </Typography>
+      {/* <ThemesMenuContainer /> */}
       <ChatContainer />
     </>
   );

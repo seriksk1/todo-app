@@ -2,12 +2,15 @@ export { default as AddTaskModalContainer } from "./AddTaskModal/AddTaskModalCon
 export { default as SortPopupContainer } from "./SortPopup/SortPopupContainer";
 export { default as TaskListContainer } from "./TaskList/TaskListContainer";
 export { default as TaskContainer } from "./TaskList/Task/TaskContainer";
+export { default as AcceptEditMessageButton } from "./CustomButtons/AcceptEditMessageButton";
+export { default as CancelEditMessageButton } from "./CustomButtons/CancelEditMessageButton";
 export { default as SubmitButton } from "./CustomButtons/SubmitButton";
 export { default as LogoutButton } from "./CustomButtons/LogoutButton";
 export { default as ChatButton } from "./CustomButtons/ChatButton";
 export { default as BackButton } from "./CustomButtons/BackButton";
 export { default as FormContainer } from "./Form/FormContainer";
-export { default as Message } from "./Message/Message";
+export { default as MessageContainer } from "./Message/MessageContainer";
 export { default as MessageList } from "./MessageList/MessageList";
 export { default as SendMessageButton } from "./CustomButtons/SendMessageButton";
 export { default as ChatContainer } from "./Chat/ChatContainer";
+export { default as ThemesMenuContainer } from "./ThemesMenu/ThemesMenuContainer";

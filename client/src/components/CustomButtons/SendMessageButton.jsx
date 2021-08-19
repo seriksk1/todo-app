@@ -5,7 +5,7 @@ import { IconButton, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    padding: "0 0 0 5px",
+    padding: "0 0 0 12px",
   },
   btnIcon: {
     width: "23px",

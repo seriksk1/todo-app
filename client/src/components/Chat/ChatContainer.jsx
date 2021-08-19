@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addMessage, setMessages } from "../../redux/actions/chat";
-import { authSelector } from "../../redux/selectors";
+import {
+  acceptEditMessage,
+  addMessage,
+  finishEditMessage,
+  setMessages,
+} from "../../redux/actions/chat";
+import { authSelector, chatSelector } from "../../redux/selectors";
 import { client, server } from "../../socket/chatHandler";
 
 import Chat from "./Chat";
@@ -11,6 +16,8 @@ function ChatContainer() {
   const dispatch = useDispatch();
 
   const { user } = useSelector(authSelector);
+  const { isEditingMessage, currentMessage } = useSelector(chatSelector);
+
   const [messageText, setMessage] = useState("");
 
   const onInputChange = (e) => {
@@ -26,6 +33,14 @@ function ChatContainer() {
       });
       setMessage("");
     }
+  };
+
+  const onEditAccept = () => {
+    dispatch(acceptEditMessage({ ...currentMessage, text: messageText }));
+  };
+
+  const onEditCancel = () => {
+    dispatch(finishEditMessage());
   };
 
   const handleGetMessage = (message) => {
@@ -47,11 +62,19 @@ function ChatContainer() {
     };
   }, []);
 
+  useEffect(() => {
+    setMessage(currentMessage.text);
+  }, [currentMessage]);
+
   return (
     <Chat
+      isEditingMessage={isEditingMessage}
       onInputChange={onInputChange}
       onMessageSend={onMessageSend}
       messageText={messageText}
+      currentMessage={currentMessage}
+      onEditAccept={onEditAccept}
+      onEditCancel={onEditCancel}
     />
   );
 }

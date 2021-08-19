@@ -13,9 +13,12 @@ const useStyles = makeStyles({
   },
 
   userMsg: {
+    cursor: "pointer",
     width: "fit-content",
     maxWidth: "50vw",
     padding: "10px 15px",
+    wordBreak: "break-word",
+    //userMsgBgColor
     backgroundColor: "skyblue",
     borderRadius: "20px",
     "& p": {
@@ -28,6 +31,8 @@ const useStyles = makeStyles({
     textAlign: "center",
     padding: "5px 10px",
     borderRadius: "20px",
+    wordBreak: "break-word",
+    //infoMsgBgColor
     backgroundColor: "#d3ef81",
     "& p": {
       wordBreak: "break-word",
@@ -37,10 +42,10 @@ const useStyles = makeStyles({
   avatar: {
     width: "30px",
     height: "30px",
-    borderRadius: "50%",
     marginRight: "10px",
   },
   msgInfo: {
+    //msgInfoColor
     color: "#ffffffd4",
   },
   msgWithAvatar: {
@@ -48,6 +53,10 @@ const useStyles = makeStyles({
     flexDirection: "row",
     alignItems: "center",
     margin: "5px 0px 15px",
+  },
+  msgMenu: {
+    padding: 0,
+    backgroundColor: "transparent",
   },
 });
 
