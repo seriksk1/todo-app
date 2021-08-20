@@ -18,8 +18,7 @@ const useStyles = makeStyles({
     maxWidth: "50vw",
     padding: "10px 15px",
     wordBreak: "break-word",
-    //userMsgBgColor
-    backgroundColor: "skyblue",
+    backgroundColor: ({ userMsgBgColor }) => userMsgBgColor,
     borderRadius: "20px",
     "& p": {
       wordBreak: "break-word",
@@ -32,8 +31,7 @@ const useStyles = makeStyles({
     padding: "5px 10px",
     borderRadius: "20px",
     wordBreak: "break-word",
-    //infoMsgBgColor
-    backgroundColor: "#d3ef81",
+    backgroundColor: ({ infoMsgBgColor }) => infoMsgBgColor,
     "& p": {
       wordBreak: "break-word",
     },
@@ -45,8 +43,7 @@ const useStyles = makeStyles({
     marginRight: "10px",
   },
   msgInfo: {
-    //msgInfoColor
-    color: "#ffffffd4",
+    color: ({ msgInfoColor }) => msgInfoColor,
   },
   msgWithAvatar: {
     display: "flex",

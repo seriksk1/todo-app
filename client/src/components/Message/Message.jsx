@@ -14,8 +14,9 @@ function Message({
   isCurrentUser,
   onMessageDelete,
   onMessageEdit,
+  theme,
 }) {
-  let classes = useStyles();
+  let classes = useStyles(theme);
 
   const { _id, type, username, text, createdAt } = message;
 

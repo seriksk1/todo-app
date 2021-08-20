@@ -2,7 +2,6 @@ import React from "react";
 
 function ThemeItem({ item, classes, bgColor, onThemeSelect }) {
   const handleThemeSelect = () => {
-    console.log(item.chatTheme);
     onThemeSelect(item.id, item.chatTheme);
   };
 

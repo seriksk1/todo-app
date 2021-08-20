@@ -17,7 +17,7 @@ function ChatContainer() {
   const dispatch = useDispatch();
 
   const { user } = useSelector(authSelector);
-  const { isEditingMessage, currentMessage } = useSelector(chatSelector);
+  const { isEditingMessage, currentMessage, theme } = useSelector(chatSelector);
 
   const [messageText, setMessage] = useState("");
 
@@ -87,6 +87,7 @@ function ChatContainer() {
       currentMessage={currentMessage}
       onEditAccept={onEditAccept}
       onEditCancel={onEditCancel}
+      theme={theme}
     />
   );
 }

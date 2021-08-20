@@ -16,8 +16,9 @@ function Chat({
   onEditAccept,
   onEditCancel,
   isEditingMessage,
+  theme,
 }) {
-  const classes = useStyles();
+  const classes = useStyles(theme);
 
   const handleEnterKeyPress = (e) => {
     if (e.key === "Enter") {

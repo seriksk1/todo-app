@@ -1,12 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startEditMessage } from "../../redux/actions/chat";
+import { chatSelector } from "../../redux/selectors";
 import { client } from "../../socket/chatHandler";
 
 import Message from "./Message";
 
 function MessageContainer(props) {
   const dispatch = useDispatch();
+  const { theme } = useSelector(chatSelector);
 
   const isUser = (type) => {
     return type !== "info";
@@ -41,6 +43,7 @@ function MessageContainer(props) {
       isCurrentUser={isCurrentUser}
       onMessageEdit={onMessageEdit}
       onMessageDelete={onMessageDelete}
+      theme={theme}
       {...props}
     />
   );

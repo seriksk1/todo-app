@@ -2,7 +2,13 @@ import { ACTION_CHAT } from "../constants";
 
 const initialState = {
   items: [],
-  theme: null,
+  theme: {
+    bgImg:
+      "url(https://telegram.org/file/464001326/1/eHuBKzF9Lh4.288899/1f135a074a169f90e5)",
+    userMsgBgColor: "skyblue",
+    infoMsgBgColor: "#d3ef81",
+    msgInfoColor: "#ffffffd4",
+  },
   isSending: false,
   currentMessage: { text: "" },
   isEditingMessage: false,
