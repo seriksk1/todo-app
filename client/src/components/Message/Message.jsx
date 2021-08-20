@@ -9,6 +9,7 @@ import useStyles from "./message-style";
 function Message({
   message,
   isUser,
+  isEdited,
   isOtherUser,
   isCurrentUser,
   onMessageDelete,
@@ -49,7 +50,8 @@ function Message({
     <div className={getMessageStyle(username, type)}>
       {isUser(type) ? (
         <Typography className={classes.msgInfo} variant="body2">
-          {username} at {new Date(createdAt).toLocaleTimeString()}
+          {isEdited(message)} {username} at{" "}
+          {new Date(createdAt).toLocaleTimeString()}
         </Typography>
       ) : null}
 

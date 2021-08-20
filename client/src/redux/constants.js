@@ -57,11 +57,15 @@ export const SOCKET_EVENT = {
   CLIENT: {
     GET_CHAT_HISTORY: "get_chat_history",
     GET_MESSAGE: "get_message",
+    GET_EDITED_MESSAGE: "get_edited_message",
+    DELETE_MESSAGE: "delete_message",
   },
 
   SERVER: {
     SEND_CHAT_HISTORY: "send_chat_history",
     SEND_MESSAGE: "send_message",
+    SEND_EDITED_MESSAGE: "send_edited_message",
+    MESSAGE_IS_DELETED: "message_is_deleted",
   },
 };
 

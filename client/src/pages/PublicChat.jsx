@@ -18,7 +18,7 @@ function Chat() {
       <Typography className={classes.pageTitle} variant="h4" component="h4">
         Public chat
       </Typography>
-      {/* <ThemesMenuContainer /> */}
+      <ThemesMenuContainer />
       <ChatContainer />
     </>
   );

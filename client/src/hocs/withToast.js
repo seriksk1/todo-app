@@ -9,10 +9,14 @@ function withToast(Component) {
     const dispatch = useDispatch();
     const { isActive, notification } = useSelector(notificationSelector);
 
+    const handleCleanNotifications = () => {
+      dispatch(cleanNotification());
+    };
+
     isActive &&
       toast(notification.message, {
         type: notification.type,
-        onClose: () => dispatch(cleanNotification()),
+        onClose: handleCleanNotifications,
       });
 
     return <Component />;

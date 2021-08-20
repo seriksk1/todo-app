@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteMessage, startEditMessage } from "../../redux/actions/chat";
+import { startEditMessage } from "../../redux/actions/chat";
+import { client } from "../../socket/chatHandler";
 
 import Message from "./Message";
 
@@ -19,8 +20,13 @@ function MessageContainer(props) {
     return user === localStorage.getItem("username") && isUser(type);
   };
 
+  const isEdited = (message) => {
+    const { createdAt, updatedAt } = message;
+    return createdAt !== updatedAt ? "Edited by" : null;
+  };
+
   const onMessageDelete = (id) => {
-    dispatch(deleteMessage(id));
+    client.deleteMessage(id);
   };
 
   const onMessageEdit = (message) => {
@@ -30,6 +36,7 @@ function MessageContainer(props) {
   return (
     <Message
       isUser={isUser}
+      isEdited={isEdited}
       isOtherUser={isOtherUser}
       isCurrentUser={isCurrentUser}
       onMessageEdit={onMessageEdit}

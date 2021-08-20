@@ -2,8 +2,16 @@ import { SOCKET_EVENT } from "../redux/constants";
 import { socket } from "../index";
 
 export const client = {
-  createMessage: (payload) => {
-    socket.emit(SOCKET_EVENT.CLIENT.GET_MESSAGE, payload);
+  createMessage: (message) => {
+    socket.emit(SOCKET_EVENT.CLIENT.GET_MESSAGE, message);
+  },
+
+  editMessage: (message) => {
+    socket.emit(SOCKET_EVENT.CLIENT.GET_EDITED_MESSAGE, message);
+  },
+
+  deleteMessage: (id) => {
+    socket.emit(SOCKET_EVENT.CLIENT.DELETE_MESSAGE, id);
   },
 
   getChatHistory: () => {
@@ -29,11 +37,19 @@ export const client = {
 };
 
 export const server = {
-  sendMessage: (payload) => {
-    socket.on(SOCKET_EVENT.SERVER.SEND_MESSAGE, payload);
+  sendMessage: (message) => {
+    socket.on(SOCKET_EVENT.SERVER.SEND_MESSAGE, message);
   },
 
   sendChatHistory: (callback) => {
     socket.on(SOCKET_EVENT.SERVER.SEND_CHAT_HISTORY, callback);
+  },
+
+  sendEditedMessage: (message) => {
+    socket.on(SOCKET_EVENT.SERVER.SEND_EDITED_MESSAGE, message);
+  },
+
+  messageIsDeleted: (id) => {
+    socket.on(SOCKET_EVENT.SERVER.MESSAGE_IS_DELETED, id);
   },
 };

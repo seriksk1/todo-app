@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
-  acceptEditMessage,
   addMessage,
+  deleteMessage,
+  editMessage,
   finishEditMessage,
   setMessages,
 } from "../../redux/actions/chat";
@@ -36,7 +37,8 @@ function ChatContainer() {
   };
 
   const onEditAccept = () => {
-    dispatch(acceptEditMessage({ ...currentMessage, text: messageText }));
+    client.editMessage({ ...currentMessage, text: messageText });
+    dispatch(finishEditMessage());
   };
 
   const onEditCancel = () => {
@@ -51,12 +53,22 @@ function ChatContainer() {
     dispatch(setMessages(items));
   };
 
+  const handleGetEditedMessage = (message) => {
+    dispatch(editMessage(message));
+  };
+
+  const handleMessageIsDeleted = (id) => {
+    dispatch(deleteMessage(id));
+  };
+
   useEffect(() => {
     client.join(user.username);
     client.getChatHistory();
 
     server.sendMessage(handleGetMessage);
     server.sendChatHistory(handleSetMessages);
+    server.sendEditedMessage(handleGetEditedMessage);
+    server.messageIsDeleted(handleMessageIsDeleted);
     return () => {
       client.disconnect(user.username);
     };

@@ -29,8 +29,8 @@ export const editMessage = (message) => ({
   payload: message,
 });
 
-export const acceptEditMessage = (message) => (dispatch) => {
-  dispatch([editMessage(message), finishEditMessage()]);
+export const acceptEditMessage = () => (dispatch) => {
+  dispatch([finishEditMessage()]);
 };
 
 export const setMessages = (items) => ({

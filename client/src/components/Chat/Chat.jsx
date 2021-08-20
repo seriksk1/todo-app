@@ -21,7 +21,11 @@ function Chat({
 
   const handleEnterKeyPress = (e) => {
     if (e.key === "Enter") {
-      onMessageSend(e);
+      if (isEditingMessage) {
+        onEditAccept();
+      } else {
+        onMessageSend(e);
+      }
     }
   };
 

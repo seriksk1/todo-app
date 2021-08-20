@@ -41,12 +41,10 @@ const chat = (state = initialState, action) => {
     case ACTION_CHAT.EDIT_MESSAGE: {
       const newItems = state.items.map((item) => {
         if (item._id === action.payload._id) {
-          item.text = action.payload.text;
+          item = action.payload;
         }
         return item;
       });
-
-      console.log(action.payload);
 
       return {
         ...state,
