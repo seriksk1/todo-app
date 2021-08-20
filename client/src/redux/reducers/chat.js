@@ -21,6 +21,9 @@ const chat = (state = initialState, action) => {
       return {
         ...state,
         items: [...state.items, action.payload],
+        currentMessage: { text: "" },
+        isEditingMessage: false,
+        isReplying: false,
       };
     }
 
@@ -81,7 +84,6 @@ const chat = (state = initialState, action) => {
       return {
         ...state,
         isEditingMessage: false,
-        currentMessage: { text: "" },
       };
     }
     case ACTION_CHAT.SET_MESSAGES: {
