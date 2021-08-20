@@ -15,12 +15,10 @@ const useStyles = makeStyles({
 function ChatButton() {
   const classes = useStyles();
 
-  const handleGoChat = () => {};
-
   return (
-    <Link to={"/chat"}>
-      <IconButton className={classes.chatBtn} onClick={handleGoChat}>
-        <ChatIcon />
+    <Link className={classes.chatBtn} to={"/chat"}>
+      <IconButton>
+        <ChatIcon color="action" />
       </IconButton>
     </Link>
   );

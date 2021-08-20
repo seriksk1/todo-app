@@ -52,8 +52,47 @@ const useStyles = makeStyles({
     margin: "5px 0px 15px",
   },
   msgMenu: {
+    "& ul": {
+      padding: 0,
+      backgroundColor: "transparent",
+    },
+  },
+
+  replyBlock: {
+    display: "flex",
     padding: 0,
-    backgroundColor: "transparent",
+    margin: "0 0 3px 0",
+    "&:before": {
+      width: "3px",
+      height: "35px",
+      content: `""`,
+      backgroundColor: "#0489e2",
+      marginRight: "10px",
+    },
+  },
+
+  reply: {
+    padding: 0,
+    margin: 0,
+  },
+
+  replyUser: {
+    fontSize: "15px",
+    fontWeight: 700,
+    lineHeight: "100%",
+    padding: 0,
+    margin: 0,
+  },
+
+  replyText: {
+    maxWidth: "47vw",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    lineHeight: "175%",
+    fontSize: "14px",
+    padding: 0,
+    margin: 0,
   },
 });
 

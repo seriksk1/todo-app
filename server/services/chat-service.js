@@ -2,12 +2,14 @@ const Message = require("../models/message-model");
 
 const createMessage = async (message) => {
   try {
-    const { text, username, type } = message;
+    const { text, username, type, repliedMessage, isReply } = message;
 
     const newMessage = await new Message({
       text: text,
       username: username,
       type: type,
+      repliedMessage: repliedMessage,
+      isReply: isReply,
     });
 
     await newMessage.save();

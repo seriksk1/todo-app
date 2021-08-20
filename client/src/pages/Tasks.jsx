@@ -13,9 +13,10 @@ function Tasks() {
     <>
       <AddTaskModalContainer />
       <SortPopupContainer />
-      <LogoutButton />
-      <ChatButton />
       <TaskListContainer />
+      <LogoutButton />
+
+      <ChatButton />
     </>
   );
 }

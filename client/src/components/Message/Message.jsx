@@ -14,11 +14,13 @@ function Message({
   isCurrentUser,
   onMessageDelete,
   onMessageEdit,
+  onMessageReply,
   theme,
 }) {
   let classes = useStyles(theme);
 
-  const { _id, type, username, text, createdAt } = message;
+  const { _id, type, username, text, createdAt, isReply, repliedMessage } =
+    message;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -41,6 +43,11 @@ function Message({
     handleClose();
   };
 
+  const handleMessageReply = () => {
+    onMessageReply(message);
+    handleClose();
+  };
+
   const getMessageStyle = (username, type) => {
     return isCurrentUser(username, type)
       ? classes.msgItemRight
@@ -49,40 +56,60 @@ function Message({
 
   return (
     <div className={getMessageStyle(username, type)}>
-      {isUser(type) ? (
+      {isUser(type) && (
         <Typography className={classes.msgInfo} variant="body2">
           {isEdited(message)} {username} at{" "}
           {new Date(createdAt).toLocaleTimeString()}
         </Typography>
-      ) : null}
+      )}
 
       <div className={classes.msgWithAvatar}>
-        {isOtherUser(username, type) ? (
+        {isOtherUser(username, type) && (
           <Avatar
             className={classes.avatar}
             src="https://ssl.gstatic.com/images/branding/product/1x/avatar_square_blue_512dp.png"
             alt="avatar"
           />
-        ) : null}
+        )}
 
-        <Typography
-          className={isUser(type) ? classes.userMsg : classes.infoMsg}
+        <div
           onClick={handleClick}
+          className={isUser(type) ? classes.userMsg : classes.infoMsg}
         >
-          {text}
-        </Typography>
+          {isUser(type) && isReply && (
+            <div className={classes.replyBlock}>
+              <div className={classes.reply}>
+                <Typography className={classes.replyUser}>
+                  {repliedMessage.username}
+                </Typography>
+                <Typography className={classes.replyText}>
+                  {repliedMessage.text}
+                </Typography>
+              </div>
+            </div>
+          )}
+          <Typography>{text}</Typography>
+        </div>
 
-        {isCurrentUser(username, type) ? (
+        {isUser(type) && (
           <Menu
+            className={classes.msgMenu}
             anchorEl={anchorEl}
             keepMounted
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleMessageDelete}>Delete</MenuItem>
-            <MenuItem onClick={handleMessageEdit}>Edit</MenuItem>
+            <MenuItem onClick={handleMessageReply}>Reply</MenuItem>
+
+            {isCurrentUser(username, type) && (
+              <MenuItem onClick={handleMessageDelete}>Delete</MenuItem>
+            )}
+
+            {isCurrentUser(username, type) && (
+              <MenuItem onClick={handleMessageEdit}>Edit</MenuItem>
+            )}
           </Menu>
-        ) : null}
+        )}
       </div>
     </div>
   );

@@ -6,6 +6,8 @@ const Message = new Schema(
     text: { type: String, required: true },
     username: { type: String, required: true },
     type: { type: String, required: true },
+    isReply: { type: Boolean, default: false },
+    repliedMessage: { type: Object },
   },
   { timestamps: true }
 );

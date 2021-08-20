@@ -12,6 +12,7 @@ const initialState = {
   isSending: false,
   currentMessage: { text: "" },
   isEditingMessage: false,
+  isReplying: false,
 };
 
 const chat = (state = initialState, action) => {
@@ -34,16 +35,6 @@ const chat = (state = initialState, action) => {
       };
     }
 
-    case ACTION_CHAT.CHANGE_CURRENT_MESSAGE: {
-      return {
-        ...state,
-        currentMessage: {
-          ...state.currentMessage,
-          text: action.payload,
-        },
-      };
-    }
-
     case ACTION_CHAT.EDIT_MESSAGE: {
       const newItems = state.items.map((item) => {
         if (item._id === action.payload._id) {
@@ -58,13 +49,34 @@ const chat = (state = initialState, action) => {
       };
     }
 
+    case ACTION_CHAT.REPLY_MESSAGE: {
+      return {
+        ...state,
+        isReplying: true,
+      };
+    }
+
+    case ACTION_CHAT.FINISH_REPLY_MESSAGE: {
+      return {
+        ...state,
+        isReplying: false,
+      };
+    }
+
     case ACTION_CHAT.START_EDIT_MESSAGE: {
       return {
         ...state,
         isEditingMessage: true,
+      };
+    }
+
+    case ACTION_CHAT.SET_CURRENT_MESSAGE: {
+      return {
+        ...state,
         currentMessage: action.payload,
       };
     }
+
     case ACTION_CHAT.FINISH_EDIT_MESSAGE: {
       return {
         ...state,

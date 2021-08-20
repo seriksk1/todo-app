@@ -11,6 +11,15 @@ import withToast from "./hocs/withToast";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
+import socketIOClient from "socket.io-client";
+
+const serverURI = process.env.REACT_APP_URI;
+export const socket = socketIOClient(serverURI, {
+  query: {
+    token: localStorage.getItem("token"),
+  },
+});
+
 const useStyles = makeStyles({
   mainContainer: {
     marginTop: 20,

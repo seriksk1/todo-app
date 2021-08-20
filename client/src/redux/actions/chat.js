@@ -10,28 +10,44 @@ export const deleteMessage = (id) => ({
   payload: id,
 });
 
-export const changeCurrentMessage = (text) => ({
-  type: ACTION_CHAT.CHANGE_CURRENT_MESSAGE,
+export const setCurrentMessage = (text) => ({
+  type: ACTION_CHAT.SET_CURRENT_MESSAGE,
   payload: text,
 });
 
-export const startEditMessage = (message) => ({
-  type: ACTION_CHAT.START_EDIT_MESSAGE,
-  payload: message,
-});
+export const startEditMessage = (message) => (dispatch) =>
+  dispatch([
+    setCurrentMessage(message),
+    {
+      type: ACTION_CHAT.START_EDIT_MESSAGE,
+      payload: message,
+    },
+  ]);
 
 export const finishEditMessage = () => ({
   type: ACTION_CHAT.FINISH_EDIT_MESSAGE,
 });
+
+export const acceptEditMessage = () => (dispatch) => {
+  dispatch([finishEditMessage()]);
+};
 
 export const editMessage = (message) => ({
   type: ACTION_CHAT.EDIT_MESSAGE,
   payload: message,
 });
 
-export const acceptEditMessage = () => (dispatch) => {
-  dispatch([finishEditMessage()]);
-};
+export const replyMessage = (message) => (dispatch) =>
+  dispatch([
+    setCurrentMessage(message),
+    {
+      type: ACTION_CHAT.REPLY_MESSAGE,
+    },
+  ]);
+
+export const finishReplyMessage = () => ({
+  type: ACTION_CHAT.FINISH_REPLY_MESSAGE,
+});
 
 export const setMessages = (items) => ({
   type: ACTION_CHAT.SET_MESSAGES,

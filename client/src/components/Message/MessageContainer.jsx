@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startEditMessage } from "../../redux/actions/chat";
+import { startEditMessage, replyMessage } from "../../redux/actions/chat";
 import { chatSelector } from "../../redux/selectors";
 import { client } from "../../socket/chatHandler";
 
@@ -35,6 +35,10 @@ function MessageContainer(props) {
     dispatch(startEditMessage(message));
   };
 
+  const onMessageReply = (message) => {
+    dispatch(replyMessage(message));
+  };
+
   return (
     <Message
       isUser={isUser}
@@ -43,6 +47,7 @@ function MessageContainer(props) {
       isCurrentUser={isCurrentUser}
       onMessageEdit={onMessageEdit}
       onMessageDelete={onMessageDelete}
+      onMessageReply={onMessageReply}
       theme={theme}
       {...props}
     />

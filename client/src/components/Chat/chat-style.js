@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     backgroundImage: ({ bgImg }) => bgImg,
     padding: "15px",
     maxWidth: "100%",
-    height: "400px",
+    height: "450px",
     overflowY: "scroll",
     "&::-webkit-scrollbar": {
       width: 0,

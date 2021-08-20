@@ -10,7 +10,7 @@ const getDecodedToken = (token) => {
   try {
     return jwt.verify(token, TOKEN_KEY);
   } catch (err) {
-    throw new Error("Token isn't verified!");
+    throw err;
   }
 };
 

@@ -43,36 +43,30 @@ const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, options);
 const registerChatHandlers = require("./helpers/chatHandler");
 const { QueryError } = require("./helpers/errorHandler");
-const { HTTP_STATUS } = require("./constants");
+const { HTTP_STATUS, SOCKET_EVENT } = require("./constants");
 const { getDecodedToken } = require("./middleware/verify");
 
 const onConnection = (socket) => {
+  // socket.use((packet, next) => {
+  //   try {
+  //     const token = socket.handshake.query.token;
+  //     if (token) {
+  //       const decoded = getDecodedToken(token);
+  //       socket.decode = decoded;
+  //     } else {
+  //       throw new QueryError(
+  //         HTTP_STATUS.UNAUTHORIZED,
+  //         "User is not authorized!"
+  //       );
+  //     }
+  //     next();
+  //   } catch (err) {
+  //     console.log(err.message);
+  //     socket.emit(SOCKET_EVENT.SERVER.TOKEN_EXPIRED, err.message);
+  //   }
+  // });
   registerChatHandlers(io, socket);
 };
-
-// io.use((socket, next) => {
-//   try {
-//     const token = socket.handshake.query.token;
-//     if (token) {
-//       const decoded = getDecodedToken(token);
-//       socket.decode = decoded;
-//     } else {
-//       throw new QueryError(HTTP_STATUS.UNAUTHORIZED, "User is not authorized!");
-//     }
-//     next();
-//   } catch (err) {
-//     socket.err = err;
-//     next();
-//   }
-// });
-
-// io.use((socket, next) => {
-//   if (socket.err) {
-//     handleError(socket.err);
-//   } else {
-//     next();
-//   }
-// });
 
 io.on("connection", onConnection);
 

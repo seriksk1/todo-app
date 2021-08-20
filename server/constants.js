@@ -28,6 +28,7 @@ const SOCKET_EVENT = {
     SEND_MESSAGE: "send_message",
     SEND_EDITED_MESSAGE: "send_edited_message",
     MESSAGE_IS_DELETED: "message_is_deleted",
+    TOKEN_EXPIRED: "TOKEN_EXPIRED",
   },
 };
 

@@ -8,6 +8,8 @@ import {
   finishEditMessage,
   setMessages,
 } from "../../redux/actions/chat";
+
+import { logout } from "../../redux/actions/auth";
 import { authSelector, chatSelector } from "../../redux/selectors";
 import { client, server } from "../../socket/chatHandler";
 
@@ -17,7 +19,8 @@ function ChatContainer() {
   const dispatch = useDispatch();
 
   const { user } = useSelector(authSelector);
-  const { isEditingMessage, currentMessage, theme } = useSelector(chatSelector);
+  const { isEditingMessage, isReplying, currentMessage, theme } =
+    useSelector(chatSelector);
 
   const [messageText, setMessage] = useState("");
 
@@ -27,13 +30,16 @@ function ChatContainer() {
 
   const onMessageSend = (e) => {
     if (messageText !== "") {
+      const { _id, username, text } = currentMessage;
       client.createMessage({
         text: messageText,
         username: user.username,
         type: "user",
+        isReply: isReplying,
+        repliedMessage: isReplying ? { _id, username, text } : {},
       });
-      setMessage("");
     }
+    setMessage("");
   };
 
   const onEditAccept = () => {
@@ -61,6 +67,11 @@ function ChatContainer() {
     dispatch(deleteMessage(id));
   };
 
+  const handleTokenExpired = (err) => {
+    console.log(err);
+    dispatch(logout());
+  };
+
   useEffect(() => {
     client.join(user.username);
     client.getChatHistory();
@@ -69,6 +80,7 @@ function ChatContainer() {
     server.sendChatHistory(handleSetMessages);
     server.sendEditedMessage(handleGetEditedMessage);
     server.messageIsDeleted(handleMessageIsDeleted);
+    server.tokenExpired(handleTokenExpired);
     return () => {
       client.disconnect(user.username);
     };

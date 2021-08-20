@@ -1,5 +1,5 @@
 import { SOCKET_EVENT } from "../redux/constants";
-import { socket } from "../index";
+import { socket } from "../App";
 
 export const client = {
   createMessage: (message) => {
@@ -51,5 +51,9 @@ export const server = {
 
   messageIsDeleted: (id) => {
     socket.on(SOCKET_EVENT.SERVER.MESSAGE_IS_DELETED, id);
+  },
+
+  tokenExpired: (err) => {
+    socket.on(SOCKET_EVENT.SERVER.TOKEN_EXPIRED, err);
   },
 };
