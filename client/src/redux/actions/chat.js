@@ -4,7 +4,6 @@ export const addMessage = (message) => ({
   type: ACTION_CHAT.ADD_MESSAGE,
   payload: message,
 });
-
 export const deleteMessage = (id) => ({
   type: ACTION_CHAT.DELETE_MESSAGE,
   payload: id,
@@ -14,39 +13,36 @@ export const setCurrentMessage = (text) => ({
   type: ACTION_CHAT.SET_CURRENT_MESSAGE,
   payload: text,
 });
+export const changeCurrentMessage = (message) => ({
+  type: ACTION_CHAT.CHANGE_CURRENT_MESSAGE,
+  payload: message,
+});
 
 export const startEditMessage = (message) => (dispatch) =>
   dispatch([
     setCurrentMessage(message),
+    changeCurrentMessage(message.text),
     {
       type: ACTION_CHAT.START_EDIT_MESSAGE,
       payload: message,
     },
   ]);
 
-export const finishEditMessage = () => ({
-  type: ACTION_CHAT.FINISH_EDIT_MESSAGE,
-});
+export const startReplyMessage = (message) => (dispatch) =>
+  dispatch([
+    setCurrentMessage(message),
+    {
+      type: ACTION_CHAT.START_REPLY_MESSAGE,
+    },
+  ]);
 
-export const acceptEditMessage = () => (dispatch) => {
-  dispatch([finishEditMessage()]);
-};
+export const finishMessage = () => ({
+  type: ACTION_CHAT.FINISH_MESSAGE,
+});
 
 export const editMessage = (message) => ({
   type: ACTION_CHAT.EDIT_MESSAGE,
   payload: message,
-});
-
-export const replyMessage = (message) => (dispatch) =>
-  dispatch([
-    setCurrentMessage(message),
-    {
-      type: ACTION_CHAT.REPLY_MESSAGE,
-    },
-  ]);
-
-export const finishReplyMessage = () => ({
-  type: ACTION_CHAT.FINISH_REPLY_MESSAGE,
 });
 
 export const setMessages = (items) => ({

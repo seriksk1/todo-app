@@ -1,22 +1,30 @@
 import React from "react";
+import {
+  Grid,
+  TextField,
+  Container,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 
-import { Grid, TextField, Container, Paper } from "@material-ui/core";
+import useStyles from "./chat-style";
 import {
   MessageList,
   SendMessageButton,
   AcceptEditMessageButton,
   CancelEditMessageButton,
 } from "../../components";
-import useStyles from "./chat-style";
 
 function Chat({
+  theme,
+  prevMessage,
   messageText,
-  onMessageSend,
+  isReplying,
+  isEditingMessage,
   onInputChange,
+  onMessageSend,
   onEditAccept,
   onEditCancel,
-  isEditingMessage,
-  theme,
 }) {
   const classes = useStyles(theme);
 
@@ -34,10 +42,17 @@ function Chat({
     <Grid className={classes.chat}>
       <Paper className={classes.paper} elevation={3}>
         <MessageList classes={classes.msgList} onMessageSend={onMessageSend} />
+
+        {isReplying && (
+          <Typography className={classes.repliedText}>
+            {prevMessage.text}
+          </Typography>
+        )}
+
         <Container className={classes.msgInputContainer}>
-          {isEditingMessage ? (
+          {(isEditingMessage || isReplying) && (
             <CancelEditMessageButton onEditCancel={onEditCancel} />
-          ) : null}
+          )}
 
           <TextField
             id="message"

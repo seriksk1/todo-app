@@ -1,29 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { Avatar } from "@material-ui/core";
 
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import { Typography, Avatar } from "@material-ui/core";
+import { MessageOptions, MessageText, MessageInfo } from "../../components";
+import {
+  isUser,
+  isCurrentUser,
+  isOtherUser,
+} from "../../redux/helpers/message-handler";
 
 import useStyles from "./message-style";
 
 function Message({
+  theme,
   message,
-  isUser,
-  isEdited,
-  isOtherUser,
-  isCurrentUser,
   onMessageDelete,
   onMessageEdit,
   onMessageReply,
-  theme,
 }) {
   let classes = useStyles(theme);
 
-  const { _id, type, username, text, createdAt, isReply, repliedMessage } =
-    message;
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const { type, username, isReply, repliedMessage } = message;
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,21 +28,6 @@ function Message({
 
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleMessageDelete = () => {
-    onMessageDelete(_id);
-    handleClose();
-  };
-
-  const handleMessageEdit = () => {
-    onMessageEdit(message);
-    handleClose();
-  };
-
-  const handleMessageReply = () => {
-    onMessageReply(message);
-    handleClose();
   };
 
   const getMessageStyle = (username, type) => {
@@ -57,10 +39,18 @@ function Message({
   return (
     <div className={getMessageStyle(username, type)}>
       {isUser(type) && (
-        <Typography className={classes.msgInfo} variant="body2">
-          {isEdited(message)} {username} at{" "}
-          {new Date(createdAt).toLocaleTimeString()}
-        </Typography>
+        <>
+          <MessageInfo message={message} classes={classes} />
+          <MessageOptions
+            message={message}
+            classes={classes}
+            anchorEl={anchorEl}
+            handleClose={handleClose}
+            onMessageDelete={onMessageDelete}
+            onMessageEdit={onMessageEdit}
+            onMessageReply={onMessageReply}
+          />
+        </>
       )}
 
       <div className={classes.msgWithAvatar}>
@@ -72,44 +62,13 @@ function Message({
           />
         )}
 
-        <div
-          onClick={handleClick}
-          className={isUser(type) ? classes.userMsg : classes.infoMsg}
-        >
-          {isUser(type) && isReply && (
-            <div className={classes.replyBlock}>
-              <div className={classes.reply}>
-                <Typography className={classes.replyUser}>
-                  {repliedMessage.username}
-                </Typography>
-                <Typography className={classes.replyText}>
-                  {repliedMessage.text}
-                </Typography>
-              </div>
-            </div>
-          )}
-          <Typography>{text}</Typography>
-        </div>
-
-        {isUser(type) && (
-          <Menu
-            className={classes.msgMenu}
-            anchorEl={anchorEl}
-            keepMounted
-            open={open}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleMessageReply}>Reply</MenuItem>
-
-            {isCurrentUser(username, type) && (
-              <MenuItem onClick={handleMessageDelete}>Delete</MenuItem>
-            )}
-
-            {isCurrentUser(username, type) && (
-              <MenuItem onClick={handleMessageEdit}>Edit</MenuItem>
-            )}
-          </Menu>
-        )}
+        <MessageText
+          handleClick={handleClick}
+          isReply={isReply}
+          classes={classes}
+          message={message}
+          repliedMessage={repliedMessage}
+        />
       </div>
     </div>
   );

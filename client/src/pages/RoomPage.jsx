@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   },
 });
 
-function Chat() {
+function RoomPage() {
   const classes = useStyles();
 
   return (
@@ -24,4 +24,4 @@ function Chat() {
   );
 }
 
-export default Chat;
+export default RoomPage;

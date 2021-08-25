@@ -6,6 +6,7 @@ import {
   TaskListContainer,
   LogoutButton,
   ChatButton,
+  ContactsButton,
 } from "../components";
 
 function Tasks() {
@@ -15,8 +16,8 @@ function Tasks() {
       <SortPopupContainer />
       <TaskListContainer />
       <LogoutButton />
-
       <ChatButton />
+      <ContactsButton />
     </>
   );
 }

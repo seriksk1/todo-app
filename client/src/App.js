@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 
-import { Tasks, SignIn, SignUp, Chat, ErrorPage } from "./pages";
+import { Tasks, SignIn, SignUp, RoomPage, ErrorPage, Rooms } from "./pages";
 import ProtectedRoute from "./hocs/ProtectedRoute";
 import withToast from "./hocs/withToast";
 
@@ -41,7 +41,8 @@ function App() {
     >
       <Switch>
         <ProtectedRoute exact path="/tasks" component={Tasks} />
-        <ProtectedRoute exact path="/chat" component={Chat} />
+        <ProtectedRoute exact path="/chat" component={RoomPage} />
+        <ProtectedRoute exact path="/rooms" component={Rooms} />
 
         <Route exact path="/">
           <Redirect to="/tasks" />

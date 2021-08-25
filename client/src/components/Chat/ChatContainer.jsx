@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
   addMessage,
   deleteMessage,
   editMessage,
-  finishEditMessage,
+  finishMessage,
   setMessages,
+  changeCurrentMessage,
 } from "../../redux/actions/chat";
 
 import { logout } from "../../redux/actions/auth";
@@ -19,37 +20,37 @@ function ChatContainer() {
   const dispatch = useDispatch();
 
   const { user } = useSelector(authSelector);
-  const { isEditingMessage, isReplying, currentMessage, theme } =
+  const { isEditingMessage, isReplying, currentText, prevMessage, theme } =
     useSelector(chatSelector);
 
-  const [messageText, setMessage] = useState("");
-
   const onInputChange = (e) => {
-    setMessage(e.target.value);
+    dispatch(changeCurrentMessage(e.target.value));
   };
 
   const onMessageSend = (e) => {
-    if (messageText !== "") {
-      const { _id, username, text } = currentMessage;
+    if (currentText !== "") {
+      const { _id, username, text } = prevMessage;
       client.createMessage({
-        text: messageText,
+        text: currentText,
         username: user.username,
         type: "user",
         isReply: isReplying,
         repliedMessage: isReplying ? { _id, username, text } : {},
       });
     }
-    setMessage("");
+    dispatch(changeCurrentMessage(""));
   };
 
   const onEditAccept = () => {
-    client.editMessage({ ...currentMessage, text: messageText });
-    dispatch(finishEditMessage());
+    client.editMessage({ ...prevMessage, text: currentText });
+    dispatch(finishMessage());
   };
 
   const onEditCancel = () => {
-    dispatch(finishEditMessage());
+    dispatch(finishMessage());
   };
+
+  // Socket.io handlers //
 
   const handleGetMessage = (message) => {
     dispatch(addMessage(message));
@@ -67,8 +68,7 @@ function ChatContainer() {
     dispatch(deleteMessage(id));
   };
 
-  const handleTokenExpired = (err) => {
-    console.log(err);
+  const handleTokenExpired = () => {
     dispatch(logout());
   };
 
@@ -86,17 +86,14 @@ function ChatContainer() {
     };
   }, []);
 
-  useEffect(() => {
-    setMessage(currentMessage.text);
-  }, [currentMessage]);
-
   return (
     <Chat
       isEditingMessage={isEditingMessage}
+      isReplying={isReplying}
       onInputChange={onInputChange}
       onMessageSend={onMessageSend}
-      messageText={messageText}
-      currentMessage={currentMessage}
+      messageText={currentText}
+      prevMessage={prevMessage}
       onEditAccept={onEditAccept}
       onEditCancel={onEditCancel}
       theme={theme}

@@ -42,6 +42,7 @@ export const register = (userData) => async (dispatch) => {
     localStorage.setItem("username", userData.username);
 
     dispatch([
+      setUserData(userData),
       showNotification(TOAST_OPTION.USER.REGISTER_SUCCESS),
       authSuccess(),
     ]);

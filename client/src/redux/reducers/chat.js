@@ -2,6 +2,8 @@ import { ACTION_CHAT } from "../constants";
 
 const initialState = {
   items: [],
+  currentText: "",
+  prevMessage: {},
   theme: {
     bgImg:
       "url(https://telegram.org/file/464001326/1/eHuBKzF9Lh4.288899/1f135a074a169f90e5)",
@@ -10,7 +12,6 @@ const initialState = {
     msgInfoColor: "#ffffffd4",
   },
   isSending: false,
-  currentMessage: { text: "" },
   isEditingMessage: false,
   isReplying: false,
 };
@@ -21,12 +22,11 @@ const chat = (state = initialState, action) => {
       return {
         ...state,
         items: [...state.items, action.payload],
-        currentMessage: { text: "" },
+        prevMessage: {},
         isEditingMessage: false,
         isReplying: false,
       };
     }
-
     case ACTION_CHAT.DELETE_MESSAGE: {
       const newItems = state.items.filter(
         (item) => item._id !== action.payload
@@ -37,7 +37,6 @@ const chat = (state = initialState, action) => {
         items: newItems,
       };
     }
-
     case ACTION_CHAT.EDIT_MESSAGE: {
       const newItems = state.items.map((item) => {
         if (item._id === action.payload._id) {
@@ -52,17 +51,23 @@ const chat = (state = initialState, action) => {
       };
     }
 
-    case ACTION_CHAT.REPLY_MESSAGE: {
+    case ACTION_CHAT.SET_CURRENT_MESSAGE: {
       return {
         ...state,
-        isReplying: true,
+        prevMessage: action.payload,
+      };
+    }
+    case ACTION_CHAT.CHANGE_CURRENT_MESSAGE: {
+      return {
+        ...state,
+        currentText: action.payload,
       };
     }
 
-    case ACTION_CHAT.FINISH_REPLY_MESSAGE: {
+    case ACTION_CHAT.START_REPLY_MESSAGE: {
       return {
         ...state,
-        isReplying: false,
+        isReplying: true,
       };
     }
 
@@ -72,20 +77,16 @@ const chat = (state = initialState, action) => {
         isEditingMessage: true,
       };
     }
-
-    case ACTION_CHAT.SET_CURRENT_MESSAGE: {
-      return {
-        ...state,
-        currentMessage: action.payload,
-      };
-    }
-
-    case ACTION_CHAT.FINISH_EDIT_MESSAGE: {
+    case ACTION_CHAT.FINISH_MESSAGE: {
       return {
         ...state,
         isEditingMessage: false,
+        isReplying: false,
+        currentText: "",
+        prevMessage: {},
       };
     }
+
     case ACTION_CHAT.SET_MESSAGES: {
       return {
         ...state,

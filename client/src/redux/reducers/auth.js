@@ -20,6 +20,9 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         authorized: false,
+        user: {
+          username: "",
+        },
       };
     }
 

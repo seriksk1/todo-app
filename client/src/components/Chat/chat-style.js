@@ -16,7 +16,6 @@ const useStyles = makeStyles({
   msgField: {},
 
   msgList: {
-    //bgColor
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundImage: ({ bgImg }) => bgImg,
@@ -33,6 +32,14 @@ const useStyles = makeStyles({
     maxWidth: "1280px",
     borderRadius: "20px",
     padding: "15px 15px",
+  },
+
+  repliedText: {
+    wordBreak: "break-word",
+    backgroundColor: "#d8ebfb",
+    marginTop: "10px",
+    padding: "10px 24px",
+    textAlign: "center",
   },
 });
 
