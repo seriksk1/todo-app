@@ -4,7 +4,7 @@ export const useStyles = makeStyles({
   roomsList: {
     margin: 0,
     marginTop: "20px",
-    padding: "20px",
+    padding: "0 20px",
     listStyle: "none",
     maxWidth: "330px",
   },

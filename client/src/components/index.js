@@ -7,6 +7,7 @@ export { default as FormContainer } from "./Form/FormContainer";
 export { default as AcceptEditMessageButton } from "./CustomButtons/AcceptEditMessageButton";
 export { default as CancelEditMessageButton } from "./CustomButtons/CancelEditMessageButton";
 export { default as SendMessageButton } from "./CustomButtons/SendMessageButton";
+export { default as CreateRoomButton } from "./CustomButtons/CreateRoomButton";
 export { default as ContactsButton } from "./CustomButtons/ContactsButton";
 export { default as SubmitButton } from "./CustomButtons/SubmitButton";
 export { default as LogoutButton } from "./CustomButtons/LogoutButton";

@@ -1,11 +1,17 @@
 import React from "react";
 import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 
-import { RoomList, BackButton } from "../components";
+import { RoomList, BackButton, CreateRoomButton } from "../components";
 
 const useStyles = makeStyles({
   pageTitle: {
     textAlign: "center",
+  },
+  paper: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    paddingBottom: "10px",
   },
 });
 
@@ -42,8 +48,9 @@ function Rooms() {
       <Typography variant="h4" className={classes.pageTitle}>
         ROOMS
       </Typography>
-      <Paper elevation={3}>
+      <Paper className={classes.paper} elevation={3}>
         <RoomList items={items} />
+        <CreateRoomButton />
       </Paper>
     </Grid>
   );
