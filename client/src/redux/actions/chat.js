@@ -4,6 +4,7 @@ export const addMessage = (message) => ({
   type: ACTION_CHAT.ADD_MESSAGE,
   payload: message,
 });
+
 export const deleteMessage = (id) => ({
   type: ACTION_CHAT.DELETE_MESSAGE,
   payload: id,
@@ -13,6 +14,7 @@ export const setCurrentMessage = (text) => ({
   type: ACTION_CHAT.SET_CURRENT_MESSAGE,
   payload: text,
 });
+
 export const changeCurrentMessage = (message) => ({
   type: ACTION_CHAT.CHANGE_CURRENT_MESSAGE,
   payload: message,

@@ -21,6 +21,8 @@ const SOCKET_EVENT = {
     GET_MESSAGE: "get_message",
     GET_EDITED_MESSAGE: "get_edited_message",
     DELETE_MESSAGE: "delete_message",
+    JOIN_ROOM: "JOIN_ROOM",
+    LEAVE_ROOM: "LEAVE_ROOM",
   },
 
   SERVER: {
@@ -29,6 +31,8 @@ const SOCKET_EVENT = {
     SEND_EDITED_MESSAGE: "send_edited_message",
     MESSAGE_IS_DELETED: "message_is_deleted",
     TOKEN_EXPIRED: "TOKEN_EXPIRED",
+    JOIN_ROOM: "JOIN_ROOM",
+    LEAVE_ROOM: "LEAVE_ROOM",
   },
 };
 

@@ -52,12 +52,22 @@ module.exports = (io, socket) => {
   const getChatHistory = async (currentRoomId) => {
     try {
       const items = await ChatService.getMessages(currentRoomId);
-      sendChatHistory(items);
+      sendChatHistory(items, currentRoomId);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const joinRoom = async (username, currentRoomId) => {
+    try {
+      console.log("userId:", username);
+      socket.join(currentRoomId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  socket.on(SOCKET_EVENT.CLIENT.JOIN_ROOM, joinRoom);
   socket.on(SOCKET_EVENT.CLIENT.GET_MESSAGE, createMessage);
   socket.on(SOCKET_EVENT.CLIENT.GET_EDITED_MESSAGE, editMessage);
   socket.on(SOCKET_EVENT.CLIENT.GET_CHAT_HISTORY, getChatHistory);

@@ -69,17 +69,15 @@ function ChatContainer() {
     dispatch(setMessages(items));
   };
 
-  const handleGetEditedMessage = (message) => {
-    dispatch(editMessage(message));
-  };
-
-  const handleMessageIsDeleted = (id) => {
-    dispatch(deleteMessage(id));
-  };
-
-  const handleTokenExpired = () => {
-    dispatch(logout());
-  };
+  // const handleGetEditedMessage = (message) => {
+  //   dispatch(editMessage(message));
+  // };
+  // const handleMessageIsDeleted = (id) => {
+  //   dispatch(deleteMessage(id));
+  // };
+  // const handleTokenExpired = () => {
+  //   dispatch(logout());
+  // };
 
   useEffect(() => {
     client.join(user.username, currentRoomId);
@@ -88,9 +86,10 @@ function ChatContainer() {
 
     server.sendMessage(handleGetMessage);
     server.sendChatHistory(handleSetMessages);
-    server.sendEditedMessage(handleGetEditedMessage);
-    server.messageIsDeleted(handleMessageIsDeleted);
-    server.tokenExpired(handleTokenExpired);
+
+    // server.sendEditedMessage(handleGetEditedMessage);
+    // server.messageIsDeleted(handleMessageIsDeleted);
+    // server.tokenExpired(handleTokenExpired);
     return () => {
       client.disconnect(user.username, currentRoomId);
     };
@@ -100,10 +99,10 @@ function ChatContainer() {
     <Chat
       isEditingMessage={isEditingMessage}
       isReplying={isReplying}
-      onInputChange={onInputChange}
-      onMessageSend={onMessageSend}
       messageText={currentText}
       prevMessage={prevMessage}
+      onInputChange={onInputChange}
+      onMessageSend={onMessageSend}
       onEditAccept={onEditAccept}
       onEditCancel={onEditCancel}
       theme={theme}

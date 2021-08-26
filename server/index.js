@@ -46,12 +46,15 @@ const options = {
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, options);
 const registerChatHandlers = require("./helpers/chatHandler");
+const { SOCKET_EVENT } = require("./constants");
+// const registerRoomsHandlers = require("./helpers/roomsHandler");
 
 const onConnection = (socket) => {
+  // registerRoomsHandlers(io, socket);
   registerChatHandlers(io, socket);
 };
 
-io.on("connection", onConnection);
+io.sockets.on("connection", onConnection);
 
 httpServer.listen(API_PORT, () =>
   console.log(`Server running on port ${API_PORT}`)

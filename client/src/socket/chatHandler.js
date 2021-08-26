@@ -14,8 +14,8 @@ export const client = {
     socket.emit(SOCKET_EVENT.CLIENT.DELETE_MESSAGE, id);
   },
 
-  getChatHistory: (currentRoomId) => {
-    socket.emit(SOCKET_EVENT.CLIENT.GET_CHAT_HISTORY, currentRoomId);
+  getChatHistory: (roomId) => {
+    socket.emit(SOCKET_EVENT.CLIENT.GET_CHAT_HISTORY, roomId);
   },
 
   join: (username, roomId) => {
@@ -27,6 +27,7 @@ export const client = {
       },
       roomId
     );
+    console.log("Room:", roomId);
     socket.emit(SOCKET_EVENT.CLIENT.JOIN_ROOM, roomId);
   },
 
@@ -48,19 +49,15 @@ export const server = {
   sendMessage: (message) => {
     socket.on(SOCKET_EVENT.SERVER.SEND_MESSAGE, message);
   },
-
   sendChatHistory: (chatHistory) => {
     socket.on(SOCKET_EVENT.SERVER.SEND_CHAT_HISTORY, chatHistory);
   },
-
   sendEditedMessage: (message) => {
     socket.on(SOCKET_EVENT.SERVER.SEND_EDITED_MESSAGE, message);
   },
-
   messageIsDeleted: (id) => {
     socket.on(SOCKET_EVENT.SERVER.MESSAGE_IS_DELETED, id);
   },
-
   tokenExpired: (err) => {
     socket.on(SOCKET_EVENT.SERVER.TOKEN_EXPIRED, err);
   },
