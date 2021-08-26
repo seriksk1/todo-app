@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startEditMessage, startReplyMessage } from "../../redux/actions/chat";
-import { chatSelector } from "../../redux/selectors";
+import { chatSelector, roomsSelector } from "../../redux/selectors";
 import { client } from "../../socket/chatHandler";
 
 import Message from "./Message";
@@ -9,9 +9,10 @@ import Message from "./Message";
 function MessageContainer(props) {
   const dispatch = useDispatch();
   const { theme } = useSelector(chatSelector);
+  const { currentRoomId } = useSelector(roomsSelector);
 
   const onMessageDelete = (id) => {
-    client.deleteMessage(id);
+    client.deleteMessage(id, currentRoomId);
   };
   const onMessageEdit = (message) => {
     dispatch(startEditMessage(message));

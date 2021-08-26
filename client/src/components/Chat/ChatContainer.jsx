@@ -51,7 +51,7 @@ function ChatContainer() {
   };
 
   const onEditAccept = () => {
-    client.editMessage({ ...prevMessage, text: currentText });
+    client.editMessage({ ...prevMessage, text: currentText }, currentRoomId);
     dispatch(finishMessage());
   };
 
@@ -69,27 +69,26 @@ function ChatContainer() {
     dispatch(setMessages(items));
   };
 
-  // const handleGetEditedMessage = (message) => {
-  //   dispatch(editMessage(message));
-  // };
-  // const handleMessageIsDeleted = (id) => {
-  //   dispatch(deleteMessage(id));
-  // };
-  // const handleTokenExpired = () => {
-  //   dispatch(logout());
-  // };
+  const handleGetEditedMessage = (message) => {
+    dispatch(editMessage(message));
+  };
+  const handleMessageIsDeleted = (id) => {
+    dispatch(deleteMessage(id));
+  };
+  const handleTokenExpired = () => {
+    dispatch(logout());
+  };
 
   useEffect(() => {
     client.join(user.username, currentRoomId);
     client.getChatHistory(currentRoomId);
-    console.log(currentRoomId);
 
     server.sendMessage(handleGetMessage);
     server.sendChatHistory(handleSetMessages);
 
-    // server.sendEditedMessage(handleGetEditedMessage);
-    // server.messageIsDeleted(handleMessageIsDeleted);
-    // server.tokenExpired(handleTokenExpired);
+    server.sendEditedMessage(handleGetEditedMessage);
+    server.messageIsDeleted(handleMessageIsDeleted);
+    server.tokenExpired(handleTokenExpired);
     return () => {
       client.disconnect(user.username, currentRoomId);
     };

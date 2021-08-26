@@ -6,11 +6,11 @@ export const client = {
     socket.emit(SOCKET_EVENT.CLIENT.GET_MESSAGE, message, roomId);
   },
 
-  editMessage: (message) => {
+  editMessage: (message, roomId) => {
     socket.emit(SOCKET_EVENT.CLIENT.GET_EDITED_MESSAGE, message);
   },
 
-  deleteMessage: (id) => {
+  deleteMessage: (id, roomId) => {
     socket.emit(SOCKET_EVENT.CLIENT.DELETE_MESSAGE, id);
   },
 
@@ -19,6 +19,8 @@ export const client = {
   },
 
   join: (username, roomId) => {
+    console.log("Room:", roomId);
+    socket.emit(SOCKET_EVENT.CLIENT.JOIN_ROOM, roomId);
     client.createMessage(
       {
         username: username,
@@ -27,8 +29,6 @@ export const client = {
       },
       roomId
     );
-    console.log("Room:", roomId);
-    socket.emit(SOCKET_EVENT.CLIENT.JOIN_ROOM, roomId);
   },
 
   disconnect: (username, roomId) => {
