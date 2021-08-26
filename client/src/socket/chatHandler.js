@@ -1,9 +1,9 @@
 import { SOCKET_EVENT } from "../redux/constants";
-import { socket } from "../App";
+import { socket } from "../pages/RoomPage";
 
 export const client = {
-  createMessage: (message) => {
-    socket.emit(SOCKET_EVENT.CLIENT.GET_MESSAGE, message);
+  createMessage: (message, roomId) => {
+    socket.emit(SOCKET_EVENT.CLIENT.GET_MESSAGE, message, roomId);
   },
 
   editMessage: (message) => {
@@ -14,24 +14,32 @@ export const client = {
     socket.emit(SOCKET_EVENT.CLIENT.DELETE_MESSAGE, id);
   },
 
-  getChatHistory: () => {
-    socket.emit(SOCKET_EVENT.CLIENT.GET_CHAT_HISTORY);
+  getChatHistory: (currentRoomId) => {
+    socket.emit(SOCKET_EVENT.CLIENT.GET_CHAT_HISTORY, currentRoomId);
   },
 
-  join: (username) => {
-    client.createMessage({
-      username: username,
-      text: `${username} has joined the chat`,
-      type: "info",
-    });
+  join: (username, roomId) => {
+    client.createMessage(
+      {
+        username: username,
+        text: `${username} has joined the chat`,
+        type: "info",
+      },
+      roomId
+    );
+    socket.emit(SOCKET_EVENT.CLIENT.JOIN_ROOM, roomId);
   },
 
-  disconnect: (username) => {
-    client.createMessage({
-      username: username,
-      text: `${username} has left the chat`,
-      type: "info",
-    });
+  disconnect: (username, roomId) => {
+    client.createMessage(
+      {
+        username: username,
+        text: `${username} has left the chat`,
+        type: "info",
+      },
+      roomId
+    );
+    socket.emit(SOCKET_EVENT.CLIENT.LEAVE_ROOM, roomId);
     socket.removeAllListeners();
   },
 };
@@ -41,8 +49,8 @@ export const server = {
     socket.on(SOCKET_EVENT.SERVER.SEND_MESSAGE, message);
   },
 
-  sendChatHistory: (callback) => {
-    socket.on(SOCKET_EVENT.SERVER.SEND_CHAT_HISTORY, callback);
+  sendChatHistory: (chatHistory) => {
+    socket.on(SOCKET_EVENT.SERVER.SEND_CHAT_HISTORY, chatHistory);
   },
 
   sendEditedMessage: (message) => {

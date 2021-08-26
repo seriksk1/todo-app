@@ -16,7 +16,7 @@ function Tasks() {
       <SortPopupContainer />
       <TaskListContainer />
       <LogoutButton />
-      <ChatButton />
+      {/* <ChatButton /> */}
       <ContactsButton />
     </>
   );

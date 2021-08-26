@@ -12,14 +12,12 @@ const useStyles = makeStyles({
   },
 });
 
-function BackButton() {
+function BackButton({ path }) {
   const classes = useStyles();
 
-  const handleGoBack = () => {};
-
   return (
-    <Link to={"/tasks"}>
-      <IconButton className={classes.chatBtn} onClick={handleGoBack}>
+    <Link to={path}>
+      <IconButton className={classes.chatBtn}>
         <KeyboardBackspaceIcon />
       </IconButton>
     </Link>

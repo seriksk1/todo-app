@@ -2,32 +2,11 @@ import React, { useState } from "react";
 
 import { Button, Modal, Grid } from "@material-ui/core";
 
-import { TASK_STATUS } from "../../redux/constants";
-import { FormContainer } from "../../components";
+import { FormContainer } from "..";
 import useStyles from "./modal-style";
 
-function AddTaskModal({ onAddTask }) {
+function CustomModal({ submitAction, fields, formText, btnText, styles }) {
   const classes = useStyles();
-
-  const formText = "New Task";
-  const btnText = "OK";
-
-  const fields = [
-    {
-      id: "task",
-      label: "Task",
-      variant: "outlined",
-      helperText: "At least 3 symbols",
-      required: true,
-    },
-    {
-      id: "dueDate",
-      type: "date",
-      label: "Due-date",
-      helperText: "Choose date",
-      required: true,
-    },
-  ];
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -39,21 +18,20 @@ function AddTaskModal({ onAddTask }) {
     setOpenModal(false);
   };
 
-  const handleAddTask = (obj) => {
-    onAddTask({ ...obj, status: TASK_STATUS.PENDING });
+  const handleSubmitAction = (obj) => {
+    submitAction(obj);
     handleCloseModal();
   };
 
   return (
-    <div>
+    <div className={styles}>
       <Button
-        className={classes.addTaskBtn}
         onClick={handleOpenModal}
         size="large"
         variant="contained"
         color="primary"
       >
-        Add Task
+        {formText}
       </Button>
 
       <Modal open={openModal} onClose={handleCloseModal}>
@@ -62,7 +40,7 @@ function AddTaskModal({ onAddTask }) {
             fields={fields}
             formText={formText}
             btnText={btnText}
-            onSubmitAction={handleAddTask}
+            onSubmitAction={handleSubmitAction}
           />
         </Grid>
       </Modal>
@@ -70,4 +48,4 @@ function AddTaskModal({ onAddTask }) {
   );
 }
 
-export default AddTaskModal;
+export default CustomModal;

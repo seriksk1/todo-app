@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const Message = new Schema(
   {
+    roomId: { type: Schema.Types.ObjectId },
     text: { type: String, required: true },
     username: { type: String, required: true },
     type: { type: String, required: true },

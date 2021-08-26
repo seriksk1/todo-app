@@ -19,10 +19,10 @@ module.exports = (io, socket) => {
     io.emit(SOCKET_EVENT.SERVER.MESSAGE_IS_DELETED, id);
   };
 
-  const createMessage = async (message) => {
+  const createMessage = async (message, roomId) => {
     try {
       bodyValidator(message, "You must provide a body to create message");
-      const newMessage = await ChatService.createMessage(message);
+      const newMessage = await ChatService.createMessage(message, roomId);
       sendMessage(newMessage);
     } catch (err) {
       console.log(err);
@@ -49,9 +49,9 @@ module.exports = (io, socket) => {
     }
   };
 
-  const getChatHistory = async () => {
+  const getChatHistory = async (currentRoomId) => {
     try {
-      const items = await ChatService.getMessages();
+      const items = await ChatService.getMessages(currentRoomId);
       sendChatHistory(items);
     } catch (err) {
       console.log(err);

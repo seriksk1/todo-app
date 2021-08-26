@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const useStyles = makeStyles({
   roomsList: {
     margin: 0,
-    marginTop: "20px",
+    marginTop: "10px",
     padding: "0 20px",
     listStyle: "none",
     maxWidth: "330px",
@@ -15,9 +15,11 @@ export const useStyles = makeStyles({
     padding: "10px 20px",
     margin: "15px 0",
   },
-  enterBtn: {
-    alignSelf: "center",
+  joinBtn: {
     padding: 0,
+  },
+  link: {
+    alignSelf: "center",
   },
   usersIcon: { paddingRight: "5px" },
   usersCount: {

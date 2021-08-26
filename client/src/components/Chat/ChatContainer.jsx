@@ -11,7 +11,11 @@ import {
 } from "../../redux/actions/chat";
 
 import { logout } from "../../redux/actions/auth";
-import { authSelector, chatSelector } from "../../redux/selectors";
+import {
+  authSelector,
+  chatSelector,
+  roomsSelector,
+} from "../../redux/selectors";
 import { client, server } from "../../socket/chatHandler";
 
 import Chat from "./Chat";
@@ -23,6 +27,8 @@ function ChatContainer() {
   const { isEditingMessage, isReplying, currentText, prevMessage, theme } =
     useSelector(chatSelector);
 
+  const { currentRoomId } = useSelector(roomsSelector);
+
   const onInputChange = (e) => {
     dispatch(changeCurrentMessage(e.target.value));
   };
@@ -30,13 +36,16 @@ function ChatContainer() {
   const onMessageSend = (e) => {
     if (currentText !== "") {
       const { _id, username, text } = prevMessage;
-      client.createMessage({
-        text: currentText,
-        username: user.username,
-        type: "user",
-        isReply: isReplying,
-        repliedMessage: isReplying ? { _id, username, text } : {},
-      });
+      client.createMessage(
+        {
+          text: currentText,
+          username: user.username,
+          type: "user",
+          isReply: isReplying,
+          repliedMessage: isReplying ? { _id, username, text } : {},
+        },
+        currentRoomId
+      );
     }
     dispatch(changeCurrentMessage(""));
   };
@@ -73,8 +82,9 @@ function ChatContainer() {
   };
 
   useEffect(() => {
-    client.join(user.username);
-    client.getChatHistory();
+    client.join(user.username, currentRoomId);
+    client.getChatHistory(currentRoomId);
+    console.log(currentRoomId);
 
     server.sendMessage(handleGetMessage);
     server.sendChatHistory(handleSetMessages);
@@ -82,7 +92,7 @@ function ChatContainer() {
     server.messageIsDeleted(handleMessageIsDeleted);
     server.tokenExpired(handleTokenExpired);
     return () => {
-      client.disconnect(user.username);
+      client.disconnect(user.username, currentRoomId);
     };
   }, []);
 

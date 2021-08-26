@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles({
   chatBtn: {
     position: "absolute",
-    top: "55px",
+    top: "15px",
     right: "15px",
   },
 });

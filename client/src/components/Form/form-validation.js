@@ -17,8 +17,13 @@ export const isInputValid = (obj, key) => {
       return isValid;
 
     case "task":
+    case "name":
     case "username":
       isValid = value.length >= 3 ? true : false;
+      return isValid;
+
+    case "capacity":
+      isValid = Number(value);
       return isValid;
 
     case "dueDate":

@@ -1,56 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 
-import { RoomList, BackButton, CreateRoomButton } from "../components";
+import { RoomList, BackButton, AddRoomModalContainer } from "../components";
+
+import { roomsSelector } from "../redux/selectors";
+import { fetchRooms } from "../redux/actions/rooms";
 
 const useStyles = makeStyles({
   pageTitle: {
     textAlign: "center",
+    marginBottom: "20px",
   },
   paper: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    paddingBottom: "10px",
+    paddingBottom: "20px",
+  },
+  addRoomBtn: {
+    margin: "0 auto",
   },
 });
 
 function Rooms() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { items } = useSelector(roomsSelector);
 
-  const items = [
-    {
-      id: 1,
-      name: "Friends chat",
-      capacity: 4,
-      users: [{ username: "seriksk1" }],
-      type: "private",
-    },
-    {
-      id: 2,
-      name: "Groupmates ZETK",
-      capacity: 20,
-      users: [{ username: "seriksk2" }],
-      type: "private",
-    },
-    {
-      id: 3,
-      name: "Game news",
-      capacity: 30,
-      users: [{ username: "seriksk3" }],
-      type: "public",
-    },
-  ];
+  useEffect(() => {
+    dispatch(fetchRooms());
+  }, []);
 
   return (
     <Grid>
-      <BackButton />
+      <BackButton path="/tasks" />
+
       <Typography variant="h4" className={classes.pageTitle}>
         ROOMS
       </Typography>
       <Paper className={classes.paper} elevation={3}>
         <RoomList items={items} />
-        <CreateRoomButton />
+        <AddRoomModalContainer styles={classes.addRoomBtn} />
       </Paper>
     </Grid>
   );

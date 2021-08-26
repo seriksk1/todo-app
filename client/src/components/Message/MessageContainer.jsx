@@ -13,11 +13,9 @@ function MessageContainer(props) {
   const onMessageDelete = (id) => {
     client.deleteMessage(id);
   };
-
   const onMessageEdit = (message) => {
     dispatch(startEditMessage(message));
   };
-
   const onMessageReply = (message) => {
     dispatch(startReplyMessage(message));
   };

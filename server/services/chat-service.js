@@ -1,10 +1,11 @@
 const Message = require("../models/message-model");
 
-const createMessage = async (message) => {
+const createMessage = async (message, roomId) => {
   try {
     const { text, username, type, repliedMessage, isReply } = message;
 
     const newMessage = await new Message({
+      roomId: roomId,
       text: text,
       username: username,
       type: type,
@@ -43,9 +44,9 @@ const deleteMessage = async (id) => {
   }
 };
 
-const getMessages = async () => {
+const getMessages = async (roomId) => {
   try {
-    const messages = await Message.find({});
+    const messages = await Message.find({ roomId: roomId });
     return messages;
   } catch (err) {
     console.log(err);

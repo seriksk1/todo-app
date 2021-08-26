@@ -10,6 +10,7 @@ const { handleError } = require("./middleware/error");
 
 const taskRouter = require("./routes/task-router");
 const authRouter = require("./routes/auth-router");
+const roomRouter = require("./routes/room-router");
 
 const app = express();
 const API_PORT = process.env.PORT || 3001;
@@ -24,8 +25,11 @@ app.use((req, res, next) => {
 });
 
 app.use("/api", [verifyToken]);
+app.use("/chat", [verifyToken]);
+
 app.use("/auth", authRouter);
 app.use("/api", taskRouter);
+app.use("/chat", roomRouter);
 
 app.use((err, req, res, next) => {
   handleError(err, res);
@@ -42,11 +46,9 @@ const options = {
 const httpServer = require("http").createServer(app);
 const io = require("socket.io")(httpServer, options);
 const registerChatHandlers = require("./helpers/chatHandler");
-const registerRoomsHandlers = require("./helpers/roomsHandler");
 
 const onConnection = (socket) => {
   registerChatHandlers(io, socket);
-  registerRoomsHandlers(io, socket);
 };
 
 io.on("connection", onConnection);

@@ -22,6 +22,12 @@ export const ACTION_CHAT = {
   SET_THEME: "SET_THEME",
 };
 
+export const ACTION_ROOMS = {
+  ADD_ROOM: "ADD_ROOM",
+  SET_ROOMS: "SET_ROOMS",
+  SET_CURRENT_ROOM: "SET_CURRENT_ROOM",
+};
+
 export const ACTION_NOTIFICATIONS = {
   SET_NOTIFICATION: "SET_MESSAGE",
   CLEAN: "CLEAN_NOTIFICATION",
@@ -61,6 +67,9 @@ export const SOCKET_EVENT = {
     GET_MESSAGE: "get_message",
     GET_EDITED_MESSAGE: "get_edited_message",
     DELETE_MESSAGE: "delete_message",
+
+    ADD_ROOM: "ADD_ROOM",
+    SET_ROOMS: "SET_ROOMS",
   },
 
   SERVER: {
@@ -69,6 +78,8 @@ export const SOCKET_EVENT = {
     SEND_EDITED_MESSAGE: "send_edited_message",
     MESSAGE_IS_DELETED: "message_is_deleted",
     TOKEN_EXPIRED: "TOKEN_EXPIRED",
+
+    SEND_ROOMS: "SEND_ROOMS",
   },
 };
 
