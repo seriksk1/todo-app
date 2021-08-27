@@ -5,9 +5,7 @@ const Room = new Schema(
   {
     owner: { type: String },
     name: { type: String, required: true },
-    capacity: { type: Number, required: true },
-    isPrivate: { type: Boolean, default: false, required: true },
-    users: { type: Array },
+    isPrivate: { type: Boolean, required: true },
   },
   { timestamps: true }
 );

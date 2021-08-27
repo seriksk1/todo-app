@@ -17,9 +17,16 @@ export const setRooms = (items) => ({
   payload: items,
 });
 
-export const setCurrentRoom = (id) => ({
-  type: ACTION_ROOMS.SET_CURRENT_ROOM,
-  payload: id,
+export const setCurrentRoom = (room) => (dispatch) => {
+  localStorage.setItem("currentRoom", room._id);
+  dispatch({
+    type: ACTION_ROOMS.SET_CURRENT_ROOM,
+    payload: room,
+  });
+};
+
+export const leaveFromRoom = () => ({
+  type: ACTION_ROOMS.LEAVE_FROM_ROOM,
 });
 
 export const fetchRooms = () => async (dispatch) => {

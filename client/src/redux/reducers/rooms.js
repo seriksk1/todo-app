@@ -2,7 +2,7 @@ import { ACTION_ROOMS } from "../constants";
 
 const initialState = {
   items: [],
-  currentRoomId: null,
+  currentRoom: { _id: localStorage.getItem("currentRoom") },
 };
 
 const rooms = (state = initialState, action) => {
@@ -24,7 +24,14 @@ const rooms = (state = initialState, action) => {
     case ACTION_ROOMS.SET_CURRENT_ROOM: {
       return {
         ...state,
-        currentRoomId: action.payload,
+        currentRoom: { ...action.payload },
+      };
+    }
+
+    case ACTION_ROOMS.LEAVE_FROM_ROOM: {
+      return {
+        ...state,
+        currentRoom: null,
       };
     }
 

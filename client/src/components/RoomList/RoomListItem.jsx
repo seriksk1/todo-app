@@ -3,31 +3,32 @@ import { useDispatch } from "react-redux";
 
 import { Link } from "react-router-dom";
 import { IconButton, Typography } from "@material-ui/core";
-import { Lock, LockOpen, Group, KeyboardArrowRight } from "@material-ui/icons";
+import { Lock, LockOpen, KeyboardArrowRight } from "@material-ui/icons";
 import { setCurrentRoom } from "../../redux/actions/rooms";
 
 function RoomListItem({ item, classes }) {
   const dispatch = useDispatch();
-  const { _id, name, capacity, users, isPrivate } = item;
+  const { _id, name, isPrivate } = item;
 
-  const handleJoinRoom = () => {
-    dispatch(setCurrentRoom(_id));
+  const handleSetCurrentRoom = () => {
+    dispatch(setCurrentRoom(item));
   };
 
   return (
     <li key={_id} className={classes.roomsListItem}>
       <Typography>{name}</Typography>
-      <Typography className={classes.usersCount}>
-        <Group className={classes.usersIcon} />
-        {`${users.length}/${capacity}`}
-      </Typography>
 
       {isPrivate ? (
         <Lock className={classes.lockIcon} />
       ) : (
         <LockOpen className={classes.lockIcon} />
       )}
-      <Link className={classes.link} to={`/chat`} onClick={handleJoinRoom}>
+
+      <Link
+        to={`/chat`}
+        className={classes.link}
+        onClick={handleSetCurrentRoom}
+      >
         <IconButton className={classes.joinBtn}>
           <KeyboardArrowRight />
         </IconButton>

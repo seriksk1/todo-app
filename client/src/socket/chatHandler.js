@@ -7,19 +7,22 @@ export const client = {
   },
 
   editMessage: (message, roomId) => {
-    socket.emit(SOCKET_EVENT.CLIENT.GET_EDITED_MESSAGE, message);
+    socket.emit(SOCKET_EVENT.CLIENT.GET_EDITED_MESSAGE, message, roomId);
   },
 
   deleteMessage: (id, roomId) => {
-    socket.emit(SOCKET_EVENT.CLIENT.DELETE_MESSAGE, id);
+    socket.emit(SOCKET_EVENT.CLIENT.DELETE_MESSAGE, id, roomId);
   },
 
   getChatHistory: (roomId) => {
     socket.emit(SOCKET_EVENT.CLIENT.GET_CHAT_HISTORY, roomId);
   },
 
+  getUsersInRoom: (roomId) => {
+    socket.emit(SOCKET_EVENT.CLIENT.GET_USERS_IN_CHAT, roomId);
+  },
+
   join: (username, roomId) => {
-    console.log("Room:", roomId);
     socket.emit(SOCKET_EVENT.CLIENT.JOIN_ROOM, roomId);
     client.createMessage(
       {
@@ -46,6 +49,9 @@ export const client = {
 };
 
 export const server = {
+  sendUsersInRoom: (users) => {
+    socket.on(SOCKET_EVENT.SERVER.SEND_USERS_IN_CHAT, users);
+  },
   sendMessage: (message) => {
     socket.on(SOCKET_EVENT.SERVER.SEND_MESSAGE, message);
   },

@@ -14,6 +14,7 @@ const initialState = {
   isSending: false,
   isEditingMessage: false,
   isReplying: false,
+  usersInChatCount: 0,
 };
 
 const chat = (state = initialState, action) => {
@@ -48,6 +49,13 @@ const chat = (state = initialState, action) => {
       return {
         ...state,
         items: newItems,
+      };
+    }
+
+    case ACTION_CHAT.SET_USERS_COUNT_IN_CHAT: {
+      return {
+        ...state,
+        usersInChatCount: action.payload,
       };
     }
 
@@ -97,6 +105,13 @@ const chat = (state = initialState, action) => {
       return {
         ...state,
         theme: action.payload,
+      };
+    }
+
+    case ACTION_CHAT.LEAVE_FROM_CHAT: {
+      return {
+        ...state,
+        items: [],
       };
     }
 

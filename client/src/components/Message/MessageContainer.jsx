@@ -9,10 +9,10 @@ import Message from "./Message";
 function MessageContainer(props) {
   const dispatch = useDispatch();
   const { theme } = useSelector(chatSelector);
-  const { currentRoomId } = useSelector(roomsSelector);
+  const { currentRoom } = useSelector(roomsSelector);
 
   const onMessageDelete = (id) => {
-    client.deleteMessage(id, currentRoomId);
+    client.deleteMessage(id, currentRoom._id);
   };
   const onMessageEdit = (message) => {
     dispatch(startEditMessage(message));

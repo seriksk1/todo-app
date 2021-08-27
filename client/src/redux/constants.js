@@ -11,6 +11,7 @@ export const ACTION_CHAT = {
   DELETE_MESSAGE: "DELETE_MESSAGE",
 
   SET_CURRENT_MESSAGE: "SET_CURRENT_MESSAGE",
+  SET_USERS_COUNT_IN_CHAT: "SET_USERS_COUNT_IN_CHAT",
   CHANGE_CURRENT_MESSAGE: "CHANGE_CURRENT_MESSAGE",
 
   EDIT_MESSAGE: "EDIT_MESSAGE",
@@ -20,12 +21,15 @@ export const ACTION_CHAT = {
 
   SET_MESSAGES: "SET_MESSAGES",
   SET_THEME: "SET_THEME",
+
+  CLEAR_ROOM: "CLEAR_ROOM",
 };
 
 export const ACTION_ROOMS = {
   ADD_ROOM: "ADD_ROOM",
   SET_ROOMS: "SET_ROOMS",
   SET_CURRENT_ROOM: "SET_CURRENT_ROOM",
+  LEAVE_FROM_ROOM: "LEAVE_FROM_ROOM",
 };
 
 export const ACTION_NOTIFICATIONS = {
@@ -63,6 +67,7 @@ export const HTTP_STATUS = {
 
 export const SOCKET_EVENT = {
   CLIENT: {
+    GET_USERS_IN_CHAT: "GET_USERS_IN_CHAT",
     GET_CHAT_HISTORY: "get_chat_history",
     GET_MESSAGE: "get_message",
     GET_EDITED_MESSAGE: "get_edited_message",
@@ -72,13 +77,14 @@ export const SOCKET_EVENT = {
   },
 
   SERVER: {
+    SEND_USERS_IN_CHAT: "SEND_USERS_IN_CHAT",
     SEND_CHAT_HISTORY: "send_chat_history",
     SEND_MESSAGE: "send_message",
     SEND_EDITED_MESSAGE: "send_edited_message",
     MESSAGE_IS_DELETED: "message_is_deleted",
     TOKEN_EXPIRED: "TOKEN_EXPIRED",
-    LEAVE_ROOM: "LEAVE_ROOM",
     JOIN_ROOM: "JOIN_ROOM",
+    LEAVE_ROOM: "LEAVE_ROOM",
   },
 };
 

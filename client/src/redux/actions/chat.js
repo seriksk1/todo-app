@@ -15,6 +15,11 @@ export const setCurrentMessage = (text) => ({
   payload: text,
 });
 
+export const setUsersCountInRoom = (count) => ({
+  type: ACTION_CHAT.SET_USERS_COUNT_IN_CHAT,
+  payload: count,
+});
+
 export const changeCurrentMessage = (message) => ({
   type: ACTION_CHAT.CHANGE_CURRENT_MESSAGE,
   payload: message,
@@ -55,4 +60,8 @@ export const setMessages = (items) => ({
 export const setChatTheme = (theme) => ({
   type: ACTION_CHAT.SET_THEME,
   payload: theme,
+});
+
+export const clearRoom = () => ({
+  type: ACTION_CHAT.CLEAR_ROOM,
 });

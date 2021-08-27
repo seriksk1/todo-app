@@ -19,6 +19,10 @@ module.exports = (io, socket) => {
     io.to(roomId).emit(SOCKET_EVENT.SERVER.MESSAGE_IS_DELETED, id);
   };
 
+  const sendUsersInRoom = (users, roomId) => {
+    io.to(roomId).emit(SOCKET_EVENT.SERVER.SEND_USERS_IN_CHAT, users);
+  };
+
   const createMessage = async (message, roomId) => {
     try {
       bodyValidator(message, "You must provide a body to create message");
@@ -49,32 +53,47 @@ module.exports = (io, socket) => {
     }
   };
 
-  const getChatHistory = async (currentRoomId) => {
+  const getChatHistory = async (roomId) => {
     try {
-      console.log("fetch messages for roomId:", currentRoomId, "\n");
-      const items = await ChatService.getMessages(currentRoomId);
-      sendChatHistory(items, currentRoomId);
+      const items = await ChatService.getMessages(roomId);
+      sendChatHistory(items, roomId);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const joinRoom = async (currentRoomId) => {
+  const joinRoom = async (roomId) => {
     try {
-      socket.join(currentRoomId);
+      socket.join(roomId);
+      getUsersInRoom(roomId);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const leaveRoom = async (currentRoomId) => {
+  const leaveRoom = async (roomId) => {
     try {
-      socket.leave(currentRoomId);
+      const usersCount = io.sockets.adapter.rooms.get(roomId).size - 1;
+      socket.leave(roomId);
+
+      sendUsersInRoom(usersCount, roomId);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const getUsersInRoom = async (roomId) => {
+    try {
+      const rooms = io.sockets.adapter.rooms;
+      const usersCount = rooms.get(roomId) ? rooms.get(roomId).size : 0;
+
+      sendUsersInRoom(usersCount, roomId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  socket.on(SOCKET_EVENT.CLIENT.GET_USERS_IN_CHAT, getUsersInRoom);
   socket.on(SOCKET_EVENT.CLIENT.LEAVE_ROOM, leaveRoom);
   socket.on(SOCKET_EVENT.CLIENT.JOIN_ROOM, joinRoom);
   socket.on(SOCKET_EVENT.CLIENT.GET_MESSAGE, createMessage);

@@ -17,6 +17,7 @@ const TASK_STATUS = {
 
 const SOCKET_EVENT = {
   CLIENT: {
+    GET_USERS_IN_CHAT: "GET_USERS_IN_CHAT",
     GET_CHAT_HISTORY: "get_chat_history",
     GET_MESSAGE: "get_message",
     GET_EDITED_MESSAGE: "get_edited_message",
@@ -26,6 +27,7 @@ const SOCKET_EVENT = {
   },
 
   SERVER: {
+    SEND_USERS_IN_CHAT: "SEND_USERS_IN_CHAT",
     SEND_CHAT_HISTORY: "send_chat_history",
     SEND_MESSAGE: "send_message",
     SEND_EDITED_MESSAGE: "send_edited_message",

@@ -8,9 +8,12 @@ import {
   finishMessage,
   setMessages,
   changeCurrentMessage,
+  setUsersCountInRoom,
+  clearRoom,
 } from "../../redux/actions/chat";
-
+import { leaveFromRoom } from "../../redux/actions/rooms";
 import { logout } from "../../redux/actions/auth";
+
 import {
   authSelector,
   chatSelector,
@@ -24,10 +27,9 @@ function ChatContainer() {
   const dispatch = useDispatch();
 
   const { user } = useSelector(authSelector);
+  const { currentRoom } = useSelector(roomsSelector);
   const { isEditingMessage, isReplying, currentText, prevMessage, theme } =
     useSelector(chatSelector);
-
-  const { currentRoomId } = useSelector(roomsSelector);
 
   const onInputChange = (e) => {
     dispatch(changeCurrentMessage(e.target.value));
@@ -44,14 +46,14 @@ function ChatContainer() {
           isReply: isReplying,
           repliedMessage: isReplying ? { _id, username, text } : {},
         },
-        currentRoomId
+        currentRoom._id
       );
     }
     dispatch(changeCurrentMessage(""));
   };
 
   const onEditAccept = () => {
-    client.editMessage({ ...prevMessage, text: currentText }, currentRoomId);
+    client.editMessage({ ...prevMessage, text: currentText }, currentRoom._id);
     dispatch(finishMessage());
   };
 
@@ -64,11 +66,9 @@ function ChatContainer() {
   const handleGetMessage = (message) => {
     dispatch(addMessage(message));
   };
-
   const handleSetMessages = (items) => {
     dispatch(setMessages(items));
   };
-
   const handleGetEditedMessage = (message) => {
     dispatch(editMessage(message));
   };
@@ -78,19 +78,24 @@ function ChatContainer() {
   const handleTokenExpired = () => {
     dispatch(logout());
   };
+  const handleGetUsersInRoom = (users) => {
+    dispatch(setUsersCountInRoom(users));
+  };
 
   useEffect(() => {
-    client.join(user.username, currentRoomId);
-    client.getChatHistory(currentRoomId);
+    client.join(user.username, currentRoom._id);
+    client.getChatHistory(currentRoom._id);
 
     server.sendMessage(handleGetMessage);
     server.sendChatHistory(handleSetMessages);
+    server.sendUsersInRoom(handleGetUsersInRoom);
 
     server.sendEditedMessage(handleGetEditedMessage);
     server.messageIsDeleted(handleMessageIsDeleted);
     server.tokenExpired(handleTokenExpired);
     return () => {
-      client.disconnect(user.username, currentRoomId);
+      dispatch([clearRoom(), leaveFromRoom()]);
+      client.disconnect(user.username, currentRoom._id);
     };
   }, []);
 

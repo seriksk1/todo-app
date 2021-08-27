@@ -16,16 +16,16 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    paddingBottom: "20px",
   },
   addRoomBtn: {
-    margin: "0 auto",
+    margin: "0 auto 15px",
   },
 });
 
 function Rooms() {
   const classes = useStyles();
   const dispatch = useDispatch();
+
   const { items } = useSelector(roomsSelector);
 
   useEffect(() => {
