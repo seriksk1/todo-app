@@ -1,4 +1,5 @@
 import React from "react";
+
 import {
   Grid,
   TextField,
@@ -7,13 +8,12 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import DoneIcon from "@material-ui/icons/Done";
+import ClearIcon from "@material-ui/icons/Clear";
+import SendIcon from "@material-ui/icons/Send";
+
 import useStyles from "./chat-style";
-import {
-  MessageList,
-  SendMessageButton,
-  AcceptEditMessageButton,
-  CancelEditMessageButton,
-} from "../../components";
+import { MessageList, ButtonWithIcon } from "../../components";
 
 function Chat({
   theme,
@@ -38,6 +38,10 @@ function Chat({
     }
   };
 
+  const handleMessageSend = () => {
+    onMessageSend(messageText);
+  };
+
   return (
     <Grid className={classes.chat}>
       <Paper className={classes.paper} elevation={3}>
@@ -51,7 +55,7 @@ function Chat({
 
         <Container className={classes.msgInputContainer}>
           {(isEditingMessage || isReplying) && (
-            <CancelEditMessageButton onEditCancel={onEditCancel} />
+            <ButtonWithIcon onClick={onEditCancel} icon={<ClearIcon />} />
           )}
 
           <TextField
@@ -68,12 +72,9 @@ function Chat({
           />
 
           {isEditingMessage ? (
-            <AcceptEditMessageButton onEditAccept={onEditAccept} />
+            <ButtonWithIcon onClick={onEditAccept} icon={<DoneIcon />} />
           ) : (
-            <SendMessageButton
-              message={messageText}
-              onMessageSend={onMessageSend}
-            />
+            <ButtonWithIcon onClick={handleMessageSend} icon={<SendIcon />} />
           )}
         </Container>
       </Paper>

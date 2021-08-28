@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
 
-import { RoomList, BackButton, AddRoomModalContainer } from "../components";
+import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+
+import {
+  RoomList,
+  AddRoomModalContainer,
+  NavigationButton,
+} from "../components";
 
 import { roomsSelector } from "../redux/selectors";
 import { fetchRooms } from "../redux/actions/rooms";
@@ -17,8 +23,10 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "center",
   },
-  addRoomBtn: {
-    margin: "0 auto 15px",
+  backBtn: {
+    position: "absolute",
+    top: "15px",
+    left: "15px",
   },
 });
 
@@ -34,14 +42,18 @@ function Rooms() {
 
   return (
     <Grid>
-      <BackButton path="/tasks" />
+      <NavigationButton
+        className={classes.backBtn}
+        icon={<KeyboardBackspaceIcon />}
+        path="/tasks"
+      />
 
       <Typography variant="h4" className={classes.pageTitle}>
         ROOMS
       </Typography>
       <Paper className={classes.paper} elevation={3}>
         <RoomList items={items} />
-        <AddRoomModalContainer styles={classes.addRoomBtn} />
+        <AddRoomModalContainer />
       </Paper>
     </Grid>
   );

@@ -14,6 +14,7 @@ const initialState = {
   isSending: false,
   isEditingMessage: false,
   isReplying: false,
+  isUserAuthorized: false,
   usersInChatCount: 0,
 };
 
@@ -108,10 +109,18 @@ const chat = (state = initialState, action) => {
       };
     }
 
+    case ACTION_CHAT.JOIN_TO_CHAT: {
+      return {
+        ...state,
+        isUserAuthorized: true,
+      };
+    }
+
     case ACTION_CHAT.LEAVE_FROM_CHAT: {
       return {
         ...state,
         items: [],
+        isUserAuthorized: false,
       };
     }
 

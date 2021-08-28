@@ -1,34 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { FormContainer } from "../components";
+import { FormContainer, SignInForm } from "../components";
 import { login } from "../redux/actions/auth";
 
 import withAuth from "../hocs/withAuth";
-
-const btnText = "Login";
-const formText = "Login Form";
-const authHelperText = "Haven't account yet?";
-const authHelperPath = "/signup";
-
-const formFields = [
-  {
-    id: "username",
-    type: "text",
-    label: "Username",
-    variant: "outlined",
-    helperText: null,
-    required: true,
-  },
-  {
-    id: "password",
-    type: "password",
-    label: "Password",
-    variant: "outlined",
-    helperText: "At least 6 characters and 1 upper case letter",
-    required: true,
-  },
-];
 
 function SignIn() {
   const dispatch = useDispatch();
@@ -37,16 +13,7 @@ function SignIn() {
     dispatch(login(data));
   };
 
-  return (
-    <FormContainer
-      btnText={btnText}
-      fields={formFields}
-      formText={formText}
-      onSubmitAction={onLogin}
-      authHelperText={authHelperText}
-      authHelperPath={authHelperPath}
-    />
-  );
+  return <FormContainer onSubmitAction={onLogin} FormView={SignInForm} />;
 }
 
 export default withAuth(SignIn);

@@ -62,6 +62,14 @@ export const setChatTheme = (theme) => ({
   payload: theme,
 });
 
+export const leaveFromChat = () => ({
+  type: ACTION_CHAT.LEAVE_FROM_CHAT,
+});
+
+export const joinToChat = () => ({
+  type: ACTION_CHAT.JOIN_TO_CHAT,
+});
+
 export const clearRoom = () => ({
   type: ACTION_CHAT.CLEAR_ROOM,
 });

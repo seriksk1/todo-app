@@ -2,12 +2,11 @@ import React, { useState } from "react";
 
 import { Button, Modal, Grid } from "@material-ui/core";
 
-import { FormContainer } from "..";
-import useStyles from "./modal-style";
+import { FormContainer, AddTaskForm } from "../../";
+import useStyles from "../modal-style";
 
-function CustomModal({ submitAction, fields, formText, btnText, styles }) {
+function AddTaskModal({ submitAction, styles }) {
   const classes = useStyles();
-
   const [openModal, setOpenModal] = useState(false);
 
   const handleOpenModal = () => {
@@ -18,7 +17,7 @@ function CustomModal({ submitAction, fields, formText, btnText, styles }) {
     setOpenModal(false);
   };
 
-  const handleSubmitAction = (obj) => {
+  const onSubmitAction = (obj) => {
     submitAction(obj);
     handleCloseModal();
   };
@@ -31,16 +30,14 @@ function CustomModal({ submitAction, fields, formText, btnText, styles }) {
         variant="contained"
         color="primary"
       >
-        {formText}
+        Add Task
       </Button>
 
       <Modal open={openModal} onClose={handleCloseModal}>
         <Grid container direction="column" className={classes.modal}>
           <FormContainer
-            fields={fields}
-            formText={formText}
-            btnText={btnText}
-            onSubmitAction={handleSubmitAction}
+            onSubmitAction={onSubmitAction}
+            FormView={AddTaskForm}
           />
         </Grid>
       </Modal>
@@ -48,4 +45,4 @@ function CustomModal({ submitAction, fields, formText, btnText, styles }) {
   );
 }
 
-export default CustomModal;
+export default AddTaskModal;

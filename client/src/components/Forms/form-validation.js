@@ -30,6 +30,10 @@ export const isInputValid = (obj, key) => {
       isValid = value.length > 0 ? true : false;
       return isValid;
 
+    case "isPrivate":
+      isValid = value === true || value === false;
+      return isValid;
+
     default:
       console.log("Undefined id");
       return false;

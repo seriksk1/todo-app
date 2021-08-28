@@ -1,22 +1,14 @@
 import React, { useState } from "react";
-import Form from "./Form";
 
 import { getFormValidation } from "./form-validation";
 
-function FormContainer({
-  btnText,
-  formText,
-  fields,
-  onSubmitAction,
-  authHelperText,
-  authHelperPath,
-}) {
+function FormContainer({ FormView, onSubmitAction }) {
   const [formInput, setFormInput] = useState({});
   const [isFormValid, setIsFormValid] = useState(null);
 
   const onInputChange = (e) => {
     const id = e.target.id;
-    const newValue = e.target.value;
+    const newValue = e.target.checked || e.target.value;
     setFormInput((prev) => ({ ...prev, [id]: newValue }));
   };
 
@@ -36,17 +28,11 @@ function FormContainer({
   };
 
   return (
-    <Form
-      fields={fields}
-      btnText={btnText}
-      formText={formText}
-      isFormValid={isFormValid}
-      onFormSubmit={onFormSubmit}
+    <FormView
       onInputChange={onInputChange}
       onFocusChange={onFocusChange}
-      onSubmitAction={onSubmitAction}
-      authHelperText={authHelperText}
-      authHelperPath={authHelperPath}
+      onFormSubmit={onFormSubmit}
+      isFormValid={isFormValid}
     />
   );
 }

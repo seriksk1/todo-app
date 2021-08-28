@@ -1,24 +1,26 @@
-export { default as AddTaskModalContainer } from "./AddTaskModal/AddTaskModalContainer";
-export { default as AddRoomModalContainer } from "./AddTaskModal/AddRoomModalContainer";
+export { default as AddTaskModalContainer } from "./Modals/AddTaskModal/AddTaskModalContainer";
+export { default as AddRoomModalContainer } from "./Modals/AddRoomModal/AddRoomModalContainer";
+
+export { default as FormContainer } from "./Forms/FormContainer";
+
+export { default as AddTaskForm } from "./Forms/AddTaskForm/AddTaskForm";
+export { default as AddRoomForm } from "./Forms/AddRoomForm/AddRoomForm";
+export { default as SignInForm } from "./Forms/SignInForm/SignInForm";
+export { default as SignUpForm } from "./Forms/SignUpForm/SignUpForm";
+export { default as RoomAuthForm } from "./Forms/RoomAuthForm/RoomAuthForm";
 
 export { default as SortPopupContainer } from "./SortPopup/SortPopupContainer";
 export { default as TaskListContainer } from "./TaskList/TaskListContainer";
 export { default as TaskContainer } from "./TaskList/Task/TaskContainer";
-export { default as FormContainer } from "./Form/FormContainer";
 
-export { default as AcceptEditMessageButton } from "./CustomButtons/AcceptEditMessageButton";
-export { default as CancelEditMessageButton } from "./CustomButtons/CancelEditMessageButton";
-export { default as SendMessageButton } from "./CustomButtons/SendMessageButton";
-export { default as ContactsButton } from "./CustomButtons/ContactsButton";
-export { default as SubmitButton } from "./CustomButtons/SubmitButton";
-export { default as LogoutButton } from "./CustomButtons/LogoutButton";
-export { default as ChatButton } from "./CustomButtons/ChatButton";
-export { default as BackButton } from "./CustomButtons/BackButton";
+export { default as NavigationButton } from "./Buttons/NavigationButton";
+export { default as ButtonWithIcon } from "./Buttons/ButtonWithIcon";
+export { default as SubmitButton } from "./Buttons/SubmitButton";
 
-export { default as ChatContainer } from "./Chat/ChatContainer";
-export { default as MessageList } from "./MessageList/MessageList";
 export { default as ThemesMenuContainer } from "./ThemesMenu/ThemesMenuContainer";
+export { default as ChatContainer } from "./Chat/ChatContainer";
 
+export { default as MessageList } from "./MessageList/MessageList";
 export { default as MessageContainer } from "./Message/MessageContainer";
 export { default as MessageOptions } from "./Message/MessageOptions";
 export { default as MessageText } from "./Message/MessageText";
